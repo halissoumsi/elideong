@@ -36,16 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Active state for navigation menu links on scroll
+  // Active state for navigation menu links on scroll (Desktop & Mobile Bottom App Bar)
   const sections = document.querySelectorAll('section, footer');
   const navA = document.querySelectorAll('nav ul li a');
+  const mobileNavItems = document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item[data-section]');
 
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (window.scrollY >= (sectionTop - 150)) {
+      if (window.scrollY >= (sectionTop - 180)) {
         current = section.getAttribute('id');
       }
     });
@@ -56,7 +56,43 @@ document.addEventListener('DOMContentLoaded', () => {
         a.classList.add('active');
       }
     });
+
+    if (current && mobileNavItems.length > 0) {
+      mobileNavItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('data-section') === current) {
+          item.classList.add('active');
+        }
+      });
+    }
   });
+
+  // Register Service Worker for Mobile App (PWA) & Install Prompt
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+
+  let deferredPrompt;
+  const installBtn = document.getElementById('pwa-install-btn');
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) {
+      installBtn.style.display = 'inline-flex';
+    }
+  });
+
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+  }
 
   // Reveal elements on scroll using Intersection Observer
   const revealElements = document.querySelectorAll('.reveal');

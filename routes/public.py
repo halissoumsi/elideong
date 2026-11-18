@@ -1,5 +1,5 @@
 from urllib.parse import quote
-from flask import Blueprint, render_template, request, jsonify, current_app
+from flask import Blueprint, render_template, request, jsonify, current_app, send_from_directory
 from config import send_email_notification
 
 public_bp = Blueprint('public', __name__)
@@ -7,6 +7,14 @@ public_bp = Blueprint('public', __name__)
 @public_bp.route('/')
 def index():
     return render_template('index.html')
+
+@public_bp.route('/manifest.json')
+def manifest():
+    return send_from_directory(current_app.static_folder, 'manifest.json', mimetype='application/manifest+json')
+
+@public_bp.route('/sw.js')
+def service_worker():
+    return send_from_directory(current_app.static_folder, 'sw.js', mimetype='application/javascript')
 
 @public_bp.route('/mentions-legales')
 def mentions_legales():

@@ -1436,3 +1436,268 @@ footer {
   color: #20ba5a !important;
   transform: translateX(3px);
 }
+
+/* ==========================================================================
+   EXPÉRIENCE APPLICATION MOBILE & TABLETTE (PWA / NATIVE APP FEEL)
+   ========================================================================== */
+.mobile-bottom-nav {
+  display: none;
+}
+
+.pwa-install-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 7px 13px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 3px 10px rgba(0, 122, 45, 0.25);
+}
+
+@media (max-width: 900px) {
+  html, body {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+
+  body {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* App Top Bar fixe et compacte */
+  header {
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 0 10px 0 !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 2px 14px rgba(0, 122, 45, 0.08) !important;
+    border-bottom: 1px solid rgba(0, 122, 45, 0.1) !important;
+  }
+
+  .logo-container img {
+    height: 38px !important;
+  }
+
+  .logo-text h1 {
+    font-size: 1.35rem !important;
+  }
+
+  .logo-text span {
+    font-size: 0.62rem !important;
+  }
+
+  /* On remplace le menu burger latéral par la barre d'application en bas */
+  .burger,
+  header nav,
+  .header-cta {
+    display: none !important;
+  }
+
+  /* Sections et cartes au format Application Mobile */
+  .container {
+    padding: 0 16px;
+  }
+
+  .section-padding {
+    padding: 52px 0;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: calc(88px + env(safe-area-inset-top, 0px));
+    padding-bottom: 36px;
+  }
+
+  .hero-content h2 {
+    font-size: 2.15rem;
+    letter-spacing: -0.8px;
+    margin-bottom: 14px;
+  }
+
+  .hero-content .tagline {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+
+  .hero-content .description {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 14px;
+    font-size: 0.88rem;
+  }
+
+  .logo-display-card {
+    width: 210px;
+    height: 210px;
+    padding: 20px;
+    transform: none;
+    border-radius: 22px;
+  }
+
+  /* Bandeau de statistiques compact sur 3 colonnes comme une App */
+  .stats-strip {
+    margin: 0 12px;
+    padding: 18px 8px;
+    border-radius: 18px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .stat-item h3 {
+    font-size: 1.45rem !important;
+    margin-bottom: 2px;
+  }
+
+  .stat-item p {
+    font-size: 0.72rem !important;
+    line-height: 1.25;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+  }
+
+  /* Cartes avec retour tactile natif */
+  .mission-card,
+  .domain-card,
+  .document-card,
+  .contact-form-panel,
+  .form-card,
+  .info-card {
+    border-radius: 20px;
+    padding: 24px 20px;
+  }
+
+  .btn:active,
+  .mission-card:active,
+  .domain-card:active {
+    transform: scale(0.98);
+  }
+
+  /* Bouton flottant WhatsApp remonté au-dessus de la barre d'onglets */
+  .whatsapp-float {
+    bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .whatsapp-float svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Barre de navigation d'application mobile (Bottom Tab Bar) */
+  .mobile-bottom-nav {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(66px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: 6px;
+    padding-right: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-top: 1px solid rgba(0, 122, 45, 0.12);
+    box-shadow: 0 -6px 24px rgba(0, 40, 15, 0.08);
+    z-index: 2000;
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 100%;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-nav-item svg {
+    width: 21px;
+    height: 21px;
+    stroke-width: 2.1;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .mobile-nav-item.active {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .mobile-nav-item.active svg {
+    color: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  .mobile-nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 28px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* Onglet central Partenaire mis en valeur comme bouton d'application */
+  .mobile-nav-item.nav-highlight .nav-pill {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -16px;
+    box-shadow: 0 6px 16px rgba(251, 133, 0, 0.35);
+    border: 3px solid #ffffff;
+  }
+
+  .mobile-nav-item.nav-highlight svg {
+    color: #ffffff !important;
+    width: 20px;
+    height: 20px;
+    transform: none !important;
+  }
+
+  .mobile-nav-item.nav-highlight span {
+    color: var(--accent);
+    font-weight: 700;
+  }
+}

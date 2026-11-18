@@ -2,7 +2,14 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#007a2d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <title>ONG Les Élites de Demain (ELiDe) — Parakou, Bénin</title>
   <meta name="description" content="Site officiel de l'ONG Les Élites de Demain (ELiDe) à Parakou. Organisation engagée pour l'autonomisation, l'agriculture durable, l'environnement et l'innovation numérique au Bénin.">
   <meta property="og:title" content="ONG Les Élites de Demain (ELiDe) — Parakou, Bénin">
@@ -46,6 +53,10 @@
       <div class="header-cta">
         <a href="#contact" class="btn btn-primary">Nous Rejoindre</a>
       </div>
+      
+      <button type="button" id="pwa-install-btn" class="pwa-install-btn" aria-label="Installer l'application">
+        <i data-lucide="download" style="width: 15px; height: 15px;"></i> Installer l'App
+      </button>
       
       <div class="burger" id="burger-menu">
         <span></span>
@@ -546,6 +557,32 @@
   <a href="https://wa.me/2290164557673?text=Bonjour,%20je%20souhaite%20contacter%20l'ONG%20ELiDe." class="whatsapp-float" target="_blank" aria-label="Contacter l'ONG ELiDe sur WhatsApp">
     <i data-lucide="message-circle"></i>
   </a>
+
+  <!-- Mobile & Tablet App Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Navigation application mobile">
+    <a href="#accueil" class="mobile-nav-item active" data-section="accueil">
+      <i data-lucide="home"></i>
+      <span>Accueil</span>
+    </a>
+    <a href="#apropos" class="mobile-nav-item" data-section="apropos">
+      <i data-lucide="shield-check"></i>
+      <span>L'ONG</span>
+    </a>
+    <a href="/partenariat" class="mobile-nav-item nav-highlight">
+      <div class="nav-pill">
+        <i data-lucide="handshake"></i>
+      </div>
+      <span>Partenaire</span>
+    </a>
+    <a href="#domaines" class="mobile-nav-item" data-section="domaines">
+      <i data-lucide="compass"></i>
+      <span>Domaines</span>
+    </a>
+    <a href="#contact" class="mobile-nav-item" data-section="contact">
+      <i data-lucide="mail"></i>
+      <span>Contact</span>
+    </a>
+  </nav>
 
   <!-- Link appJS -->
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>

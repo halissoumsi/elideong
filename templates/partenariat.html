@@ -2,7 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#007a2d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <title>Devenir Partenaire — ONG ELiDe</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
@@ -381,6 +386,32 @@
       <p>&copy; 2026 ONG Les Élites de Demain (ELiDe). Tous droits réservés. | <a href="{{ url_for('public.mentions_legales') }}" style="color: var(--primary); font-weight: 600;">Mentions Légales</a> | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">Politique de Confidentialité</a></p>
     </div>
   </footer>
+
+  <!-- Mobile & Tablet App Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Navigation application mobile">
+    <a href="/#accueil" class="mobile-nav-item">
+      <i data-lucide="home"></i>
+      <span>Accueil</span>
+    </a>
+    <a href="/#apropos" class="mobile-nav-item">
+      <i data-lucide="shield-check"></i>
+      <span>L'ONG</span>
+    </a>
+    <a href="/partenariat" class="mobile-nav-item nav-highlight active">
+      <div class="nav-pill">
+        <i data-lucide="handshake"></i>
+      </div>
+      <span>Partenaire</span>
+    </a>
+    <a href="/#domaines" class="mobile-nav-item">
+      <i data-lucide="compass"></i>
+      <span>Domaines</span>
+    </a>
+    <a href="/#contact" class="mobile-nav-item">
+      <i data-lucide="mail"></i>
+      <span>Contact</span>
+    </a>
+  </nav>
 
   <script>
     lucide.createIcons();
