@@ -6,10 +6,12 @@
   <meta name="theme-color" content="#007a2d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
   <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>Proposition reçue — ONG ELiDe</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -254,8 +256,32 @@
     </div>
   </footer>
 
-  <script>
-    lucide.createIcons();
-  </script>
+  <!-- Mobile & Tablet App Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Navigation application mobile">
+    <a href="/#accueil" class="mobile-nav-item">
+      <i data-lucide="home"></i>
+      <span>Accueil</span>
+    </a>
+    <a href="/#apropos" class="mobile-nav-item">
+      <i data-lucide="shield-check"></i>
+      <span>L'ONG</span>
+    </a>
+    <a href="/partenariat" class="mobile-nav-item nav-highlight active">
+      <div class="nav-pill">
+        <i data-lucide="handshake"></i>
+      </div>
+      <span>Partenaire</span>
+    </a>
+    <a href="/#domaines" class="mobile-nav-item">
+      <i data-lucide="compass"></i>
+      <span>Domaines</span>
+    </a>
+    <a href="/#contact" class="mobile-nav-item">
+      <i data-lucide="mail"></i>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=2"></script>
 </body>
 </html>

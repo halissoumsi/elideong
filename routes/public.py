@@ -10,11 +10,16 @@ def index():
 
 @public_bp.route('/manifest.json')
 def manifest():
-    return send_from_directory(current_app.static_folder, 'manifest.json', mimetype='application/manifest+json')
+    response = send_from_directory(current_app.static_folder, 'manifest.json', mimetype='application/manifest+json')
+    response.headers['Cache-Control'] = 'no-cache'
+    return response
 
 @public_bp.route('/sw.js')
 def service_worker():
-    return send_from_directory(current_app.static_folder, 'sw.js', mimetype='application/javascript')
+    response = send_from_directory(current_app.static_folder, 'sw.js', mimetype='application/javascript')
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Service-Worker-Allowed'] = '/'
+    return response
 
 @public_bp.route('/mentions-legales')
 def mentions_legales():

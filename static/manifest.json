@@ -1,26 +1,55 @@
 {
+  "id": "/",
   "name": "ONG Les Élites de Demain (ELiDe)",
   "short_name": "ONG ELiDe",
   "description": "Application web officielle de l'ONG Les Élites de Demain (ELiDe) — Parakou, République du Bénin.",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "background_color": "#f5fcf8",
   "theme_color": "#007a2d",
   "lang": "fr",
+  "categories": ["social", "education"],
   "icons": [
     {
-      "src": "/static/assets/logo-vert.png",
+      "src": "/static/assets/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/static/assets/logo-vert.png",
+      "src": "/static/assets/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/static/assets/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/static/assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Proposer un partenariat",
+      "short_name": "Partenariat",
+      "url": "/partenariat",
+      "icons": [{ "src": "/static/assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Nous contacter",
+      "short_name": "Contact",
+      "url": "/#contact",
+      "icons": [{ "src": "/static/assets/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

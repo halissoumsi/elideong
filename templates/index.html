@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
   <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>ONG Les Élites de Demain (ELiDe) — Parakou, Bénin</title>
   <meta name="description" content="Site officiel de l'ONG Les Élites de Demain (ELiDe) à Parakou. Organisation engagée pour l'autonomisation, l'agriculture durable, l'environnement et l'innovation numérique au Bénin.">
   <meta property="og:title" content="ONG Les Élites de Demain (ELiDe) — Parakou, Bénin">
@@ -18,7 +18,7 @@
   <meta property="og:image" content="{{ url_for('static', filename='assets/logo-vert.png', _external=True) }}">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
   
   <!-- Favicon placeholder (Uses safe styling, we can display our logo) -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
@@ -584,7 +584,28 @@
     </a>
   </nav>
 
+  <!-- Modale Guide d'Installation iOS (iPhone / iPad) -->
+  <div id="pwa-ios-modal" class="pwa-ios-backdrop" role="dialog" aria-modal="true" aria-labelledby="pwa-ios-title">
+    <div class="pwa-ios-sheet">
+      <div class="pwa-ios-sheet-header">
+        <h4 id="pwa-ios-title">Installer l'application ONG ELiDe</h4>
+        <button type="button" id="pwa-ios-close" class="pwa-ios-close" aria-label="Fermer">&times;</button>
+      </div>
+      <p style="font-size: 0.88rem; color: var(--text-muted);">Ajoutez ONG ELiDe sur votre écran d'accueil pour l'ouvrir en plein écran comme une application :</p>
+      <ol class="pwa-ios-steps">
+        <li>
+          <span class="pwa-ios-step-num">1</span>
+          <span>Appuyez sur le bouton <strong>Partager</strong> (carré avec flèche vers le haut) en bas de Safari.</span>
+        </li>
+        <li>
+          <span class="pwa-ios-step-num">2</span>
+          <span>Faites défiler et choisissez <strong>« Sur l'écran d'accueil »</strong> puis validez sur <strong>Ajouter</strong>.</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+
   <!-- Link appJS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=2"></script>
 </body>
 </html>

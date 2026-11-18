@@ -6,10 +6,12 @@
   <meta name="theme-color" content="#007a2d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
   <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>Devenir Partenaire — ONG ELiDe</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -413,6 +415,7 @@
     </a>
   </nav>
 
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=2"></script>
   <script>
     lucide.createIcons();
     // Activation du jeton de sécurité lors de l'interaction humaine avec le formulaire

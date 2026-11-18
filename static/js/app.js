@@ -6,15 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Header scroll dynamic visual change
   const header = document.querySelector('header');
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  };
-  window.addEventListener('scroll', handleScroll);
-  handleScroll(); // Initial check
+  if (header) {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
 
   // Burger Menu toggle
   const burger = document.getElementById('burger-menu');
@@ -37,79 +39,120 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Active state for navigation menu links on scroll (Desktop & Mobile Bottom App Bar)
-  const sections = document.querySelectorAll('section, footer');
-  const navA = document.querySelectorAll('nav ul li a');
+  const sections = document.querySelectorAll('section[id]');
+  const navA = document.querySelectorAll('header nav ul li a');
   const mobileNavItems = document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item[data-section]');
 
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      if (window.scrollY >= (sectionTop - 180)) {
-        current = section.getAttribute('id');
-      }
-    });
+  const setActiveNav = (sectionId) => {
+    if (!sectionId) return;
 
     navA.forEach(a => {
-      a.classList.remove('active');
-      if (a.getAttribute('href') === `#${current}`) {
-        a.classList.add('active');
-      }
+      a.classList.toggle('active', a.getAttribute('href') === `#${sectionId}`);
     });
 
-    if (current && mobileNavItems.length > 0) {
+    if (mobileNavItems.length > 0) {
+      const mobileTarget = sectionId === 'missions' ? 'apropos' : sectionId;
       mobileNavItems.forEach(item => {
-        item.classList.remove('active');
-        if (item.getAttribute('data-section') === current) {
-          item.classList.add('active');
-        }
+        item.classList.toggle('active', item.getAttribute('data-section') === mobileTarget);
       });
     }
+  };
+
+  if (sections.length > 0) {
+    window.addEventListener('scroll', () => {
+      let current = sections[0].getAttribute('id');
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= (sectionTop - 160)) {
+          current = section.getAttribute('id');
+        }
+      });
+      setActiveNav(current);
+    }, { passive: true });
+  }
+
+  mobileNavItems.forEach(item => {
+    item.addEventListener('click', () => {
+      setActiveNav(item.getAttribute('data-section'));
+    });
   });
 
-  // Register Service Worker for Mobile App (PWA) & Install Prompt
+  // Register Service Worker for Mobile App (PWA) & Install Prompt (Android + iOS)
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
+      navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
     });
   }
 
-  let deferredPrompt;
-  const installBtn = document.getElementById('pwa-install-btn');
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) {
-      installBtn.style.display = 'inline-flex';
-    }
-  });
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-  if (installBtn) {
-    installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
+  let deferredPrompt = null;
+  const installBtn = document.getElementById('pwa-install-btn');
+  const iosModal = document.getElementById('pwa-ios-modal');
+  const iosCloseBtn = document.getElementById('pwa-ios-close');
+
+  if (!isStandalone && installBtn) {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-flex';
+    });
+
+    window.addEventListener('appinstalled', () => {
       deferredPrompt = null;
       installBtn.style.display = 'none';
+    });
+
+    // Sur iPhone/iPad Safari (hors mode installé), proposer le guide d'installation
+    if (isIOS && isSafari && iosModal) {
+      installBtn.style.display = 'inline-flex';
+    }
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        if (choice && choice.outcome === 'accepted') {
+          installBtn.style.display = 'none';
+        }
+      } else if (isIOS && iosModal) {
+        iosModal.classList.add('open');
+      }
+    });
+  }
+
+  if (iosModal) {
+    const closeIosModal = () => iosModal.classList.remove('open');
+    if (iosCloseBtn) iosCloseBtn.addEventListener('click', closeIosModal);
+    iosModal.addEventListener('click', (e) => {
+      if (e.target === iosModal) closeIosModal();
     });
   }
 
   // Reveal elements on scroll using Intersection Observer
   const revealElements = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        // Stop observing once revealed to retain visual state
-        observer.unobserve(entry.target);
-      }
+  if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.05,
+      rootMargin: '0px 0px -20px 0px'
     });
-  }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
-  });
 
-  revealElements.forEach(el => revealObserver.observe(el));
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('active'));
+  }
 
   // Contact Form Handling (with real Flask API request)
   const contactForm = document.getElementById('contact-form');
