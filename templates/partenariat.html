@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devenir Partenaire — ONG ELiDe</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/FOND BLANC SPECIAL VERT.png') }}">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .partner-body {
+      background: radial-gradient(circle at 90% 10%, rgba(251, 133, 0, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 10% 80%, rgba(82, 183, 136, 0.08) 0%, transparent 40%),
+                  var(--bg-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .partner-header {
+      position: relative !important;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-white);
+    }
+    
+    .partner-wrapper {
+      max-width: 1250px;
+      margin: 60px auto;
+      padding: 0 30px;
+      width: 100%;
+    }
+    
+    .partner-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+      align-items: start;
+    }
+    
+    .info-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .info-card h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    
+    .info-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    
+    .download-section {
+      background-color: rgba(251, 133, 0, 0.04);
+      border: 1px dashed rgba(251, 133, 0, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    
+    .download-section p {
+      margin-bottom: 16px;
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    
+    .form-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+    }
+    
+    .form-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+    
+    .form-card .desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .checkbox-group {
+      margin-bottom: 20px;
+    }
+    
+    .checkbox-group label {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: block;
+    }
+    
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+    
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    
+    .hp-field {
+      display: none !important;
+    }
+    
+    .flash-messages {
+      margin-bottom: 20px;
+    }
+    
+    .flash-message {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .flash-message.error {
+      background-color: rgba(214, 40, 40, 0.08);
+      border: 1px solid rgba(214, 40, 40, 0.15);
+      color: var(--accent-red);
+    }
+    
+    .btn-submit {
+      width: 100%;
+      margin-top: 24px;
+    }
+    
+    .partner-footer {
+      text-align: center;
+      padding: 30px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-white);
+      margin-top: auto;
+    }
+    
+    @media (max-width: 768px) {
+      .partner-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="partner-body">
+
+  <!-- Header -->
+  <header class="partner-header">
+    <div class="container nav-wrapper">
+      <a href="/" class="logo-container">
+        <img src="{{ url_for('static', filename='assets/FOND BLANC SPECIAL VERT.png') }}" alt="Logo ELiDe">
+        <div class="logo-text">
+          <h1>ELiDe</h1>
+          <span>Les Élites de Demain</span>
+        </div>
+      </a>
+      <a href="/" class="btn btn-secondary"><i data-lucide="arrow-left"></i> Retour à l'accueil</a>
+    </div>
+  </header>
+
+  <!-- Content Wrapper -->
+  <div class="partner-wrapper">
+    <div class="partner-grid">
+      
+      <!-- Info Left Side -->
+      <div class="info-side reveal active">
+        <div class="info-card">
+          <h3>Espace Partenaires & Bailleurs</h3>
+          <p>
+            L'ONG ELiDe travaille main dans la main avec des institutions, fondations et entreprises engagées pour apporter des solutions concrètes aux défis de développement au Bénin.
+          </p>
+          
+          <div style="border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 10px;">
+            <h4 style="font-size: 1.05rem; color: var(--primary); margin-bottom: 14px;">Nos Garanties & Engagements :</h4>
+            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; color: var(--text-muted);">
+              <li style="display: flex; align-items: flex-start; gap: 10px;">
+                <i data-lucide="shield-check" style="color: var(--primary); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;"></i>
+                <span><strong>Transparence totale :</strong> Suivi comptable et opérationnel strict sur chaque projet co-financé.</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 10px;">
+                <i data-lucide="file-check" style="color: var(--primary); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;"></i>
+                <span><strong>Rapports d'impact :</strong> Bilans trimestriels détaillés (financiers et indicateurs de terrain).</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 10px;">
+                <i data-lucide="map-pin" style="color: var(--primary); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;"></i>
+                <span><strong>Suivi de proximité :</strong> Visites de terrain à Parakou et au Bénin pour mesurer l'impact réel.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Form Right Side -->
+      <div class="form-side reveal active">
+        <div class="form-card">
+          <h2>Proposer un partenariat</h2>
+          <p class="desc">Veuillez renseigner ce formulaire. Notre Bureau National vous répondra sous 5 jours ouvrés.</p>
+          
+          <!-- Flash Messages -->
+          {% with messages = get_flashed_messages(category_filter=["error"]) %}
+            {% if messages %}
+              <div class="flash-messages">
+                {% for msg in messages %}
+                  <div class="flash-message error">
+                    <i data-lucide="alert-circle"></i>
+                    <span>{{ msg }}</span>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+          
+          <form action="{{ url_for('partenariat.partner_submit') }}" method="POST">
+            
+            <!-- Honeypot & Invisible Security Token -->
+            <div class="hp-field">
+              <input type="text" name="website_url" autocomplete="off">
+            </div>
+            <input type="hidden" id="security_token" name="security_token" value="">
+            
+            <!-- Organization Name -->
+            <div class="form-group">
+              <label for="org_name">Nom de l'organisation / institution *</label>
+              <input type="text" id="org_name" name="org_name" class="form-control" required>
+            </div>
+            
+            <!-- Partner Type & Country Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="partner_type">Type de partenaire *</label>
+                <select id="partner_type" name="partner_type" class="form-control" style="height: 50px; background-color: var(--bg-light); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0 16px; font-weight: 500; width: 100%;" required>
+                  <option value="" disabled selected>Choisir...</option>
+                  <option value="Bailleur institutionnel">Bailleur institutionnel</option>
+                  <option value="Fondation">Fondation</option>
+                  <option value="Entreprise / RSE">Entreprise / RSE</option>
+                  <option value="Partenaire technique">Partenaire technique</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="country">Pays *</label>
+                <input type="text" id="country" name="country" class="form-control" required>
+              </div>
+            </div>
+            
+            <!-- Contact Person Name & Role Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contact_name">Nom et prénoms du contact *</label>
+                <input type="text" id="contact_name" name="contact_name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="contact_role">Fonction du contact</label>
+                <input type="text" id="contact_role" name="contact_role" class="form-control">
+              </div>
+            </div>
+            
+            <!-- Email & Phone Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Adresse Email *</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Téléphone</label>
+                <input type="tel" id="phone" name="phone" class="form-control">
+              </div>
+            </div>
+            
+            <!-- Domains Checkboxes -->
+            <div class="checkbox-group">
+              <label>Domaines d'intérêt (Sélectionnez un ou plusieurs) *</label>
+              <div class="checkbox-grid">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="domains" value="Éducation & Formation">
+                  <span>Éducation & Formation</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="domains" value="Protection de l'Environnement">
+                  <span>Protection de l'Environnement</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="domains" value="Innovation Numérique">
+                  <span>Innovation Numérique</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="domains" value="Agriculture Durable">
+                  <span>Agriculture Durable</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="domains" value="Entrepreneuriat & Autonomisation">
+                  <span>Entrepreneuriat & Autonomisation</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Funding Intention -->
+            <div class="form-group">
+              <label for="funding_capacity">Intention ou capacité de financement (Optionnel)</label>
+              <input type="text" id="funding_capacity" name="funding_capacity" class="form-control">
+            </div>
+            
+            <!-- Message -->
+            <div class="form-group">
+              <label for="message">Message ou descriptif de la proposition</label>
+              <textarea id="message" name="message" class="form-control" rows="4" style="height: auto; padding: 12px 16px;"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-submit">
+              Envoyer la proposition <i data-lucide="send"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="partner-footer">
+    <div class="container">
+      <p>&copy; 2026 ONG Les Élites de Demain (ELiDe). Tous droits réservés. | <a href="{{ url_for('public.mentions_legales') }}" style="color: var(--primary); font-weight: 600;">Mentions Légales</a> | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">Politique de Confidentialité</a></p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    // Activation du jeton de sécurité lors de l'interaction humaine avec le formulaire
+    const formEl = document.querySelector('form');
+    const tokenInput = document.getElementById('security_token');
+    const activateToken = () => {
+      if (tokenInput && !tokenInput.value) {
+        tokenInput.value = "{{ security_token }}";
+      }
+    };
+    if (formEl) {
+      formEl.addEventListener('focusin', activateToken);
+      formEl.addEventListener('pointerdown', activateToken);
+      formEl.addEventListener('keydown', activateToken);
+    }
+  </script>
+</body>
+</html>

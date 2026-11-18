@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONG Les Élites de Demain (ELiDe) — Parakou, Bénin</title>
+  <meta name="description" content="Site officiel de l'ONG Les Élites de Demain (ELiDe) à Parakou. Organisation engagée pour l'autonomisation, l'agriculture durable, l'environnement et l'innovation numérique au Bénin.">
+  <meta property="og:title" content="ONG Les Élites de Demain (ELiDe) — Parakou, Bénin">
+  <meta property="og:description" content="Le dynamisme d'une jeunesse engagée pour l'autonomisation, l'agriculture durable, l'environnement et l'innovation numérique au Bénin.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{{ url_for('static', filename='assets/FOND BLANC SPECIAL VERT.png', _external=True) }}">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  <!-- Favicon placeholder (Uses safe styling, we can display our logo) -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/FOND BLANC SPECIAL VERT.png') }}">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#accueil" class="logo-container">
+        <img src="{{ url_for('static', filename='assets/FOND BLANC SPECIAL VERT.png') }}" alt="Logo Vert ELiDe">
+        <div class="logo-text">
+          <h1>ELiDe</h1>
+          <span>Les Élites de Demain</span>
+        </div>
+      </a>
+      
+      <nav id="nav-menu">
+        <ul>
+          <li><a href="#accueil" class="active">Accueil</a></li>
+          <li><a href="#apropos">À Propos</a></li>
+          <li><a href="#missions">Missions</a></li>
+          <li><a href="#domaines">Nos Domaines</a></li>
+          <li><a href="/partenariat">Partenariat</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-cta">
+        <a href="#contact" class="btn btn-primary">Nous Rejoindre</a>
+      </div>
+      
+      <div class="burger" id="burger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="accueil" class="hero">
+    <div class="container hero-wrapper">
+      <div class="hero-content reveal">
+        <div class="badge">
+          <i data-lucide="sparkles"></i>
+          <span>Slogan Officiel</span>
+        </div>
+        <h2>Le dynamisme d'une <span>jeunesse engagée</span></h2>
+        <p class="tagline">ONG Les Élites de Demain (ELiDe) — Parakou, République du Bénin</p>
+        <p class="description">
+          Fondée sur une volonté commune de contribuer au développement socio-économique durable et inclusif du Bénin, l'ELiDe déploie ses forces et son dynamisme sur l'ensemble du territoire national béninois.
+        </p>
+        <div class="hero-actions">
+          <a href="#apropos" class="btn btn-primary">Découvrir l'ONG <i data-lucide="arrow-right"></i></a>
+          <a href="#contact" class="btn btn-secondary">Nous Contacter</a>
+        </div>
+      </div>
+      
+      <div class="hero-visual reveal delay-200">
+        <div class="hero-blob"></div>
+        <div class="logo-display-card">
+          <img src="{{ url_for('static', filename='assets/FOND BLANC SPECIAL VERT.png') }}" alt="Logo Officiel ELiDe">
+          <p>ONG ELiDe</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <h3>5+</h3>
+          <p>Domaines d'Intervention</p>
+        </div>
+        <div class="stat-item reveal delay-100">
+          <h3>100%</h3>
+          <p>Jeunesse Engagée</p>
+        </div>
+        <div class="stat-item reveal delay-200">
+          <h3>Bénin</h3>
+          <p>Ancrage Territorial</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section & Official Documents -->
+  <section id="apropos" class="about-section section-padding">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content reveal">
+          <div class="badge">
+            <i data-lucide="users"></i>
+            <span>Qui Sommes-Nous ?</span>
+          </div>
+          <h3>Une force collective pour le développement du Bénin</h3>
+          <div class="about-text">
+            <p>
+              L'Organisation Non Gouvernementale <strong>Les Élites de Demain (ELiDe)</strong> est régie par la Loi n° 2025-19 du 22 juillet 2025 relative aux associations et aux fondations en République du Bénin.
+            </p>
+            <p>
+              Apolitique et laïque, l'ONG s'interdit toute discrimination fondée sur l'ethnie, le sexe ou l'opinion politique. Nous œuvrons activement à la base pour le bien-être des populations locales de la commune de Parakou et de tout le Bénin.
+            </p>
+          </div>
+          
+          <div class="about-features">
+            <div class="about-feature-item">
+              <div class="about-feature-icon">
+                <i data-lucide="shield-check"></i>
+              </div>
+              <div class="about-feature-text">
+                <h4>Cadre Légal & Éthique</h4>
+                <p>Fonctionnement transparent en totale conformité avec les lois de la République du Bénin.</p>
+              </div>
+            </div>
+            
+            <div class="about-feature-item">
+              <div class="about-feature-icon">
+                <i data-lucide="target"></i>
+              </div>
+              <div class="about-feature-text">
+                <h4>Approche de Proximité</h4>
+                <p>Des actions concrètes ciblées pour impacter positivement le quotidien des communautés.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-visual reveal delay-200">
+          <div class="document-card glass-panel">
+            <div class="doc-glow"></div>
+            <div class="document-header">
+              <div class="doc-icon flex-center">
+                <i data-lucide="shield-check"></i>
+              </div>
+              <div class="document-title">
+                <h4>Charte & Valeurs</h4>
+                <p>Principes Fondateurs de l'ELiDe</p>
+              </div>
+            </div>
+            <div class="document-body" style="margin-bottom: 0;">
+              <p>
+                Notre organisation repose sur une constitution rigoureuse, des règles administratives transparentes et une charte éthique au service de l'intérêt général.
+              </p>
+              <ul class="doc-features-list">
+                <li><i data-lucide="check-circle-2"></i> Objectifs & Mission sociale</li>
+                <li><i data-lucide="check-circle-2"></i> Organisation & Fonctionnement démocratique</li>
+                <li><i data-lucide="check-circle-2"></i> Engagement apolitique, laïque et inclusif</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Missions Section (Article 5) -->
+  <section id="missions" class="missions-section section-padding">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <div class="badge">
+          <i data-lucide="award"></i>
+          <span>Nos Objectifs (Article 5)</span>
+        </div>
+        <h2>Les 6 Missions de l'ELiDe</h2>
+        <p>Découvrez les engagements stratégiques de notre charte pour bâtir le Bénin de demain.</p>
+      </div>
+      
+      <div class="missions-grid">
+        <!-- Mission 1 -->
+        <div class="mission-card reveal">
+          <div class="mission-icon flex-center">
+            <i data-lucide="trending-up"></i>
+          </div>
+          <h3>Autonomisation & Insertion</h3>
+          <p>Renforcer les capacités, accompagner et insérer professionnellement les jeunes et les femmes afin de dynamiser l'entrepreneuriat local.</p>
+        </div>
+        
+        <!-- Mission 2 -->
+        <div class="mission-card reveal delay-100">
+          <div class="mission-icon flex-center">
+            <i data-lucide="sprout"></i>
+          </div>
+          <h3>Agriculture Durable</h3>
+          <p>Promouvoir l'agroécologie, la sécurité alimentaire et la résilience agricole à travers la formation et la structuration active des acteurs ruraux.</p>
+        </div>
+        
+        <!-- Mission 3 -->
+        <div class="mission-card reveal delay-200">
+          <div class="mission-icon flex-center">
+            <i data-lucide="cpu"></i>
+          </div>
+          <h3>Innovation Numérique</h3>
+          <p>Promouvoir l'inclusion numérique et l'appropriation des nouvelles technologies par le grand public comme leviers essentiels de développement.</p>
+        </div>
+        
+        <!-- Mission 4 -->
+        <div class="mission-card reveal">
+          <div class="mission-icon flex-center">
+            <i data-lucide="globe-2"></i>
+          </div>
+          <h3>Environnement & Climat</h3>
+          <p>Protéger activement l'environnement, assurer la gestion durable des ressources naturelles et accompagner l'adaptation au changement climatique.</p>
+        </div>
+        
+        <!-- Mission 5 -->
+        <div class="mission-card reveal delay-100">
+          <div class="mission-icon flex-center">
+            <i data-lucide="shield-alert"></i>
+          </div>
+          <h3>Inclusion & Équité</h3>
+          <p>Soutenir l'insertion professionnelle et l'auto-emploi avec une priorité claire accordée aux jeunes déscolarisés et aux populations vulnérables.</p>
+        </div>
+        
+        <!-- Mission 6 -->
+        <div class="mission-card reveal delay-200">
+          <div class="mission-icon flex-center">
+            <i data-lucide="coins"></i>
+          </div>
+          <h3>Développement Économique</h3>
+          <p>Contribuer activement à la réduction des inégalités et à la lutte contre la pauvreté par la création d'opportunités économiques durables.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fields of Action -->
+  <section id="domaines" class="domains-section section-padding">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <div class="badge">
+          <i data-lucide="compass"></i>
+          <span>Notre Rayonnement</span>
+        </div>
+        <h2>Domaines d'Intervention Concrets</h2>
+        <p>Les secteurs d'activité où l'ELiDe intervient au quotidien pour créer un impact visible.</p>
+      </div>
+      
+      <div class="domains-grid">
+        <!-- Domain 1 -->
+        <div class="domain-card reveal">
+          <div class="domain-icon flex-center">
+            <i data-lucide="book-open"></i>
+          </div>
+          <h3>Éducation & Formation</h3>
+          <p class="domain-intro">Réduire le décrochage scolaire et renforcer les compétences techniques des jeunes exclus du système scolaire formel.</p>
+          <div class="domain-details">
+            <h5>Actions phares :</h5>
+            <ul>
+              <li>Octroi de bourses d'études et kits scolaires pour les enfants de familles démunies.</li>
+              <li>Organisation de cours de soutien gratuits durant les vacances scolaires.</li>
+              <li>Formations pratiques courtes aux métiers d'art et à l'artisanat moderne.</li>
+            </ul>
+            <div class="donor-appeal">
+              <i data-lucide="award"></i> Focus bailleurs : Financement de bourses et parrainage direct d'élèves vulnérables.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Domain 2 -->
+        <div class="domain-card reveal delay-100">
+          <div class="domain-icon flex-center">
+            <i data-lucide="leaf"></i>
+          </div>
+          <h3>Protection de l'Environnement</h3>
+          <p class="domain-intro">Lutter contre la dégradation des sols, la déforestation et l'insalubrité urbaine dans nos communes.</p>
+          <div class="domain-details">
+            <h5>Actions phares :</h5>
+            <ul>
+              <li>Campagnes de reboisement communautaire dans les zones à risque d'érosion.</li>
+              <li>Ateliers pratiques d'éducation environnementale et écocitoyenne.</li>
+              <li>Journées de salubrité publique et gestion des déchets ménagers.</li>
+            </ul>
+            <div class="donor-appeal">
+              <i data-lucide="award"></i> Focus bailleurs : Achat de plants forestiers, matériel de collecte et outils éducatifs.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Domain 3 -->
+        <div class="domain-card reveal delay-200">
+          <div class="domain-icon flex-center">
+            <i data-lucide="laptop"></i>
+          </div>
+          <h3>Innovation Numérique</h3>
+          <p class="domain-intro">Réduire la fracture numérique et équiper la jeunesse des compétences indispensables à l'employabilité moderne.</p>
+          <div class="domain-details">
+            <h5>Actions phares :</h5>
+            <ul>
+              <li>Initiation gratuite à l'informatique bureautique et à l'internet citoyen.</li>
+              <li>Ateliers d'apprentissage du codage (Scratch, HTML/CSS) pour adolescents.</li>
+              <li>Sensibilisation sur la sécurité en ligne et la lutte contre la cybercriminalité.</li>
+            </ul>
+            <div class="donor-appeal">
+              <i data-lucide="award"></i> Focus bailleurs : Équipement de salles numériques, ordinateurs et infrastructures de connexion.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Domain 4 -->
+        <div class="domain-card reveal delay-300">
+          <div class="domain-icon flex-center">
+            <i data-lucide="tractor"></i>
+          </div>
+          <h3>Agriculture Durable</h3>
+          <p class="domain-intro">Accompagner les maraîchers et petits producteurs vers des méthodes agroécologiques respectueuses du climat.</p>
+          <div class="domain-details">
+            <h5>Actions phares :</h5>
+            <ul>
+              <li>Formation à la fabrication locale de compost bio et de biopesticides naturels.</li>
+              <li>Appui technique aux techniques d'irrigation à faible consommation d'eau.</li>
+              <li>Promotion des cultures maraîchères de contre-saison pour la sécurité alimentaire.</li>
+            </ul>
+            <div class="donor-appeal">
+              <i data-lucide="award"></i> Focus bailleurs : Fourniture de kits d'irrigation solaire, semences résilientes et formations.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Domain 5 -->
+        <div class="domain-card reveal delay-400">
+          <div class="domain-icon flex-center">
+            <i data-lucide="trending-up"></i>
+          </div>
+          <h3>Entrepreneuriat & Autonomisation</h3>
+          <p class="domain-intro">Favoriser la création de micro-entreprises locales viables pour lutter contre le chômage de masse des jeunes.</p>
+          <div class="domain-details">
+            <h5>Actions phares :</h5>
+            <ul>
+              <li>Ateliers d'idéation et de montage de business plans simplifiés.</li>
+              <li>Formation en comptabilité de base, gestion de stock et relation client.</li>
+              <li>Accompagnement post-création et facilitation d'accès aux micro-crédits.</li>
+            </ul>
+            <div class="donor-appeal">
+              <i data-lucide="award"></i> Focus bailleurs : Financement de fonds de démarrage (seed funding) et programmes de mentorat.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Domain 6 (Bailleurs Call-to-action) -->
+        <div class="domain-card reveal delay-500 partnership-card">
+          <div class="domain-icon flex-center highlight-icon">
+            <i data-lucide="handshake"></i>
+          </div>
+          <h3>Espace Bailleurs & Partenaires</h3>
+          <p class="domain-intro">Co-financez nos projets de terrain au Bénin et bénéficiez d'une gouvernance rigoureuse et transparente.</p>
+          <div class="domain-details">
+            <h5>Notre engagement qualité :</h5>
+            <ul>
+              <li>Audits de gestion réguliers et transparence totale sur l'allocation des ressources.</li>
+              <li>Rapports d'impact trimestriels détaillés et mesurables sur le terrain.</li>
+              <li>Visites de terrain pour suivre concrètement l'utilisation de vos contributions.</li>
+            </ul>
+            <div class="cta-action" style="margin-top: 15px; width: 100%;">
+              <a href="/partenariat" class="btn btn-accent" style="width: 100%; text-align: center; justify-content: center; font-size: 0.85rem; padding: 10px 16px;">Devenir Partenaire</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Call To Action -->
+  <section class="cta-section section-padding">
+    <div class="cta-glow-1"></div>
+    <div class="cta-glow-2"></div>
+    <div class="container cta-wrapper reveal">
+      <h2>Soutenez nos actions à Parakou et au Bénin</h2>
+      <p>Que vous soyez jeune voulant s'engager, professionnel souhaitant devenir bénévole ou organisation désirant sceller un partenariat, votre contribution est précieuse pour l'ONG ELiDe.</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-accent">Devenir Bénévole / Membre</a>
+        <a href="/partenariat" class="btn btn-secondary">Proposer un Partenariat</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section section-padding">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info-panel reveal">
+          <div class="badge">
+            <i data-lucide="mail"></i>
+            <span>Coordonnées</span>
+          </div>
+          <h3>Prenons contact</h3>
+          <p>Vous souhaitez en savoir plus sur nos actions ou nous faire part d'une proposition ? N'hésitez pas à nous écrire ou à nous appeler directement.</p>
+          
+          <div class="info-cards">
+            <!-- Address -->
+            <div class="info-card">
+              <div class="info-icon flex-center">
+                <i data-lucide="map-pin"></i>
+              </div>
+              <div class="info-content">
+                <h4>Siège Social</h4>
+                <p>Quartier Ladji-Farani, Maison SEIDOU IBRAHIM, 2ᵉ arrondissement, Commune de Parakou, Département du Borgou, République du Bénin</p>
+              </div>
+            </div>
+            
+            <!-- Phones -->
+            <div class="info-card">
+              <div class="info-icon flex-center">
+                <i data-lucide="phone"></i>
+              </div>
+              <div class="info-content">
+                <h4>Téléphones</h4>
+                <p><a href="tel:+2290167576050">(+229) 01 67 57 60 50</a></p>
+                <p>
+                  <a href="tel:+2290164557673">(+229) 01 64 55 76 73</a>
+                  <a href="https://wa.me/2290164557673?text=Bonjour,%20je%20souhaite%20contacter%20l'ONG%20ELiDe." class="whatsapp-inline-link" target="_blank" style="display: flex; align-items: center; gap: 6px; color: #25D366; font-weight: 600; margin-top: 4px;">
+                    <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i> Contacter par WhatsApp
+                  </a>
+                </p>
+              </div>
+            </div>
+            
+            <!-- Email -->
+            <div class="info-card">
+              <div class="info-icon flex-center">
+                <i data-lucide="mail-open"></i>
+              </div>
+              <div class="info-content">
+                <h4>Courriel</h4>
+                <p><a href="mailto:ongelide@gmail.com">ongelide@gmail.com</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contact Form -->
+        <div class="contact-form-panel glass-panel reveal delay-200">
+          <h3>Envoyer un message</h3>
+          <p>Tous les champs sont requis pour le traitement de votre demande.</p>
+          
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="form-name">Nom complet / Organisation</label>
+              <input type="text" id="form-name" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-email">Adresse Email</label>
+              <input type="email" id="form-email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-subject">Sujet de votre message</label>
+              <input type="text" id="form-subject" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-message">Votre Message</label>
+              <textarea id="form-message" class="form-control" required></textarea>
+            </div>
+            
+            <div class="submit-btn">
+              <button type="submit" class="btn btn-primary">Envoyer le message <i data-lucide="send"></i></button>
+            </div>
+            
+            <div id="form-status" class="form-status"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo-wrapper">
+            <img src="{{ url_for('static', filename='assets/Logo Noir Spécial.png') }}" alt="Logo Sombre ELiDe">
+            <div class="logo-text">
+              <h1>ELiDe</h1>
+              <span>Les Élites de Demain</span>
+            </div>
+          </div>
+          <p>ONG engagée pour le développement socio-économique inclusif et durable en République du Bénin.</p>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#apropos">À Propos</a></li>
+            <li><a href="#missions">Nos Missions</a></li>
+            <li><a href="#domaines">Nos Domaines</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3>Bureau National</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item">
+              <i data-lucide="map-pin"></i>
+              <span>Parakou, Qtr Ladji-Farani, Maison SEIDOU IBRAHIM, Rép. du Bénin</span>
+            </div>
+            <div class="footer-contact-item">
+              <i data-lucide="phone"></i>
+              <span>(+229) 01 67 57 60 50 / 01 64 55 76 73</span>
+            </div>
+            <div class="footer-contact-item">
+              <i data-lucide="mail"></i>
+              <a href="mailto:ongelide@gmail.com">ongelide@gmail.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 ONG Les Élites de Demain (ELiDe). Tous droits réservés.</p>
+        <div class="footer-legal-links">
+          <a href="{{ url_for('public.mentions_legales') }}">Mentions Légales</a>
+          <a href="{{ url_for('public.politique_confidentialite') }}">Politique de Confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/2290164557673?text=Bonjour,%20je%20souhaite%20contacter%20l'ONG%20ELiDe." class="whatsapp-float" target="_blank" aria-label="Contacter l'ONG ELiDe sur WhatsApp">
+    <i data-lucide="message-circle"></i>
+  </a>
+
+  <!-- Link appJS -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
