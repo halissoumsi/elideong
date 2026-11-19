@@ -64,14 +64,34 @@ class Config:
     FEDAPAY_WEBHOOK_SECRET = os.environ.get('FEDAPAY_WEBHOOK_SECRET', '').strip()
 
 
+def get_fedapay_secret_key() -> str:
+    """Récupère dynamiquement la clé secrète FedaPay depuis l'environnement."""
+    for var_name in ('FEDAPAY_SECRET_KEY', 'FEDAPAY_API_KEY', 'FEDAPAY_SECRET'):
+        val = (os.environ.get(var_name) or '').strip()
+        if val:
+            return val
+    return (Config.FEDAPAY_SECRET_KEY or '').strip()
+
+
+def get_fedapay_env() -> str:
+    """Détermine l'environnement FedaPay (live ou sandbox) avec détection automatique depuis la clé."""
+    key = get_fedapay_secret_key()
+    if key.startswith('sk_live_'):
+        return 'live'
+    if key.startswith('sk_sandbox_'):
+        return 'sandbox'
+    env = (os.environ.get('FEDAPAY_ENV') or Config.FEDAPAY_ENV or 'sandbox').strip().lower()
+    return 'live' if env == 'live' else 'sandbox'
+
+
 def is_fedapay_configured() -> bool:
     """Indique si la clé secrète FedaPay est renseignée."""
-    return bool(Config.FEDAPAY_SECRET_KEY)
+    return bool(get_fedapay_secret_key())
 
 
 def get_fedapay_base_url() -> str:
     """Retourne l'URL de base de l'API FedaPay selon l'environnement (live ou sandbox)."""
-    if Config.FEDAPAY_ENV == 'live':
+    if get_fedapay_env() == 'live':
         return 'https://api.fedapay.com/v1'
     return 'https://sandbox-api.fedapay.com/v1'
 

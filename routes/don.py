@@ -18,6 +18,8 @@ from flask import (
 from config import (
     Config,
     get_fedapay_base_url,
+    get_fedapay_env,
+    get_fedapay_secret_key,
     is_fedapay_configured,
     send_email_notification,
 )
@@ -51,7 +53,7 @@ def _extract_tx(payload: dict) -> dict:
 
 def _fedapay_request(method: str, endpoint: str, payload: dict = None) -> dict:
     """Exécute un appel HTTPS authentifié vers l'API REST FedaPay v1."""
-    api_key = current_app.config.get('FEDAPAY_SECRET_KEY') or Config.FEDAPAY_SECRET_KEY
+    api_key = get_fedapay_secret_key()
     if not api_key:
         raise RuntimeError('FEDAPAY_SECRET_KEY non configurée')
 
@@ -156,7 +158,7 @@ def donate_page():
         'soutenir.html',
         donation_token=donation_token,
         fedapay_ready=is_fedapay_configured(),
-        fedapay_is_sandbox=(Config.FEDAPAY_ENV != 'live'),
+        fedapay_is_sandbox=(get_fedapay_env() != 'live'),
     )
 
 
