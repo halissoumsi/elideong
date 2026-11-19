@@ -1,4 +1,3 @@
-from urllib.parse import quote
 from flask import Blueprint, render_template, request, jsonify, current_app, send_from_directory
 from config import send_email_notification
 
@@ -31,7 +30,7 @@ def politique_confidentialite():
 
 @public_bp.route('/api/contact', methods=['POST'])
 def contact():
-    """Traite le formulaire de contact : envoi SMTP + génération des liens WhatsApp et mailto"""
+    """Traite le formulaire de contact via envoi SMTP"""
     try:
         data = request.get_json() or request.form
         name = (data.get('name') or '').strip()
@@ -43,7 +42,6 @@ def contact():
             return jsonify({'status': 'error', 'message': 'Veuillez remplir tous les champs du formulaire.'}), 400
             
         notify_email = current_app.config.get('PARTNER_NOTIFY_EMAIL', 'ongelide@gmail.com')
-        whatsapp_number = current_app.config.get('WHATSAPP_NUMBER', '2290167576050')
         
         email_subject = f"[Contact Site ELiDe] {subject} — {name}"
         email_body = (
@@ -54,7 +52,7 @@ def contact():
             f"Message :\n{message}\n"
         )
         
-        # 1. Envoi par SMTP (si configuré)
+        # Envoi par SMTP (si configuré)
         email_sent = send_email_notification(
             subject=email_subject,
             body=email_body,
@@ -62,22 +60,10 @@ def contact():
             reply_to=email
         )
         
-        # 2. Génération des liens directs WhatsApp et Mailto
-        wa_text = (
-            f"Bonjour ONG ELiDe,\n"
-            f"Je suis *{name}* ({email}).\n"
-            f"*Objet :* {subject}\n\n"
-            f"{message}"
-        )
-        whatsapp_url = f"https://wa.me/{whatsapp_number}?text={quote(wa_text)}"
-        mailto_url = f"mailto:{notify_email}?subject={quote(email_subject)}&body={quote(email_body)}"
-        
         return jsonify({
             'status': 'success',
             'email_sent': email_sent,
-            'whatsapp_url': whatsapp_url,
-            'mailto_url': mailto_url,
-            'message': 'Votre message a bien été préparé et enregistré.'
+            'message': 'Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais.'
         }), 200
     except Exception as e:
         print(f"[CONTACT ERROR] {e}")

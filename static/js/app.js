@@ -186,19 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.json().then(data => ({ status: response.status, body: data })))
       .then(res => {
         if (res.status === 200) {
-          // Success state with direct WhatsApp and Email options
           formStatus.className = "form-status success";
-          formStatus.innerHTML = `
-            <p style="margin-bottom: 12px; color: #2a9d8f;">Merci pour votre message ! Vous pouvez également l'envoyer directement en un clic :</p>
-            <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-              <a href="${res.body.whatsapp_url}" target="_blank" class="btn btn-primary" style="background: #25D366; padding: 10px 18px; font-size: 0.85rem;">
-                Envoyer sur WhatsApp
-              </a>
-              <a href="${res.body.mailto_url}" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">
-                Ouvrir dans mon application Email
-              </a>
-            </div>
-          `;
+          formStatus.textContent = res.body.message || "Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais.";
           contactForm.reset();
         } else {
           // Error state from server

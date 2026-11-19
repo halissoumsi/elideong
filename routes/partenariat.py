@@ -1,6 +1,5 @@
 import time
 import secrets
-from urllib.parse import quote
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
 from config import send_email_notification
 
@@ -17,7 +16,7 @@ def partner_form():
 
 @partenariat_bp.route('/partenariat', methods=['POST'])
 def partner_submit():
-    """Handles partnership proposal submission via SMTP + WhatsApp & mailto links"""
+    """Handles partnership proposal submission via SMTP"""
     # 1. Protection Anti-Robot Multicouche Invisible (Honeypot + Jeton dynamique JS + Délai humain)
     honeypot = request.form.get('website_url')
     submitted_token = request.form.get('security_token', '')
@@ -50,7 +49,6 @@ def partner_submit():
         return redirect(url_for('partenariat.partner_form'))
         
     notify_email = current_app.config.get('PARTNER_NOTIFY_EMAIL', 'ongelide@gmail.com')
-    whatsapp_number = current_app.config.get('WHATSAPP_NUMBER', '2290167576050')
     
     # Préparation du récapitulatif pour l'ONG
     email_subject = f"[Partenariat ELiDe] Nouvelle proposition — {org_name}"
@@ -67,7 +65,7 @@ def partner_submit():
         f"- Message : {message or 'Aucun message'}\n"
     )
     
-    # 1. Envoi SMTP à l'ONG + accusé de réception au partenaire (si SMTP configuré)
+    # Envoi SMTP à l'ONG + accusé de réception au partenaire (si SMTP configuré)
     email_sent = send_email_notification(
         subject=email_subject,
         body=email_body,
@@ -87,19 +85,6 @@ def partner_submit():
             body=partner_ack_body,
             to_email=email
         )
-        
-    # 2. Génération des liens directs WhatsApp et Mailto
-    wa_text = (
-        f"Bonjour ONG ELiDe,\n"
-        f"Je vous contacte pour une *proposition de partenariat* :\n"
-        f"- *Organisation :* {org_name} ({partner_type} - {country})\n"
-        f"- *Contact :* {contact_name} ({email} / {phone or 'N/A'})\n"
-        f"- *Domaines :* {domains_str}\n"
-        f"- *Financement :* {funding_capacity or 'À discuter'}\n"
-        f"- *Message :* {message or 'N/A'}"
-    )
-    whatsapp_url = f"https://wa.me/{whatsapp_number}?text={quote(wa_text)}"
-    mailto_url = f"mailto:{notify_email}?subject={quote(email_subject)}&body={quote(email_body)}"
     
     session['last_lead'] = {
         'org_name': org_name,
@@ -112,9 +97,7 @@ def partner_submit():
         'domains': domains_str,
         'funding_capacity': funding_capacity,
         'message': message,
-        'email_sent': email_sent,
-        'whatsapp_url': whatsapp_url,
-        'mailto_url': mailto_url
+        'email_sent': email_sent
     }
     return redirect(url_for('partenariat.partner_confirmation'))
 

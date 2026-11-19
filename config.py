@@ -18,7 +18,7 @@ class Config:
     
     # Email et WhatsApp de réception (ONG ELiDe)
     PARTNER_NOTIFY_EMAIL = os.environ.get('PARTNER_NOTIFY_EMAIL', 'ongelide@gmail.com')
-    _raw_wa = os.environ.get('WHATSAPP_NUMBER', '2290167576050').strip().replace(' ', '').lstrip('+')
+    _raw_wa = os.environ.get('WHATSAPP_NUMBER', '22967576050').strip().replace(' ', '').lstrip('+')
     if _raw_wa.startswith('00'):
         _raw_wa = _raw_wa[2:]
     WHATSAPP_NUMBER = _raw_wa

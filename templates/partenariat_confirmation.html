@@ -197,24 +197,10 @@
         <div class="confirm-icon">
           <i data-lucide="check"></i>
         </div>
-        <h2>Proposition Préparée !</h2>
+        <h2>Proposition Envoyée !</h2>
         <p>
-          Merci pour votre intérêt ! Votre proposition de partenariat pour l'organisation <strong>{{ lead.org_name }}</strong> a bien été enregistrée.
-          {% if lead.email_sent %}
-            Un e-mail de notification a été transmis à notre Bureau National.
-          {% else %}
-            Pour une prise en charge immédiate par notre Bureau National, vous pouvez transmettre directement votre récapitulatif via WhatsApp ou votre messagerie :
-          {% endif %}
+          Merci pour votre intérêt ! Votre proposition de partenariat pour l'organisation <strong>{{ lead.org_name }}</strong> a bien été transmise à notre Bureau National.
         </p>
-
-        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px;">
-          <a href="{{ lead.whatsapp_url }}" target="_blank" class="btn btn-primary" style="background: #25D366;">
-            <i data-lucide="message-circle"></i> Transmettre sur WhatsApp
-          </a>
-          <a href="{{ lead.mailto_url }}" class="btn btn-accent">
-            <i data-lucide="mail"></i> Envoyer par Email
-          </a>
-        </div>
         
         <div class="steps-list">
           <h4>Prochaines étapes :</h4>
@@ -282,6 +268,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=2"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
 </body>
 </html>
