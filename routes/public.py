@@ -58,7 +58,7 @@ def robots_txt():
         "Disallow: /lang/\n"
         f"Sitemap: {base_url}/sitemap.xml\n"
     )
-    return Response(content, mimetype='text/plain; charset=utf-8')
+    return Response(content, mimetype='text/plain')
 
 
 @public_bp.route('/sitemap.xml')
@@ -94,7 +94,7 @@ def sitemap_xml():
         + "\n".join(urls_xml)
         + "\n</urlset>\n"
     )
-    return Response(xml, mimetype='application/xml; charset=utf-8')
+    return Response(xml, mimetype='application/xml')
 
 
 @public_bp.route('/manifest.json')

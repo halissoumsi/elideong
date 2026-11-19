@@ -57,8 +57,13 @@
   }
   </script>
   
+  <!-- Google Fonts (préconnexion parallèle pour performance maximale) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=7">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=8">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
@@ -133,7 +138,7 @@
       <div class="hero-visual reveal delay-200">
         <div class="hero-blob"></div>
         <div class="logo-display-card">
-          <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
+          <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe" fetchpriority="high">
           <p>{{ t.hero_logo_caption }}</p>
         </div>
       </div>
@@ -666,7 +671,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="footer-logo-wrapper">
-            <img src="{{ url_for('static', filename='assets/logo-noir.png') }}" alt="Logo ELiDe">
+            <img src="{{ url_for('static', filename='assets/logo-noir.png') }}" alt="Logo ELiDe" loading="lazy">
             <div class="logo-text">
               <h1>{{ t.brand_acronym }}</h1>
               <span>{{ t.brand_subtitle }}</span>
@@ -771,6 +776,6 @@
   </div>
 
   <!-- Link appJS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=7"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=8"></script>
 </body>
 </html>

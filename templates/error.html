@@ -8,7 +8,10 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>{{ page_title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=8">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
   <style>
@@ -169,6 +172,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=7"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=8"></script>
 </body>
 </html>

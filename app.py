@@ -70,6 +70,9 @@ def create_app():
                 'max-age=31536000; includeSubDomains'
             )
 
+        if request.path.startswith('/static/') and response.status_code == 200:
+            response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+
         if response.mimetype == 'text/html':
             response.headers.setdefault('Content-Security-Policy', CSP_POLICY)
             response.headers.add('Vary', 'Cookie')

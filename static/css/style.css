@@ -1,9 +1,8 @@
 /* 
    ONG Les Élites de Demain (ELiDe) - Styles Principaux
    Design: Premium, Écologique, Tech for Good, Moderne
+   (Google Fonts préchargées en parallèle via <link rel="preconnect"> dans le HTML)
 */
-
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
   --primary: #007a2d;           /* Vert profond officiel de l'ONG */
