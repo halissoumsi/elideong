@@ -122,9 +122,11 @@ def create_app():
     # Register blueprints
     from routes.public import public_bp
     from routes.partenariat import partenariat_bp
+    from routes.don import don_bp
 
     app.register_blueprint(public_bp)
     app.register_blueprint(partenariat_bp)
+    app.register_blueprint(don_bp)
 
     return app
 

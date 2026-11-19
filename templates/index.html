@@ -63,7 +63,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=8">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=9">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
@@ -100,7 +100,7 @@
         {% include '_lang_switcher.html' %}
 
         <div class="header-cta">
-          <a href="#contact" class="btn btn-primary">{{ t.header_cta }}</a>
+          <a href="/soutenir" class="btn btn-accent"><i data-lucide="heart" style="width: 16px; height: 16px;"></i> {{ t.header_cta }}</a>
         </div>
         
         <button type="button" id="pwa-install-btn" class="pwa-install-btn" aria-label="{{ t.pwa_install_aria }}">
@@ -554,8 +554,9 @@
       <h2>{{ t.cta_title }}</h2>
       <p>{{ t.cta_desc }}</p>
       <div class="cta-buttons">
-        <a href="#contact" class="btn btn-accent">{{ t.cta_btn_volunteer }}</a>
+        <a href="/soutenir" class="btn btn-accent"><i data-lucide="heart"></i> {{ t.cta_btn_donate }}</a>
         <a href="/partenariat" class="btn btn-secondary">{{ t.cta_btn_partner }}</a>
+        <a href="#contact" class="btn btn-secondary">{{ t.cta_btn_volunteer }}</a>
       </div>
     </div>
   </section>
@@ -687,6 +688,7 @@
             <li><a href="#apropos">{{ t.nav_about }}</a></li>
             <li><a href="#missions">{{ t.nav_missions_footer }}</a></li>
             <li><a href="#domaines">{{ t.nav_domains }}</a></li>
+            <li><a href="/soutenir">{{ t.nav_donate }} (FedaPay)</a></li>
             <li><a href="/elide-track">{{ t.nav_elide_track }} (Coming Soon)</a></li>
             <li><a href="#contact">{{ t.nav_contact }}</a></li>
           </ul>
@@ -776,6 +778,6 @@
   </div>
 
   <!-- Link appJS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=8"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=9"></script>
 </body>
 </html>

@@ -58,6 +58,23 @@ class Config:
     SMTP_USER = os.environ.get('SMTP_USER', '')
     SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD', '')
 
+    # Configuration FedaPay (dons en ligne : MTN MoMo, Moov Money, Celtiis, Visa/Mastercard)
+    FEDAPAY_ENV = os.environ.get('FEDAPAY_ENV', 'sandbox').strip().lower()
+    FEDAPAY_SECRET_KEY = os.environ.get('FEDAPAY_SECRET_KEY', '').strip()
+    FEDAPAY_WEBHOOK_SECRET = os.environ.get('FEDAPAY_WEBHOOK_SECRET', '').strip()
+
+
+def is_fedapay_configured() -> bool:
+    """Indique si la clé secrète FedaPay est renseignée."""
+    return bool(Config.FEDAPAY_SECRET_KEY)
+
+
+def get_fedapay_base_url() -> str:
+    """Retourne l'URL de base de l'API FedaPay selon l'environnement (live ou sandbox)."""
+    if Config.FEDAPAY_ENV == 'live':
+        return 'https://api.fedapay.com/v1'
+    return 'https://sandbox-api.fedapay.com/v1'
+
 
 def is_smtp_configured() -> bool:
     """Indique si les identifiants SMTP sont renseignés."""

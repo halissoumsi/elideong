@@ -250,4 +250,24 @@ document.addEventListener('DOMContentLoaded', () => {
     partnerForm.addEventListener('pointerdown', activatePartnerToken);
     partnerForm.addEventListener('keydown', activatePartnerToken);
   }
+
+  // Donation Form (FedaPay): quick amount preset buttons (CSP-compliant)
+  const amountInput = document.getElementById('donate-amount');
+  const presetBtns = document.querySelectorAll('.amount-preset-btn');
+  if (amountInput && presetBtns.length > 0) {
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.dataset.amount;
+        if (val) {
+          amountInput.value = val;
+          presetBtns.forEach(b => b.classList.toggle('active', b === btn));
+        }
+      });
+    });
+
+    amountInput.addEventListener('input', () => {
+      const current = amountInput.value.trim();
+      presetBtns.forEach(b => b.classList.toggle('active', b.dataset.amount === current));
+    });
+  }
 });

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#007a2d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
+  <title>{{ t.donate_page_title }}</title>
+  <meta name="description" content="{{ t.donate_page_desc }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="alternate" hreflang="fr" href="{{ canonical_url }}?lang=fr">
+  <link rel="alternate" hreflang="en" href="{{ canonical_url }}?lang=en">
+  <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}">
+  <meta property="og:title" content="{{ t.donate_page_title }}">
+  <meta property="og:description" content="{{ t.donate_page_desc }}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{{ url_for('static', filename='assets/og-banner.png', _external=True) }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ url_for('static', filename='assets/og-banner.png', _external=True) }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=9">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
+  <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
+  <style>
+    .donate-body {
+      background: radial-gradient(circle at 90% 10%, rgba(251, 133, 0, 0.06) 0%, transparent 40%),
+                  radial-gradient(circle at 10% 80%, rgba(0, 158, 58, 0.08) 0%, transparent 42%),
+                  var(--bg-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .donate-header {
+      position: relative !important;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-white);
+    }
+
+    .donate-wrapper {
+      max-width: 1220px;
+      margin: 54px auto;
+      padding: 0 28px;
+      width: 100%;
+    }
+
+    .donate-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.25fr;
+      gap: 42px;
+      align-items: start;
+    }
+
+    .donate-info-side,
+    .donate-form-side {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .donate-info-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .donate-info-card h2 {
+      font-size: 1.65rem;
+      color: var(--primary);
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+
+    .donate-info-card > p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .donate-methods-box {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin-bottom: 24px;
+    }
+
+    .donate-methods-box h4 {
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .donate-method-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .method-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-white);
+      border: 1px solid rgba(0, 122, 45, 0.16);
+      color: var(--text-dark);
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+    }
+
+    .donate-trust-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 0.91rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .donate-trust-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .donate-trust-list li strong {
+      color: var(--text-dark);
+    }
+
+    .donate-trust-list li svg {
+      color: var(--primary);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .donate-form-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .donate-form-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+    }
+
+    .donate-form-card h1 {
+      font-size: 1.85rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .donate-form-card .desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+      line-height: 1.55;
+    }
+
+    .donate-notice {
+      padding: 13px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .donate-notice svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .donate-notice.warning {
+      background: rgba(251, 133, 0, 0.1);
+      border: 1px solid rgba(251, 133, 0, 0.3);
+      color: #9a4d00;
+    }
+
+    .donate-notice.error {
+      background: rgba(214, 40, 40, 0.08);
+      border: 1px solid rgba(214, 40, 40, 0.2);
+      color: var(--accent-red);
+    }
+
+    .amount-presets {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .amount-preset-btn {
+      padding: 12px 6px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(0, 122, 45, 0.2);
+      background: var(--bg-light);
+      color: var(--primary);
+      font-family: var(--font-heading);
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .amount-preset-btn:hover {
+      border-color: var(--primary);
+      background: rgba(0, 122, 45, 0.08);
+    }
+
+    .amount-preset-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(0, 122, 45, 0.22);
+    }
+
+    .donate-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .donate-select {
+      min-height: 50px;
+      background-color: var(--bg-light);
+      border: 1px solid rgba(27, 67, 50, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-weight: 500;
+      width: 100%;
+      color: var(--text-dark);
+    }
+
+    .donate-submit-btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 10px;
+      padding: 16px 24px;
+      font-size: 1rem;
+    }
+
+    .donate-powered {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .donate-powered svg {
+      width: 15px;
+      height: 15px;
+      color: var(--primary);
+    }
+
+    .donate-footer {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-white);
+      margin-top: auto;
+    }
+
+    @media (max-width: 900px) {
+      .donate-wrapper {
+        margin: 18px auto 32px;
+        padding: 0 14px;
+      }
+      .donate-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .donate-info-card,
+      .donate-form-card {
+        padding: 24px 18px;
+        border-radius: 20px;
+      }
+      .donate-form-card h1 {
+        font-size: 1.45rem;
+      }
+      .donate-info-card h2 {
+        font-size: 1.35rem;
+      }
+      .amount-presets {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .donate-form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body class="donate-body">
+
+  <!-- Header -->
+  <header class="donate-header partner-header">
+    <div class="container nav-wrapper">
+      <a href="/" class="logo-container">
+        <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
+        <div class="logo-text">
+          <h1>{{ t.brand_acronym }}</h1>
+          <span>{{ t.brand_subtitle }}</span>
+        </div>
+      </a>
+      <div class="subpage-header-actions">
+        {% include '_lang_switcher.html' %}
+        <a href="/" class="btn btn-secondary"><i data-lucide="arrow-left"></i> <span class="btn-back-full">{{ t.back_to_home }}</span><span class="btn-back-short">{{ t.nav_home }}</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Wrapper -->
+  <main class="donate-wrapper">
+    <div class="donate-grid">
+
+      <!-- Info Left Side -->
+      <div class="donate-info-side">
+        <div class="donate-info-card">
+          <div class="badge">
+            <i data-lucide="shield-check"></i>
+            <span>{{ t.donate_left_badge }}</span>
+          </div>
+          <h2>{{ t.donate_left_title }}</h2>
+          <p>{{ t.donate_left_desc }}</p>
+
+          <div class="donate-methods-box">
+            <h4>{{ t.donate_methods_title }}</h4>
+            <div class="donate-method-pills">
+              <span class="method-pill">MTN Mobile Money</span>
+              <span class="method-pill">Moov Money</span>
+              <span class="method-pill">Celtiis Cash</span>
+              <span class="method-pill">Visa</span>
+              <span class="method-pill">Mastercard</span>
+            </div>
+          </div>
+
+          <ul class="donate-trust-list">
+            <li>
+              <i data-lucide="heart-handshake"></i>
+              <span><strong>{{ t.donate_trust_1_bold }}</strong> {{ t.donate_trust_1_text }}</span>
+            </li>
+            <li>
+              <i data-lucide="lock"></i>
+              <span><strong>{{ t.donate_trust_2_bold }}</strong> {{ t.donate_trust_2_text }}</span>
+            </li>
+            <li>
+              <i data-lucide="mail-check"></i>
+              <span><strong>{{ t.donate_trust_3_bold }}</strong> {{ t.donate_trust_3_text }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Form Right Side -->
+      <div class="donate-form-side">
+        <div class="donate-form-card">
+          <h1>{{ t.donate_form_title }}</h1>
+          <p class="desc">{{ t.donate_form_desc }}</p>
+
+          {% with messages = get_flashed_messages(category_filter=["error"]) %}
+            {% if messages %}
+              {% for msg in messages %}
+                <div class="donate-notice error">
+                  <i data-lucide="alert-circle"></i>
+                  <span>{{ msg }}</span>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+          {% if not fedapay_ready %}
+            <div class="donate-notice warning">
+              <i data-lucide="info"></i>
+              <span>{{ t.donate_not_configured }}</span>
+            </div>
+          {% elif fedapay_is_sandbox %}
+            <div class="donate-notice warning">
+              <i data-lucide="flask-conical"></i>
+              <span>{{ t.donate_sandbox_notice }}</span>
+            </div>
+          {% endif %}
+
+          <form id="donate-form" action="{{ url_for('don.donate_submit') }}" method="POST">
+            <!-- Protection anti-spam invisible -->
+            <div class="hp-field" aria-hidden="true">
+              <input type="text" name="website_url" tabindex="-1" autocomplete="off">
+            </div>
+            <input type="hidden" name="donation_token" value="{{ donation_token }}">
+
+            <!-- Cause Selector -->
+            <div class="form-group">
+              <label for="donate-cause">{{ t.donate_label_cause }}</label>
+              <select id="donate-cause" name="cause" class="form-control donate-select" required>
+                <option value="general">{{ t.donate_cause_general }}</option>
+                <option value="education">{{ t.donate_cause_education }}</option>
+                <option value="environment">{{ t.donate_cause_environment }}</option>
+                <option value="digital">{{ t.donate_cause_digital }}</option>
+                <option value="agriculture">{{ t.donate_cause_agriculture }}</option>
+                <option value="entrepreneurship">{{ t.donate_cause_entrepreneurship }}</option>
+              </select>
+            </div>
+
+            <!-- Amount Presets + Custom Input -->
+            <div class="form-group">
+              <label for="donate-amount">{{ t.donate_label_amount }}</label>
+              <div class="amount-presets" role="group" aria-label="{{ t.donate_label_amount }}">
+                <button type="button" class="amount-preset-btn" data-amount="2000">2 000</button>
+                <button type="button" class="amount-preset-btn active" data-amount="5000">5 000</button>
+                <button type="button" class="amount-preset-btn" data-amount="10000">10 000</button>
+                <button type="button" class="amount-preset-btn" data-amount="25000">25 000</button>
+                <button type="button" class="amount-preset-btn" data-amount="50000">50 000</button>
+              </div>
+              <input type="number" id="donate-amount" name="amount" class="form-control" min="500" max="50000000" step="100" value="5000" placeholder="{{ t.donate_custom_amount_placeholder }}" required>
+            </div>
+
+            <!-- Donor Name -->
+            <div class="donate-form-row">
+              <div class="form-group">
+                <label for="donate-firstname">{{ t.donate_label_firstname }}</label>
+                <input type="text" id="donate-firstname" name="firstname" class="form-control" maxlength="80" required>
+              </div>
+              <div class="form-group">
+                <label for="donate-lastname">{{ t.donate_label_lastname }}</label>
+                <input type="text" id="donate-lastname" name="lastname" class="form-control" maxlength="80" required>
+              </div>
+            </div>
+
+            <!-- Email & Phone -->
+            <div class="donate-form-row">
+              <div class="form-group">
+                <label for="donate-email">{{ t.donate_label_email }}</label>
+                <input type="email" id="donate-email" name="email" class="form-control" maxlength="254" required>
+              </div>
+              <div class="form-group">
+                <label for="donate-phone">{{ t.donate_label_phone }}</label>
+                <input type="tel" id="donate-phone" name="phone" class="form-control" maxlength="30" placeholder="+229 01 ...">
+              </div>
+            </div>
+
+            <!-- Encouragement Note -->
+            <div class="form-group">
+              <label for="donate-note">{{ t.donate_label_note }}</label>
+              <textarea id="donate-note" name="note" class="form-control" rows="2" maxlength="500" style="min-height: 76px;"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-accent donate-submit-btn" {% if not fedapay_ready %}disabled style="opacity: 0.65; cursor: not-allowed;"{% endif %}>
+              <i data-lucide="heart"></i> {{ t.donate_submit_btn }}
+            </button>
+
+            <div class="donate-powered">
+              <i data-lucide="lock"></i>
+              <span>{{ 'Secure checkout powered by' if lang == 'en' else 'Paiement sécurisé propulsé par' }} <strong>FedaPay</strong> (SSL 256-bit)</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="donate-footer">
+    <div class="container">
+      <p>{{ t.footer_rights }} | <a href="{{ url_for('public.mentions_legales') }}" style="color: var(--primary); font-weight: 600;">{{ t.legal_notice }}</a> | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">{{ t.privacy_policy }}</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="mobile-bottom-nav" aria-label="{{ t.mobile_nav_aria }}">
+    <a href="/#accueil" class="mobile-nav-item">
+      <i data-lucide="home"></i>
+      <span>{{ t.mobile_nav_home }}</span>
+    </a>
+    <a href="/#apropos" class="mobile-nav-item">
+      <i data-lucide="shield-check"></i>
+      <span>{{ t.mobile_nav_ngo }}</span>
+    </a>
+    <a href="/partenariat" class="mobile-nav-item nav-highlight">
+      <div class="nav-pill">
+        <i data-lucide="handshake"></i>
+      </div>
+      <span>{{ t.mobile_nav_partner }}</span>
+    </a>
+    <a href="/#domaines" class="mobile-nav-item">
+      <i data-lucide="compass"></i>
+      <span>{{ t.mobile_nav_domains }}</span>
+    </a>
+    <a href="/#contact" class="mobile-nav-item">
+      <i data-lucide="mail"></i>
+      <span>{{ t.mobile_nav_contact }}</span>
+    </a>
+  </nav>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=9"></script>
+</body>
+</html>

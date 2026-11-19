@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#007a2d">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
+  <title>{{ t.donate_return_title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=9">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
+  <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
+  <style>
+    .confirm-body {
+      background: radial-gradient(circle at 10% 20%, rgba(251, 133, 0, 0.05) 0%, transparent 40%),
+                  var(--bg-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .confirm-header {
+      position: relative !important;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-white);
+    }
+    .confirm-wrapper {
+      max-width: 660px;
+      margin: 54px auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    .confirm-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      padding: 46px 38px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .confirm-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--primary);
+    }
+    .confirm-card.status-pending::before { background: var(--accent); }
+    .confirm-card.status-failed::before { background: var(--accent-red); }
+    .confirm-icon {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 122, 45, 0.1);
+      color: var(--primary);
+    }
+    .status-pending .confirm-icon {
+      background: rgba(251, 133, 0, 0.12);
+      color: var(--accent);
+    }
+    .status-failed .confirm-icon {
+      background: rgba(214, 40, 40, 0.1);
+      color: var(--accent-red);
+    }
+    .confirm-icon svg {
+      width: 36px;
+      height: 36px;
+    }
+    .confirm-card h1 {
+      font-size: 1.95rem;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+    .confirm-card > p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 26px;
+    }
+    .summary-box {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 122, 45, 0.08);
+      font-size: 0.92rem;
+    }
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+    .summary-row span {
+      color: var(--text-muted);
+    }
+    .summary-row strong {
+      color: var(--text-dark);
+      text-align: right;
+    }
+    .return-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .confirm-footer {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-white);
+      margin-top: auto;
+    }
+    @media (max-width: 768px) {
+      .confirm-card {
+        padding: 30px 20px;
+        border-radius: 20px;
+      }
+      .confirm-card h1 {
+        font-size: 1.55rem;
+      }
+      .return-actions {
+        flex-direction: column;
+      }
+      .return-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body class="confirm-body">
+
+  <header class="confirm-header">
+    <div class="container nav-wrapper">
+      <a href="/" class="logo-container">
+        <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
+        <div class="logo-text">
+          <h1>{{ t.brand_acronym }}</h1>
+          <span>{{ t.brand_subtitle }}</span>
+        </div>
+      </a>
+      <div class="subpage-header-actions">
+        {% include '_lang_switcher.html' %}
+        <a href="/" class="btn btn-secondary"><i data-lucide="home"></i> {{ t.nav_home }}</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="confirm-wrapper">
+    <div class="confirm-card status-{{ tx_status }}">
+      <div class="confirm-icon">
+        {% if tx_status == 'approved' %}
+          <i data-lucide="check-circle-2"></i>
+        {% elif tx_status == 'pending' %}
+          <i data-lucide="clock"></i>
+        {% else %}
+          <i data-lucide="x-circle"></i>
+        {% endif %}
+      </div>
+
+      {% if tx_status == 'approved' %}
+        <h1>{{ t.donate_success_title }}</h1>
+        <p>{{ t.donate_success_desc }}</p>
+      {% elif tx_status == 'pending' %}
+        <h1>{{ t.donate_pending_title }}</h1>
+        <p>{{ t.donate_pending_desc }}</p>
+      {% else %}
+        <h1>{{ t.donate_failed_title }}</h1>
+        <p>{{ t.donate_failed_desc }}</p>
+      {% endif %}
+
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>{{ t.donate_summary_ref }}</span>
+          <strong>{{ tx_reference }}</strong>
+        </div>
+        <div class="summary-row">
+          <span>{{ t.donate_summary_amount }}</span>
+          <strong>{{ tx_amount_display }}</strong>
+        </div>
+        <div class="summary-row">
+          <span>{{ t.donate_summary_cause }}</span>
+          <strong>{{ tx_cause }}</strong>
+        </div>
+        <div class="summary-row">
+          <span>{{ t.donate_summary_status }}</span>
+          <strong>{{ tx_status | upper }}</strong>
+        </div>
+      </div>
+
+      <div class="return-actions">
+        {% if tx_status != 'approved' %}
+          <a href="{{ url_for('don.donate_page') }}" class="btn btn-accent">
+            <i data-lucide="rotate-ccw"></i> {{ t.donate_retry_btn }}
+          </a>
+        {% endif %}
+        <a href="/" class="btn btn-primary">
+          <i data-lucide="arrow-left"></i> {{ t.back_to_home }}
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="confirm-footer">
+    <div class="container">
+      <p>{{ t.footer_rights }} | <a href="{{ url_for('public.mentions_legales') }}" style="color: var(--primary); font-weight: 600;">{{ t.legal_notice }}</a> | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">{{ t.privacy_policy }}</a></p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=9"></script>
+</body>
+</html>

@@ -66,6 +66,7 @@ def sitemap_xml():
     base_url = request.url_root.rstrip('/')
     pages = [
         ('/', 'weekly', '1.0'),
+        ('/soutenir', 'monthly', '0.9'),
         ('/partenariat', 'monthly', '0.9'),
         ('/elide-track', 'monthly', '0.8'),
         ('/mentions-legales', 'yearly', '0.3'),
