@@ -35,8 +35,8 @@
   {% endif %}
   <style>
     .donate-body {
-      background: radial-gradient(circle at 90% 10%, rgba(251, 133, 0, 0.06) 0%, transparent 40%),
-                  radial-gradient(circle at 10% 80%, rgba(0, 158, 58, 0.08) 0%, transparent 42%),
+      background: radial-gradient(circle at 85% 15%, rgba(251, 133, 0, 0.05) 0%, transparent 42%),
+                  radial-gradient(circle at 15% 85%, rgba(0, 122, 45, 0.06) 0%, transparent 42%),
                   var(--bg-light);
       min-height: 100vh;
       display: flex;
@@ -50,157 +50,63 @@
       background: var(--bg-white);
     }
 
-    .donate-wrapper {
-      max-width: 1220px;
-      margin: 54px auto;
-      padding: 0 28px;
+    .donate-minimal-wrapper {
+      max-width: 540px;
+      margin: auto;
+      padding: 44px 20px;
       width: 100%;
     }
 
-    .donate-grid {
-      display: grid;
-      grid-template-columns: 0.95fr 1.25fr;
-      gap: 42px;
-      align-items: start;
-    }
-
-    .donate-info-side,
-    .donate-form-side {
-      min-width: 0;
-      width: 100%;
-    }
-
-    .donate-info-card {
-      background: var(--bg-white);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-color);
-      padding: 32px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .donate-info-card h2 {
-      font-size: 1.65rem;
-      color: var(--primary);
-      margin-bottom: 14px;
-      line-height: 1.25;
-    }
-
-    .donate-info-card > p {
-      font-size: 0.95rem;
-      line-height: 1.65;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-
-    .donate-methods-box {
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      margin-bottom: 24px;
-    }
-
-    .donate-methods-box h4 {
-      font-size: 0.88rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
-
-    .donate-method-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .method-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg-white);
-      border: 1px solid rgba(0, 122, 45, 0.16);
-      color: var(--text-dark);
-      font-family: var(--font-heading);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: var(--radius-full);
-    }
-
-    .donate-trust-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      font-size: 0.91rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    .donate-trust-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .donate-trust-list li strong {
-      color: var(--text-dark);
-    }
-
-    .donate-trust-list li svg {
-      color: var(--primary);
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
-
-    .donate-form-card {
+    .donate-minimal-card {
       background: var(--bg-white);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-lg);
       border: 1px solid var(--border-color);
-      padding: 38px;
+      padding: 40px 36px;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
 
-    .donate-form-card::before {
+    .donate-minimal-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 6px;
+      height: 5px;
       background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
     }
 
-    .donate-form-card h1 {
-      font-size: 1.85rem;
-      color: var(--primary);
-      margin-bottom: 8px;
+    .donate-minimal-card .badge {
+      margin-bottom: 16px;
     }
 
-    .donate-form-card .desc {
+    .donate-minimal-card h1 {
+      font-size: 1.85rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .donate-minimal-card .lead {
       color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 22px;
-      line-height: 1.55;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
     }
 
     .donate-notice {
-      padding: 13px 16px;
+      padding: 12px 15px;
       border-radius: var(--radius-sm);
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 500;
       line-height: 1.5;
       margin-bottom: 20px;
       display: flex;
       align-items: flex-start;
       gap: 10px;
+      text-align: left;
     }
 
     .donate-notice svg {
@@ -222,21 +128,35 @@
       color: var(--accent-red);
     }
 
+    .donate-amount-block {
+      text-align: left;
+      margin-bottom: 22px;
+    }
+
+    .donate-amount-block label {
+      display: block;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
     .amount-presets {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
     .amount-preset-btn {
-      padding: 12px 6px;
+      padding: 11px 4px;
       border-radius: var(--radius-sm);
-      border: 1.5px solid rgba(0, 122, 45, 0.2);
+      border: 1.5px solid rgba(0, 122, 45, 0.18);
       background: var(--bg-light);
       color: var(--primary);
       font-family: var(--font-heading);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       font-weight: 700;
       text-align: center;
       cursor: pointer;
@@ -255,85 +175,73 @@
       box-shadow: 0 4px 12px rgba(0, 122, 45, 0.22);
     }
 
-    .donate-form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    .amount-input-wrap {
+      position: relative;
     }
 
-    .donate-select {
-      min-height: 50px;
-      background-color: var(--bg-light);
-      border: 1px solid rgba(27, 67, 50, 0.15);
-      border-radius: var(--radius-sm);
-      padding: 12px 16px;
-      font-weight: 500;
-      width: 100%;
-      color: var(--text-dark);
+    .amount-input-wrap .form-control {
+      padding-right: 72px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .amount-currency {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      pointer-events: none;
     }
 
     .donate-submit-btn {
       width: 100%;
       justify-content: center;
-      margin-top: 10px;
       padding: 16px 24px;
       font-size: 1rem;
     }
 
-    .donate-powered {
-      text-align: center;
-      margin-top: 14px;
+    .donate-methods-line {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-color);
       font-size: 0.8rem;
       color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      line-height: 1.6;
     }
 
-    .donate-powered svg {
-      width: 15px;
-      height: 15px;
+    .donate-methods-line strong {
       color: var(--primary);
     }
 
     .donate-footer {
       text-align: center;
-      padding: 30px 16px;
+      padding: 26px 16px;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       line-height: 1.6;
       border-top: 1px solid var(--border-color);
       background: var(--bg-white);
       margin-top: auto;
     }
 
-    @media (max-width: 900px) {
-      .donate-wrapper {
-        margin: 18px auto 32px;
-        padding: 0 14px;
+    @media (max-width: 600px) {
+      .donate-minimal-wrapper {
+        padding: 22px 14px 36px;
       }
-      .donate-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      .donate-info-card,
-      .donate-form-card {
-        padding: 24px 18px;
+      .donate-minimal-card {
+        padding: 28px 20px;
         border-radius: 20px;
       }
-      .donate-form-card h1 {
-        font-size: 1.45rem;
-      }
-      .donate-info-card h2 {
-        font-size: 1.35rem;
+      .donate-minimal-card h1 {
+        font-size: 1.5rem;
       }
       .amount-presets {
         grid-template-columns: repeat(3, 1fr);
-      }
-      .donate-form-row {
-        grid-template-columns: 1fr;
-        gap: 0;
       }
     }
   </style>
@@ -357,157 +265,78 @@
     </div>
   </header>
 
-  <!-- Main Wrapper -->
-  <main class="donate-wrapper">
-    <div class="donate-grid">
-
-      <!-- Info Left Side -->
-      <div class="donate-info-side">
-        <div class="donate-info-card">
-          <div class="badge">
-            <i data-lucide="shield-check"></i>
-            <span>{{ t.donate_left_badge }}</span>
-          </div>
-          <h2>{{ t.donate_left_title }}</h2>
-          <p>{{ t.donate_left_desc }}</p>
-
-          <div class="donate-methods-box">
-            <h4>{{ t.donate_methods_title }}</h4>
-            <div class="donate-method-pills">
-              <span class="method-pill">MTN Mobile Money</span>
-              <span class="method-pill">Moov Money</span>
-              <span class="method-pill">Celtiis Cash</span>
-              <span class="method-pill">Visa</span>
-              <span class="method-pill">Mastercard</span>
-            </div>
-          </div>
-
-          <ul class="donate-trust-list">
-            <li>
-              <i data-lucide="heart-handshake"></i>
-              <span><strong>{{ t.donate_trust_1_bold }}</strong> {{ t.donate_trust_1_text }}</span>
-            </li>
-            <li>
-              <i data-lucide="lock"></i>
-              <span><strong>{{ t.donate_trust_2_bold }}</strong> {{ t.donate_trust_2_text }}</span>
-            </li>
-            <li>
-              <i data-lucide="mail-check"></i>
-              <span><strong>{{ t.donate_trust_3_bold }}</strong> {{ t.donate_trust_3_text }}</span>
-            </li>
-          </ul>
-        </div>
+  <!-- Minimalist Centered Card -->
+  <main class="donate-minimal-wrapper">
+    <div class="donate-minimal-card">
+      <div class="badge">
+        <i data-lucide="shield-check"></i>
+        <span>{{ t.donate_left_badge }}</span>
       </div>
 
-      <!-- Form Right Side -->
-      <div class="donate-form-side">
-        <div class="donate-form-card">
-          <h1>{{ t.donate_form_title }}</h1>
-          <p class="desc">{{ t.donate_form_desc }}</p>
+      <h1>{{ t.donate_left_title }}</h1>
+      <p class="lead">
+        {{ 'Enter the amount you wish to contribute, then choose Mobile Money or Bank Card in FedaPay.' if lang == 'en' else "Indiquez simplement le montant de votre soutien, puis choisissez Mobile Money ou Carte bancaire dans la fenêtre FedaPay." }}
+      </p>
 
-          {% with messages = get_flashed_messages(category_filter=["error"]) %}
-            {% if messages %}
-              {% for msg in messages %}
-                <div class="donate-notice error">
-                  <i data-lucide="alert-circle"></i>
-                  <span>{{ msg }}</span>
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-
-          {% if not fedapay_ready %}
-            <div class="donate-notice warning">
-              <i data-lucide="info"></i>
-              <span>{{ t.donate_not_configured }}</span>
+      {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+          {% for msg in messages %}
+            <div class="donate-notice error">
+              <i data-lucide="alert-circle"></i>
+              <span>{{ msg }}</span>
             </div>
-          {% elif fedapay_is_sandbox %}
-            <div class="donate-notice warning">
-              <i data-lucide="flask-conical"></i>
-              <span>{{ t.donate_sandbox_notice }}</span>
-            </div>
-          {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
 
-          <form id="donate-form"
-                action="{{ url_for('don.donate_submit') }}"
-                method="POST"
-                data-fedapay-pk="{{ fedapay_public_key }}"
-                data-fedapay-env="{{ fedapay_env }}"
-                data-return-url="{{ url_for('don.donate_return') }}">
-            <!-- Protection anti-spam invisible -->
-            <div class="hp-field" aria-hidden="true">
-              <input type="text" name="website_url" tabindex="-1" autocomplete="off">
-            </div>
-            <input type="hidden" name="donation_token" value="{{ donation_token }}">
-
-            <!-- Cause Selector -->
-            <div class="form-group">
-              <label for="donate-cause">{{ t.donate_label_cause }}</label>
-              <select id="donate-cause" name="cause" class="form-control donate-select" required>
-                <option value="general">{{ t.donate_cause_general }}</option>
-                <option value="education">{{ t.donate_cause_education }}</option>
-                <option value="environment">{{ t.donate_cause_environment }}</option>
-                <option value="digital">{{ t.donate_cause_digital }}</option>
-                <option value="agriculture">{{ t.donate_cause_agriculture }}</option>
-                <option value="entrepreneurship">{{ t.donate_cause_entrepreneurship }}</option>
-              </select>
-            </div>
-
-            <!-- Amount Presets + Custom Input -->
-            <div class="form-group">
-              <label for="donate-amount">{{ t.donate_label_amount }}</label>
-              <div class="amount-presets" role="group" aria-label="{{ t.donate_label_amount }}">
-                <button type="button" class="amount-preset-btn" data-amount="2000">2 000</button>
-                <button type="button" class="amount-preset-btn active" data-amount="5000">5 000</button>
-                <button type="button" class="amount-preset-btn" data-amount="10000">10 000</button>
-                <button type="button" class="amount-preset-btn" data-amount="25000">25 000</button>
-                <button type="button" class="amount-preset-btn" data-amount="50000">50 000</button>
-              </div>
-              <input type="number" id="donate-amount" name="amount" class="form-control" min="500" max="50000000" step="100" value="5000" placeholder="{{ t.donate_custom_amount_placeholder }}" required>
-            </div>
-
-            <!-- Donor Name -->
-            <div class="donate-form-row">
-              <div class="form-group">
-                <label for="donate-firstname">{{ t.donate_label_firstname }}</label>
-                <input type="text" id="donate-firstname" name="firstname" class="form-control" maxlength="80" required>
-              </div>
-              <div class="form-group">
-                <label for="donate-lastname">{{ t.donate_label_lastname }}</label>
-                <input type="text" id="donate-lastname" name="lastname" class="form-control" maxlength="80" required>
-              </div>
-            </div>
-
-            <!-- Email & Phone -->
-            <div class="donate-form-row">
-              <div class="form-group">
-                <label for="donate-email">{{ t.donate_label_email }}</label>
-                <input type="email" id="donate-email" name="email" class="form-control" maxlength="254" required>
-              </div>
-              <div class="form-group">
-                <label for="donate-phone">{{ t.donate_label_phone }}</label>
-                <input type="tel" id="donate-phone" name="phone" class="form-control" maxlength="30" placeholder="+229 01 ...">
-              </div>
-            </div>
-
-            <!-- Encouragement Note -->
-            <div class="form-group">
-              <label for="donate-note">{{ t.donate_label_note }}</label>
-              <textarea id="donate-note" name="note" class="form-control" rows="2" maxlength="500" style="min-height: 76px;"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-accent donate-submit-btn" {% if not fedapay_ready %}disabled style="opacity: 0.65; cursor: not-allowed;"{% endif %}>
-              <i data-lucide="heart"></i> {{ t.donate_submit_btn }}
-            </button>
-
-            <div class="donate-powered">
-              <i data-lucide="lock"></i>
-              <span>{{ 'Secure checkout powered by' if lang == 'en' else 'Paiement sécurisé propulsé par' }} <strong>FedaPay</strong> (SSL 256-bit)</span>
-            </div>
-          </form>
+      {% if not fedapay_ready %}
+        <div class="donate-notice warning">
+          <i data-lucide="info"></i>
+          <span>{{ t.donate_not_configured }}</span>
         </div>
-      </div>
+      {% elif fedapay_is_sandbox %}
+        <div class="donate-notice warning">
+          <i data-lucide="flask-conical"></i>
+          <span>{{ t.donate_sandbox_notice }}</span>
+        </div>
+      {% endif %}
 
+      <form id="donate-form"
+            action="{{ url_for('don.donate_submit') }}"
+            method="POST"
+            data-fedapay-pk="{{ fedapay_public_key }}"
+            data-fedapay-env="{{ fedapay_env }}"
+            data-return-url="{{ url_for('don.donate_return') }}">
+        <!-- Protection anti-spam invisible -->
+        <div class="hp-field" aria-hidden="true">
+          <input type="text" name="website_url" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" name="donation_token" value="{{ donation_token }}">
+
+        <div class="donate-amount-block">
+          <label for="donate-amount">{{ t.donate_label_amount }}</label>
+          <div class="amount-presets" role="group" aria-label="{{ t.donate_label_amount }}">
+            <button type="button" class="amount-preset-btn" data-amount="2000">2 000</button>
+            <button type="button" class="amount-preset-btn active" data-amount="5000">5 000</button>
+            <button type="button" class="amount-preset-btn" data-amount="10000">10 000</button>
+            <button type="button" class="amount-preset-btn" data-amount="25000">25 000</button>
+            <button type="button" class="amount-preset-btn" data-amount="50000">50 000</button>
+          </div>
+          <div class="amount-input-wrap">
+            <input type="number" id="donate-amount" name="amount" class="form-control" min="500" max="50000000" step="100" value="5000" placeholder="{{ t.donate_custom_amount_placeholder }}" required>
+            <span class="amount-currency">FCFA</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary donate-submit-btn" {% if not fedapay_ready %}disabled style="opacity: 0.65; cursor: not-allowed;"{% endif %}>
+          <i data-lucide="heart"></i> {{ t.donate_submit_btn }}
+        </button>
+
+        <div class="donate-methods-line">
+          MTN MoMo · Moov Money · Celtiis · Visa · Mastercard<br>
+          {{ 'Secured by' if lang == 'en' else 'Paiement sécurisé par' }} <strong>FedaPay</strong>
+        </div>
+      </form>
     </div>
   </main>
 
@@ -544,6 +373,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=11"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=12"></script>
 </body>
 </html>

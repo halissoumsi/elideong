@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // FedaPay Checkout.js Popup Modal (Mobile Money & Carte Bancaire sur la page)
+  // FedaPay Checkout.js Popup Modal (Sobre : seul le montant est saisi, FedaPay gère le reste)
   const donateForm = document.getElementById('donate-form');
   if (donateForm && donateForm.dataset.fedapayPk && typeof FedaPay !== 'undefined') {
     donateForm.addEventListener('submit', (e) => {
@@ -284,32 +284,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const amountVal = parseInt(document.getElementById('donate-amount').value, 10) || 0;
       if (amountVal < 500) return;
 
-      const causeSelect = document.getElementById('donate-cause');
-      const causeLabel = causeSelect && causeSelect.selectedOptions[0]
-        ? causeSelect.selectedOptions[0].textContent.trim()
-        : 'ONG ELiDe';
-      const firstname = (document.getElementById('donate-firstname').value || '').trim();
-      const lastname = (document.getElementById('donate-lastname').value || '').trim();
-      const email = (document.getElementById('donate-email').value || '').trim();
-      const phone = (document.getElementById('donate-phone').value || '').trim();
-
-      const customer = { firstname, lastname, email };
-      const cleanPhone = phone.replace(/[^\d+]/g, '');
-      if (cleanPhone.length >= 8) {
-        customer.phone_number = { number: cleanPhone, country: 'bj' };
-      }
+      const isEn = document.documentElement.lang === 'en';
+      const description = isEn
+        ? 'Donation — Les Élites de Demain NGO (ELiDe)'
+        : "Don — ONG Les Élites de Demain (ELiDe)";
 
       try {
         const widget = FedaPay.init({
           public_key: pk,
           environment: env,
-          locale: document.documentElement.lang === 'en' ? 'en' : 'fr',
+          locale: isEn ? 'en' : 'fr',
           transaction: {
             amount: amountVal,
-            description: `Don ONG ELiDe — ${causeLabel}`
+            description
           },
           currency: { iso: 'XOF' },
-          customer,
           onComplete: (resp) => {
             if (resp && resp.reason === FedaPay.CHECKOUT_COMPLETED && resp.transaction) {
               const tx = resp.transaction;
@@ -317,8 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: String(tx.id || ''),
                 status: String(tx.status || 'approved'),
                 ref: String(tx.reference || tx.id || ''),
-                amount: String(tx.amount || amountVal),
-                cause: causeLabel
+                amount: String(tx.amount || amountVal)
               });
               window.location.href = `${returnUrl}?${params.toString()}`;
             }

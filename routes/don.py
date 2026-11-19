@@ -210,7 +210,7 @@ def donate_submit():
     phone = (request.form.get('phone') or '').strip()[:30]
     note = (request.form.get('note') or '').strip()[:500]
 
-    if not all([firstname, lastname, email]) or not is_valid_email(email):
+    if email and not is_valid_email(email):
         flash(t['donate_err_fields'], 'error')
         return redirect(url_for('don.donate_page'))
 
@@ -222,14 +222,14 @@ def donate_submit():
             amount=amount,
             description=description,
             callback_url=callback_url,
-            firstname=firstname,
-            lastname=lastname,
-            email=email,
+            firstname=firstname or 'Donateur',
+            lastname=lastname or 'ELiDe',
+            email=email or current_app.config.get('PARTNER_NOTIFY_EMAIL', 'ongelide@gmail.com'),
             phone=phone,
             metadata={
                 'cause': cause_label,
                 'cause_key': cause_key,
-                'donor_name': f"{firstname} {lastname}",
+                'donor_name': f"{firstname} {lastname}".strip() or 'Donateur anonyme',
                 'donor_email': email,
                 'note': note,
                 'lang': lang,
