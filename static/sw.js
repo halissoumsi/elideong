@@ -1,9 +1,9 @@
-const CACHE_NAME = 'elide-pwa-v4';
+const CACHE_NAME = 'elide-pwa-v5';
 const ASSETS_TO_CACHE = [
   '/',
   '/partenariat',
-  '/static/css/style.css?v=4',
-  '/static/js/app.js?v=4',
+  '/static/css/style.css?v=5',
+  '/static/js/app.js?v=5',
   '/static/assets/logo-vert.png',
   '/static/assets/logo-noir.png',
   '/static/assets/icon-192.png',

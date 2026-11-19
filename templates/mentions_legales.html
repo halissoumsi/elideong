@@ -11,7 +11,7 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>{{ t.legal_page_title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -117,7 +117,7 @@
       </a>
       <div class="subpage-header-actions">
         {% include '_lang_switcher.html' %}
-        <a href="/" class="btn btn-secondary"><i data-lucide="arrow-left"></i> {{ t.back_to_home }}</a>
+        <a href="/" class="btn btn-secondary"><i data-lucide="arrow-left"></i> <span class="btn-back-full">{{ t.back_to_home }}</span><span class="btn-back-short">{{ t.nav_home }}</span></a>
       </div>
     </div>
   </header>
@@ -216,6 +216,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=4"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=5"></script>
 </body>
 </html>

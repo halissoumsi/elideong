@@ -11,7 +11,7 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>{{ t.confirm_page_title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -150,12 +150,29 @@
     
     .confirm-footer {
       text-align: center;
-      padding: 30px 0;
+      padding: 30px 16px;
       color: var(--text-muted);
       font-size: 0.85rem;
+      line-height: 1.6;
       border-top: 1px solid var(--border-color);
       background: var(--bg-white);
       margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .confirm-card {
+        padding: 30px 20px;
+        border-radius: 20px;
+      }
+      .confirm-card h2 {
+        font-size: 1.65rem;
+      }
+      .confirm-card p {
+        font-size: 0.95rem;
+      }
+      .steps-list {
+        padding: 18px 14px;
+      }
     }
   </style>
 </head>
@@ -271,6 +288,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=4"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=5"></script>
 </body>
 </html>

@@ -321,6 +321,20 @@ header nav a:hover::after, header nav a.active::after {
   flex-shrink: 0;
 }
 
+.btn-back-short {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .btn-back-full {
+    display: none;
+  }
+
+  .btn-back-short {
+    display: inline;
+  }
+}
+
 /* Professional Bilingual Language Switcher (FR / EN) */
 .lang-switcher {
   display: inline-flex;
@@ -1860,6 +1874,15 @@ footer {
   .cta-buttons .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  /* Pas de délai d'apparition sur mobile pour éviter l'impression de sections vides au défilement */
+  .delay-100,
+  .delay-200,
+  .delay-300,
+  .delay-400,
+  .delay-500 {
+    transition-delay: 0ms !important;
   }
 
   /* Cartes avec retour tactile natif */
