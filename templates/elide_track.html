@@ -19,7 +19,13 @@
   <meta property="og:title" content="{{ t.track_page_title }}">
   <meta property="og:description" content="{{ t.track_page_desc }}">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="{{ url_for('static', filename='assets/logo-vert.png', _external=True) }}">
+  <meta property="og:image" content="{{ url_for('static', filename='assets/og-banner.png', _external=True) }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ t.track_page_title }}">
+  <meta name="twitter:description" content="{{ t.track_page_desc }}">
+  <meta name="twitter:image" content="{{ url_for('static', filename='assets/og-banner.png', _external=True) }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=7">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
