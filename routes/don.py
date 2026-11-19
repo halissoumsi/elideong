@@ -19,6 +19,7 @@ from config import (
     Config,
     get_fedapay_base_url,
     get_fedapay_env,
+    get_fedapay_public_key,
     get_fedapay_secret_key,
     is_fedapay_configured,
     send_email_notification,
@@ -152,12 +153,14 @@ def _format_xof(amount) -> str:
 
 @don_bp.route('/soutenir', methods=['GET'])
 def donate_page():
-    """Affiche la page bilingue de don sécurisé via FedaPay."""
+    """Affiche la page bilingue de don sécurisé via FedaPay (popup Checkout.js ou API serveur)."""
     donation_token = generate_form_token(current_app.config['SECRET_KEY'])
     return render_template(
         'soutenir.html',
         donation_token=donation_token,
         fedapay_ready=is_fedapay_configured(),
+        fedapay_public_key=get_fedapay_public_key(),
+        fedapay_env=get_fedapay_env(),
         fedapay_is_sandbox=(get_fedapay_env() != 'live'),
     )
 
@@ -267,6 +270,22 @@ def donate_return():
             tx_reference=tx_id or '—',
             tx_amount_display='—',
             tx_cause=pending.get('cause_label') or t['donate_cause_general'],
+        )
+
+    # Si seule la clé publique Checkout.js est configurée (sans clé secrète serveur),
+    # on affiche le récapitulatif retourné par le widget FedaPay
+    if not get_fedapay_secret_key():
+        q_status = (request.args.get('status') or '').strip().lower()
+        q_ref = (request.args.get('ref') or tx_id).strip()[:80]
+        q_amount = re.sub(r'[^\d]', '', (request.args.get('amount') or '').strip())
+        q_cause = (request.args.get('cause') or '').strip()[:150] or t['donate_cause_general']
+        view_status = 'approved' if q_status == 'approved' else ('pending' if q_status == 'pending' else 'failed')
+        return render_template(
+            'soutenir_retour.html',
+            tx_status=view_status,
+            tx_reference=q_ref,
+            tx_amount_display=_format_xof(q_amount) if q_amount else '—',
+            tx_cause=q_cause,
         )
 
     try:

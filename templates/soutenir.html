@@ -30,6 +30,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=9">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
+  {% if fedapay_public_key %}
+  <script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
+  {% endif %}
   <style>
     .donate-body {
       background: radial-gradient(circle at 90% 10%, rgba(251, 133, 0, 0.06) 0%, transparent 40%),
@@ -425,7 +428,12 @@
             </div>
           {% endif %}
 
-          <form id="donate-form" action="{{ url_for('don.donate_submit') }}" method="POST">
+          <form id="donate-form"
+                action="{{ url_for('don.donate_submit') }}"
+                method="POST"
+                data-fedapay-pk="{{ fedapay_public_key }}"
+                data-fedapay-env="{{ fedapay_env }}"
+                data-return-url="{{ url_for('don.donate_return') }}">
             <!-- Protection anti-spam invisible -->
             <div class="hp-field" aria-hidden="true">
               <input type="text" name="website_url" tabindex="-1" autocomplete="off">
@@ -536,6 +544,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=9"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=10"></script>
 </body>
 </html>

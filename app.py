@@ -4,11 +4,12 @@ from i18n import get_current_lang, get_translations, LANG_COOKIE_NAME
 
 CSP_POLICY = (
     "default-src 'self'; "
-    "script-src 'self'; "
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+    "script-src 'self' https://cdn.fedapay.com; "
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.fedapay.com; "
     "font-src 'self' https://fonts.gstatic.com data:; "
     "img-src 'self' data: https:; "
-    "connect-src 'self'; "
+    "connect-src 'self' https://*.fedapay.com; "
+    "frame-src 'self' https://*.fedapay.com; "
     "manifest-src 'self'; "
     "worker-src 'self'; "
     "object-src 'none'; "

@@ -60,8 +60,18 @@ class Config:
 
     # Configuration FedaPay (dons en ligne : MTN MoMo, Moov Money, Celtiis, Visa/Mastercard)
     FEDAPAY_ENV = os.environ.get('FEDAPAY_ENV', 'sandbox').strip().lower()
+    FEDAPAY_PUBLIC_KEY = os.environ.get('FEDAPAY_PUBLIC_KEY', '').strip()
     FEDAPAY_SECRET_KEY = os.environ.get('FEDAPAY_SECRET_KEY', '').strip()
     FEDAPAY_WEBHOOK_SECRET = os.environ.get('FEDAPAY_WEBHOOK_SECRET', '').strip()
+
+
+def get_fedapay_public_key() -> str:
+    """Récupère dynamiquement la clé publique FedaPay (pour la fenêtre popup Checkout.js)."""
+    for var_name in ('FEDAPAY_PUBLIC_KEY', 'FEDAPAY_PK'):
+        val = (os.environ.get(var_name) or '').strip()
+        if val:
+            return val
+    return (Config.FEDAPAY_PUBLIC_KEY or '').strip()
 
 
 def get_fedapay_secret_key() -> str:
@@ -74,19 +84,19 @@ def get_fedapay_secret_key() -> str:
 
 
 def get_fedapay_env() -> str:
-    """Détermine l'environnement FedaPay (live ou sandbox) avec détection automatique depuis la clé."""
-    key = get_fedapay_secret_key()
-    if key.startswith('sk_live_'):
-        return 'live'
-    if key.startswith('sk_sandbox_'):
-        return 'sandbox'
+    """Détermine l'environnement FedaPay (live ou sandbox) avec détection automatique depuis les clés."""
+    for key in (get_fedapay_public_key(), get_fedapay_secret_key()):
+        if key.startswith('pk_live_') or key.startswith('sk_live_'):
+            return 'live'
+        if key.startswith('pk_sandbox_') or key.startswith('sk_sandbox_'):
+            return 'sandbox'
     env = (os.environ.get('FEDAPAY_ENV') or Config.FEDAPAY_ENV or 'sandbox').strip().lower()
     return 'live' if env == 'live' else 'sandbox'
 
 
 def is_fedapay_configured() -> bool:
-    """Indique si la clé secrète FedaPay est renseignée."""
-    return bool(get_fedapay_secret_key())
+    """Indique si FedaPay est prêt (clé publique Checkout popup et/ou clé secrète serveur)."""
+    return bool(get_fedapay_public_key() or get_fedapay_secret_key())
 
 
 def get_fedapay_base_url() -> str:

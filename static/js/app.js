@@ -270,4 +270,64 @@ document.addEventListener('DOMContentLoaded', () => {
       presetBtns.forEach(b => b.classList.toggle('active', b.dataset.amount === current));
     });
   }
+
+  // FedaPay Checkout.js Popup Modal (Mobile Money & Carte Bancaire sur la page)
+  const donateForm = document.getElementById('donate-form');
+  if (donateForm && donateForm.dataset.fedapayPk && typeof FedaPay !== 'undefined') {
+    donateForm.addEventListener('submit', (e) => {
+      if (!donateForm.checkValidity()) return;
+      e.preventDefault();
+
+      const pk = donateForm.dataset.fedapayPk;
+      const env = donateForm.dataset.fedapayEnv || 'sandbox';
+      const returnUrl = donateForm.dataset.returnUrl || '/soutenir/retour';
+      const amountVal = parseInt(document.getElementById('donate-amount').value, 10) || 0;
+      if (amountVal < 500) return;
+
+      const causeSelect = document.getElementById('donate-cause');
+      const causeLabel = causeSelect && causeSelect.selectedOptions[0]
+        ? causeSelect.selectedOptions[0].textContent.trim()
+        : 'ONG ELiDe';
+      const firstname = (document.getElementById('donate-firstname').value || '').trim();
+      const lastname = (document.getElementById('donate-lastname').value || '').trim();
+      const email = (document.getElementById('donate-email').value || '').trim();
+      const phone = (document.getElementById('donate-phone').value || '').trim();
+
+      const customer = { firstname, lastname, email };
+      const cleanPhone = phone.replace(/[^\d+]/g, '');
+      if (cleanPhone.length >= 8) {
+        customer.phone_number = { number: cleanPhone, country: 'bj' };
+      }
+
+      try {
+        const widget = FedaPay.init({
+          public_key: pk,
+          environment: env,
+          transaction: {
+            amount: amountVal,
+            description: `Don ONG ELiDe — ${causeLabel}`
+          },
+          currency: { iso: 'XOF' },
+          customer,
+          onComplete: (resp) => {
+            if (resp && resp.reason === FedaPay.CHECKOUT_COMPLETED && resp.transaction) {
+              const tx = resp.transaction;
+              const params = new URLSearchParams({
+                id: String(tx.id || ''),
+                status: String(tx.status || 'approved'),
+                ref: String(tx.reference || tx.id || ''),
+                amount: String(tx.amount || amountVal),
+                cause: causeLabel
+              });
+              window.location.href = `${returnUrl}?${params.toString()}`;
+            }
+          }
+        });
+        widget.open();
+      } catch (err) {
+        console.error('FedaPay modal error, falling back to server checkout:', err);
+        donateForm.submit();
+      }
+    });
+  }
 });
