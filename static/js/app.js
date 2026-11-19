@@ -303,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const widget = FedaPay.init({
           public_key: pk,
           environment: env,
+          locale: document.documentElement.lang === 'en' ? 'en' : 'fr',
           transaction: {
             amount: amountVal,
             description: `Don ONG ELiDe — ${causeLabel}`

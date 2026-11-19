@@ -10,11 +10,12 @@ CSP_POLICY = (
     "img-src 'self' data: https:; "
     "connect-src 'self' https://*.fedapay.com; "
     "frame-src 'self' https://*.fedapay.com; "
+    "child-src 'self' https://*.fedapay.com; "
     "manifest-src 'self'; "
     "worker-src 'self'; "
     "object-src 'none'; "
     "base-uri 'self'; "
-    "form-action 'self'; "
+    "form-action 'self' https://*.fedapay.com; "
     "frame-ancestors 'none'"
 )
 
