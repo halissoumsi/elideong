@@ -43,6 +43,11 @@ def index():
     return render_template('index.html', contact_token=contact_token)
 
 
+@public_bp.route('/elide-track')
+def elide_track():
+    return render_template('elide_track.html')
+
+
 @public_bp.route('/robots.txt')
 def robots_txt():
     base_url = request.url_root.rstrip('/')
@@ -62,6 +67,7 @@ def sitemap_xml():
     pages = [
         ('/', 'weekly', '1.0'),
         ('/partenariat', 'monthly', '0.9'),
+        ('/elide-track', 'monthly', '0.8'),
         ('/mentions-legales', 'yearly', '0.3'),
         ('/politique-de-confidentialite', 'yearly', '0.3'),
     ]

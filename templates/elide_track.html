@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#007a2d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
+  <title>{{ t.track_page_title }}</title>
+  <meta name="description" content="{{ t.track_page_desc }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="alternate" hreflang="fr" href="{{ canonical_url }}?lang=fr">
+  <link rel="alternate" hreflang="en" href="{{ canonical_url }}?lang=en">
+  <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}">
+  <meta property="og:title" content="{{ t.track_page_title }}">
+  <meta property="og:description" content="{{ t.track_page_desc }}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{{ url_for('static', filename='assets/logo-vert.png', _external=True) }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=7">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
+  <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
+</head>
+<body class="track-page-body">
+
+  <!-- Header -->
+  <header class="partner-header">
+    <div class="container nav-wrapper">
+      <a href="/" class="logo-container">
+        <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
+        <div class="logo-text">
+          <h1>{{ t.brand_acronym }}</h1>
+          <span>{{ t.brand_subtitle }}</span>
+        </div>
+      </a>
+      <div class="subpage-header-actions">
+        {% include '_lang_switcher.html' %}
+        <a href="/" class="btn btn-secondary"><i data-lucide="arrow-left"></i> <span class="btn-back-full">{{ t.back_to_home }}</span><span class="btn-back-short">{{ t.nav_home }}</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="track-page-hero">
+    <div class="container">
+      <div class="track-grid">
+        <div class="track-content reveal active">
+          <div class="coming-soon-badge">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>{{ t.track_badge }}</span>
+          </div>
+          <h1 class="track-h1">{{ t.track_h1_title }}</h1>
+          <p class="track-subtitle">{{ t.track_h1_subtitle }}</p>
+          <p class="track-lead">{{ t.track_hero_desc }}</p>
+          <div class="track-actions">
+            <a href="/partenariat" class="btn btn-accent">{{ t.track_cta_early_partner }} <i data-lucide="arrow-right"></i></a>
+            <a href="/#contact" class="btn btn-secondary">{{ t.hero_btn_contact }}</a>
+          </div>
+        </div>
+
+        <div class="track-visual reveal active">
+          <div class="track-preview-card">
+            <div class="track-preview-header">
+              <div class="track-preview-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="track-preview-pill">{{ t.track_preview_status }}</span>
+            </div>
+            <div class="track-preview-body">
+              <div class="track-preview-top">
+                <div>
+                  <h4>{{ t.track_preview_title }}</h4>
+                  <p>{{ t.track_preview_sub }}</p>
+                </div>
+                <div class="track-preview-shield">
+                  <i data-lucide="shield-check"></i>
+                </div>
+              </div>
+
+              <div class="track-metric">
+                <div class="track-metric-row">
+                  <span>{{ t.track_preview_m1_label }}</span>
+                  <strong>78%</strong>
+                </div>
+                <div class="track-bar"><span style="width: 78%;"></span></div>
+              </div>
+
+              <div class="track-metric">
+                <div class="track-metric-row">
+                  <span>{{ t.track_preview_m2_label }}</span>
+                  <strong>64%</strong>
+                </div>
+                <div class="track-bar track-bar-accent"><span style="width: 64%;"></span></div>
+              </div>
+
+              <div class="track-preview-chips">
+                <div class="track-chip">
+                  <i data-lucide="map-pin"></i>
+                  <span>{{ t.track_preview_gps }}</span>
+                </div>
+                <div class="track-chip">
+                  <i data-lucide="file-check-2"></i>
+                  <span>{{ t.track_preview_pdf }}</span>
+                </div>
+                <div class="track-chip">
+                  <i data-lucide="wifi-off"></i>
+                  <span>{{ t.track_preview_offline }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Capabilities -->
+  <section class="missions-section section-padding">
+    <div class="container">
+      <div class="section-header text-center reveal active">
+        <div class="badge">
+          <i data-lucide="layers"></i>
+          <span>{{ t.track_features_badge }}</span>
+        </div>
+        <h2>{{ t.track_features_title }}</h2>
+        <p>{{ t.track_features_sub }}</p>
+      </div>
+
+      <div class="missions-grid">
+        <div class="mission-card reveal active">
+          <div class="mission-icon flex-center"><i data-lucide="lock"></i></div>
+          <h3>{{ t.track_p1_title }}</h3>
+          <p>{{ t.track_p1_desc }}</p>
+        </div>
+
+        <div class="mission-card reveal active">
+          <div class="mission-icon flex-center"><i data-lucide="map-pinned"></i></div>
+          <h3>{{ t.track_p2_title }}</h3>
+          <p>{{ t.track_p2_desc }}</p>
+        </div>
+
+        <div class="mission-card reveal active">
+          <div class="mission-icon flex-center"><i data-lucide="bar-chart-3"></i></div>
+          <h3>{{ t.track_p3_title }}</h3>
+          <p>{{ t.track_p3_desc }}</p>
+        </div>
+
+        <div class="mission-card reveal active">
+          <div class="mission-icon flex-center"><i data-lucide="smartphone"></i></div>
+          <h3>{{ t.track_p4_title }}</h3>
+          <p>{{ t.track_p4_desc }}</p>
+        </div>
+
+        <div class="mission-card reveal active">
+          <div class="mission-icon flex-center"><i data-lucide="file-text"></i></div>
+          <h3>{{ t.track_p5_title }}</h3>
+          <p>{{ t.track_p5_desc }}</p>
+        </div>
+
+        <div class="mission-card reveal active">
+          <div class="mission-icon flex-center"><i data-lucide="sparkles"></i></div>
+          <h3>{{ t.track_p6_title }}</h3>
+          <p>{{ t.track_p6_desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap Section -->
+  <section class="track-roadmap-section section-padding">
+    <div class="container">
+      <div class="section-header text-center reveal active">
+        <div class="badge">
+          <i data-lucide="milestone"></i>
+          <span>{{ t.track_roadmap_badge }}</span>
+        </div>
+        <h2>{{ t.track_roadmap_title }}</h2>
+      </div>
+
+      <div class="track-roadmap-grid">
+        <div class="roadmap-card active-stage">
+          <span class="roadmap-tag">{{ t.track_roadmap_s1_tag }}</span>
+          <h3>{{ t.track_roadmap_s1_title }}</h3>
+          <p>{{ t.track_roadmap_s1_desc }}</p>
+        </div>
+        <div class="roadmap-card">
+          <span class="roadmap-tag">{{ t.track_roadmap_s2_tag }}</span>
+          <h3>{{ t.track_roadmap_s2_title }}</h3>
+          <p>{{ t.track_roadmap_s2_desc }}</p>
+        </div>
+        <div class="roadmap-card">
+          <span class="roadmap-tag">{{ t.track_roadmap_s3_tag }}</span>
+          <h3>{{ t.track_roadmap_s3_title }}</h3>
+          <p>{{ t.track_roadmap_s3_desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-section section-padding">
+    <div class="cta-glow-1"></div>
+    <div class="cta-glow-2"></div>
+    <div class="container cta-wrapper reveal active">
+      <h2>{{ t.track_bottom_title }}</h2>
+      <p>{{ t.track_bottom_desc }}</p>
+      <div class="cta-buttons">
+        <a href="/partenariat" class="btn btn-accent">{{ t.track_cta_early_partner }} <i data-lucide="arrow-right"></i></a>
+        <a href="/" class="btn btn-secondary">{{ t.back_to_home }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="partner-footer" style="text-align: center; padding: 30px 16px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); background: var(--bg-white);">
+    <div class="container">
+      <p>{{ t.footer_rights }} | <a href="{{ url_for('public.mentions_legales') }}" style="color: var(--primary); font-weight: 600;">{{ t.legal_notice }}</a> | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">{{ t.privacy_policy }}</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile & Tablet App Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="{{ t.mobile_nav_aria }}">
+    <a href="/#accueil" class="mobile-nav-item">
+      <i data-lucide="home"></i>
+      <span>{{ t.mobile_nav_home }}</span>
+    </a>
+    <a href="/#apropos" class="mobile-nav-item">
+      <i data-lucide="shield-check"></i>
+      <span>{{ t.mobile_nav_ngo }}</span>
+    </a>
+    <a href="/partenariat" class="mobile-nav-item nav-highlight">
+      <div class="nav-pill">
+        <i data-lucide="handshake"></i>
+      </div>
+      <span>{{ t.mobile_nav_partner }}</span>
+    </a>
+    <a href="/#domaines" class="mobile-nav-item">
+      <i data-lucide="compass"></i>
+      <span>{{ t.mobile_nav_domains }}</span>
+    </a>
+    <a href="/#contact" class="mobile-nav-item">
+      <i data-lucide="mail"></i>
+      <span>{{ t.mobile_nav_contact }}</span>
+    </a>
+  </nav>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=7"></script>
+</body>
+</html>

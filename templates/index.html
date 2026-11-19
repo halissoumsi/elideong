@@ -55,7 +55,7 @@
   </script>
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=6">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=7">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
@@ -82,6 +82,7 @@
           <li><a href="#apropos">{{ t.nav_about }}</a></li>
           <li><a href="#missions">{{ t.nav_missions }}</a></li>
           <li><a href="#domaines">{{ t.nav_domains }}</a></li>
+          <li><a href="/elide-track">{{ t.nav_elide_track }}</a></li>
           <li><a href="/partenariat">{{ t.nav_partnership }}</a></li>
           <li><a href="#contact">{{ t.nav_contact }}</a></li>
         </ul>
@@ -432,6 +433,111 @@
     </div>
   </section>
 
+  <!-- ELiDe Track — Coming Soon Showcase -->
+  <section id="elide-track" class="elide-track-section section-padding">
+    <div class="container">
+      <div class="track-grid">
+        <div class="track-content reveal">
+          <div class="coming-soon-badge">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>{{ t.track_badge }}</span>
+          </div>
+          <h2>{{ t.track_section_title }}</h2>
+          <p class="track-lead">{{ t.track_section_desc }}</p>
+
+          <div class="track-pillars-mini">
+            <div class="track-mini-item">
+              <div class="track-mini-icon"><i data-lucide="lock"></i></div>
+              <div>
+                <h4>{{ t.track_p1_title }}</h4>
+                <p>{{ t.track_p1_desc }}</p>
+              </div>
+            </div>
+            <div class="track-mini-item">
+              <div class="track-mini-icon"><i data-lucide="map-pinned"></i></div>
+              <div>
+                <h4>{{ t.track_p2_title }}</h4>
+                <p>{{ t.track_p2_desc }}</p>
+              </div>
+            </div>
+            <div class="track-mini-item">
+              <div class="track-mini-icon"><i data-lucide="bar-chart-3"></i></div>
+              <div>
+                <h4>{{ t.track_p3_title }}</h4>
+                <p>{{ t.track_p3_desc }}</p>
+              </div>
+            </div>
+            <div class="track-mini-item">
+              <div class="track-mini-icon"><i data-lucide="smartphone"></i></div>
+              <div>
+                <h4>{{ t.track_p4_title }}</h4>
+                <p>{{ t.track_p4_desc }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="track-actions">
+            <a href="/elide-track" class="btn btn-primary">{{ t.track_cta_discover }} <i data-lucide="arrow-right"></i></a>
+            <a href="/partenariat" class="btn btn-secondary">{{ t.track_cta_early_partner }}</a>
+          </div>
+        </div>
+
+        <div class="track-visual reveal delay-200">
+          <div class="track-preview-card">
+            <div class="track-preview-header">
+              <div class="track-preview-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="track-preview-pill">{{ t.track_preview_status }}</span>
+            </div>
+            <div class="track-preview-body">
+              <div class="track-preview-top">
+                <div>
+                  <h4>{{ t.track_preview_title }}</h4>
+                  <p>{{ t.track_preview_sub }}</p>
+                </div>
+                <div class="track-preview-shield">
+                  <i data-lucide="shield-check"></i>
+                </div>
+              </div>
+
+              <div class="track-metric">
+                <div class="track-metric-row">
+                  <span>{{ t.track_preview_m1_label }}</span>
+                  <strong>78%</strong>
+                </div>
+                <div class="track-bar"><span style="width: 78%;"></span></div>
+              </div>
+
+              <div class="track-metric">
+                <div class="track-metric-row">
+                  <span>{{ t.track_preview_m2_label }}</span>
+                  <strong>64%</strong>
+                </div>
+                <div class="track-bar track-bar-accent"><span style="width: 64%;"></span></div>
+              </div>
+
+              <div class="track-preview-chips">
+                <div class="track-chip">
+                  <i data-lucide="map-pin"></i>
+                  <span>{{ t.track_preview_gps }}</span>
+                </div>
+                <div class="track-chip">
+                  <i data-lucide="file-check-2"></i>
+                  <span>{{ t.track_preview_pdf }}</span>
+                </div>
+                <div class="track-chip">
+                  <i data-lucide="wifi-off"></i>
+                  <span>{{ t.track_preview_offline }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Call To Action -->
   <section class="cta-section section-padding">
     <div class="cta-glow-1"></div>
@@ -573,6 +679,7 @@
             <li><a href="#apropos">{{ t.nav_about }}</a></li>
             <li><a href="#missions">{{ t.nav_missions_footer }}</a></li>
             <li><a href="#domaines">{{ t.nav_domains }}</a></li>
+            <li><a href="/elide-track">{{ t.nav_elide_track }} (Coming Soon)</a></li>
             <li><a href="#contact">{{ t.nav_contact }}</a></li>
           </ul>
         </div>
@@ -661,6 +768,6 @@
   </div>
 
   <!-- Link appJS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=6"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=7"></script>
 </body>
 </html>

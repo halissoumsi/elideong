@@ -285,7 +285,7 @@ header.scrolled .logo-container img {
 header nav ul {
   display: flex;
   list-style: none;
-  gap: 32px;
+  gap: 24px;
   align-items: center;
 }
 
@@ -1342,14 +1342,413 @@ footer {
 }
 
 /* Responsive Styles */
-@media (max-width: 1180px) {
+@media (max-width: 1220px) {
   header nav ul {
-    gap: 20px;
+    gap: 16px;
+  }
+
+  header nav a {
+    font-size: 0.9rem;
   }
 
   .header-cta .btn {
-    padding: 11px 20px;
-    font-size: 0.9rem;
+    padding: 11px 18px;
+    font-size: 0.88rem;
+  }
+}
+
+/* ==========================================================================
+   ELiDe TRACK — COMING SOON SHOWCASE & DEDICATED PAGE
+   ========================================================================== */
+.elide-track-section {
+  background: radial-gradient(circle at 85% 15%, rgba(251, 133, 0, 0.08) 0%, transparent 45%),
+              radial-gradient(circle at 10% 85%, rgba(0, 122, 45, 0.08) 0%, transparent 45%),
+              var(--bg-light);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.track-page-body {
+  background: var(--bg-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.track-page-hero {
+  padding: 72px 0 80px;
+  background: radial-gradient(circle at 85% 15%, rgba(251, 133, 0, 0.09) 0%, transparent 45%),
+              radial-gradient(circle at 10% 80%, rgba(0, 158, 58, 0.09) 0%, transparent 45%),
+              var(--bg-white);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.track-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 54px;
+  align-items: center;
+}
+
+.track-content,
+.track-visual {
+  min-width: 0;
+  width: 100%;
+}
+
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(251, 133, 0, 0.12);
+  border: 1px solid rgba(251, 133, 0, 0.35);
+  color: #b55d00;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 20px;
+}
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(251, 133, 0, 0.65);
+  animation: pulse-ring 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(251, 133, 0, 0.65); }
+  70% { box-shadow: 0 0 0 9px rgba(251, 133, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(251, 133, 0, 0); }
+}
+
+.elide-track-section h2 {
+  font-size: 2.35rem;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.track-h1 {
+  font-size: 3.1rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.track-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  border-left: 3px solid var(--accent);
+  padding-left: 14px;
+  margin-bottom: 18px;
+}
+
+.track-lead {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.track-pillars-mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.track-mini-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.track-mini-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(0, 122, 45, 0.08);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.track-mini-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.track-mini-item h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: var(--primary);
+}
+
+.track-mini-item p {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.track-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* Dashboard Preview Card */
+.track-preview-card {
+  background: linear-gradient(155deg, #0b251c 0%, #103a28 60%, #091e16 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 55px rgba(0, 45, 20, 0.24);
+  overflow: hidden;
+  color: #f4fbf7;
+}
+
+.track-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.track-preview-dots {
+  display: flex;
+  gap: 7px;
+}
+
+.track-preview-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.track-preview-dots span:first-child { background: #ff6b6b; }
+.track-preview-dots span:nth-child(2) { background: #ffb703; }
+.track-preview-dots span:nth-child(3) { background: #2ec4b6; }
+
+.track-preview-pill {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  padding: 4px 11px;
+  border-radius: var(--radius-full);
+  background: rgba(251, 133, 0, 0.2);
+  color: #ffb703;
+  border: 1px solid rgba(255, 183, 3, 0.35);
+}
+
+.track-preview-body {
+  padding: 26px 24px;
+}
+
+.track-preview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.track-preview-top h4 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.track-preview-top p {
+  color: rgba(244, 251, 247, 0.68);
+  font-size: 0.84rem;
+}
+
+.track-preview-shield {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(0, 158, 58, 0.22);
+  border: 1px solid rgba(82, 183, 136, 0.35);
+  color: #6ee7b7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.track-metric {
+  margin-bottom: 18px;
+}
+
+.track-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  color: rgba(244, 251, 247, 0.85);
+}
+
+.track-metric-row strong {
+  color: #6ee7b7;
+  font-family: var(--font-heading);
+}
+
+.track-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.track-bar span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #009e3a 0%, #52b788 100%);
+}
+
+.track-bar-accent span {
+  background: linear-gradient(90deg, #fb8500 0%, #ffb703 100%);
+}
+
+.track-preview-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.track-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.84rem;
+  color: rgba(244, 251, 247, 0.92);
+}
+
+.track-chip svg {
+  width: 17px;
+  height: 17px;
+  color: #ffb703;
+  flex-shrink: 0;
+}
+
+/* Roadmap Section */
+.track-roadmap-section {
+  background: var(--bg-white);
+}
+
+.track-roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.roadmap-card {
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  transition: var(--transition-smooth);
+}
+
+.roadmap-card.active-stage {
+  background: var(--bg-white);
+  border: 2px solid var(--primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.roadmap-tag {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 122, 45, 0.1);
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.roadmap-card.active-stage .roadmap-tag {
+  background: rgba(251, 133, 0, 0.14);
+  color: #b55d00;
+}
+
+.roadmap-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.roadmap-card p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 960px) {
+  .track-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .track-pillars-mini {
+    grid-template-columns: 1fr;
+  }
+
+  .track-roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .track-page-hero {
+    padding: 32px 0 48px;
+  }
+
+  .elide-track-section h2,
+  .track-h1 {
+    font-size: 1.85rem;
+  }
+
+  .track-subtitle {
+    font-size: 1rem;
+  }
+
+  .track-actions {
+    flex-direction: column;
+  }
+
+  .track-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
