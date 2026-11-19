@@ -1,9 +1,9 @@
-const CACHE_NAME = 'elide-pwa-v3';
+const CACHE_NAME = 'elide-pwa-v4';
 const ASSETS_TO_CACHE = [
   '/',
   '/partenariat',
-  '/static/css/style.css?v=2',
-  '/static/js/app.js?v=3',
+  '/static/css/style.css?v=4',
+  '/static/js/app.js?v=4',
   '/static/assets/logo-vert.png',
   '/static/assets/logo-noir.png',
   '/static/assets/icon-192.png',
@@ -33,7 +33,7 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) {
+  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/lang/')) {
     return;
   }
 

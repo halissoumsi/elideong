@@ -1,7 +1,31 @@
-from flask import Blueprint, render_template, request, jsonify, current_app, send_from_directory
+from flask import Blueprint, render_template, request, jsonify, current_app, send_from_directory, redirect, session
 from config import send_email_notification
+from i18n import SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, LANG_COOKIE_NAME, get_translations
 
 public_bp = Blueprint('public', __name__)
+
+@public_bp.route('/lang/<lang_code>')
+def set_language(lang_code):
+    """Change la langue active (FR/EN), enregistre la préférence et redirige vers la page courante."""
+    code = (lang_code or '').strip().lower()
+    if code not in SUPPORTED_LANGUAGES:
+        code = DEFAULT_LANGUAGE
+
+    session['lang'] = code
+
+    next_url = (request.args.get('next') or '/').strip()
+    if not next_url.startswith('/') or next_url.startswith('//'):
+        next_url = '/'
+
+    response = redirect(next_url)
+    response.set_cookie(
+        LANG_COOKIE_NAME,
+        code,
+        max_age=60 * 60 * 24 * 365,
+        samesite='Lax',
+        httponly=True
+    )
+    return response
 
 @public_bp.route('/')
 def index():
@@ -31,6 +55,7 @@ def politique_confidentialite():
 @public_bp.route('/api/contact', methods=['POST'])
 def contact():
     """Traite le formulaire de contact via envoi SMTP"""
+    t = get_translations()
     try:
         data = request.get_json() or request.form
         name = (data.get('name') or '').strip()
@@ -39,7 +64,7 @@ def contact():
         message = (data.get('message') or '').strip()
         
         if not all([name, email, subject, message]):
-            return jsonify({'status': 'error', 'message': 'Veuillez remplir tous les champs du formulaire.'}), 400
+            return jsonify({'status': 'error', 'message': t['api_contact_missing']}), 400
             
         notify_email = current_app.config.get('PARTNER_NOTIFY_EMAIL', 'ongelide@gmail.com')
         
@@ -63,8 +88,8 @@ def contact():
         return jsonify({
             'status': 'success',
             'email_sent': email_sent,
-            'message': 'Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais.'
+            'message': t['api_contact_success']
         }), 200
     except Exception as e:
         print(f"[CONTACT ERROR] {e}")
-        return jsonify({'status': 'error', 'message': "Une erreur interne est survenue lors de l'envoi."}), 500
+        return jsonify({'status': 'error', 'message': t['api_contact_error']}), 500

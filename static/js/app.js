@@ -4,6 +4,25 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
   }
 
+  // Restore scroll position seamlessly after switching language
+  try {
+    const savedScroll = sessionStorage.getItem('elide_lang_scroll');
+    if (savedScroll !== null) {
+      sessionStorage.removeItem('elide_lang_scroll');
+      const y = parseInt(savedScroll, 10);
+      if (!Number.isNaN(y) && y > 0) {
+        window.scrollTo({ top: y, behavior: 'instant' });
+      }
+    }
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!btn.classList.contains('active')) {
+          sessionStorage.setItem('elide_lang_scroll', String(window.scrollY));
+        }
+      });
+    });
+  } catch (e) {}
+
   // Header scroll dynamic visual change
   const header = document.querySelector('header');
   if (header) {
@@ -164,10 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
+      const sendingLabel = contactForm.dataset.sending || 'Envoi en cours...';
+      const defaultSuccessMsg = contactForm.dataset.success || 'Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais.';
+      const defaultErrorMsg = contactForm.dataset.error || "Une erreur est survenue lors de l'envoi.";
+      const networkErrorMsg = contactForm.dataset.networkError || 'Erreur de connexion. Impossible de joindre le serveur.';
       
       // Visual feedback loading state
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Envoi en cours...</span>`;
+      submitBtn.innerHTML = `<span>${sendingLabel}</span>`;
       
       // Collect form data
       const name = document.getElementById('form-name').value;
@@ -187,18 +210,18 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(res => {
         if (res.status === 200) {
           formStatus.className = "form-status success";
-          formStatus.textContent = res.body.message || "Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais.";
+          formStatus.textContent = res.body.message || defaultSuccessMsg;
           contactForm.reset();
         } else {
           // Error state from server
           formStatus.className = "form-status error";
-          formStatus.textContent = res.body.message || "Une erreur est survenue lors de l'envoi.";
+          formStatus.textContent = res.body.message || defaultErrorMsg;
         }
       })
       .catch(error => {
         console.error('Error submitting form:', error);
         formStatus.className = "form-status error";
-        formStatus.textContent = "Erreur de connexion. Impossible de joindre le serveur.";
+        formStatus.textContent = networkErrorMsg;
       })
       .finally(() => {
         submitBtn.disabled = false;

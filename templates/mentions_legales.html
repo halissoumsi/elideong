@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
-  <title>Mentions Légales — ONG Les Élites de Demain (ELiDe)</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
+  <title>{{ t.legal_page_title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -111,70 +111,73 @@
       <a href="/" class="logo-container">
         <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
         <div class="logo-text">
-          <h1>ELiDe</h1>
-          <span>Les Élites de Demain</span>
+          <h1>{{ t.brand_acronym }}</h1>
+          <span>{{ t.brand_subtitle }}</span>
         </div>
       </a>
-      <a href="/" class="btn btn-secondary"><i data-lucide="arrow-left"></i> Retour à l'accueil</a>
+      <div class="subpage-header-actions">
+        {% include '_lang_switcher.html' %}
+        <a href="/" class="btn btn-secondary"><i data-lucide="arrow-left"></i> {{ t.back_to_home }}</a>
+      </div>
     </div>
   </header>
 
   <!-- Main Content -->
   <main class="legal-wrapper">
     <div class="legal-card">
-      <h1>Mentions Légales</h1>
-      <p class="legal-updated">Conformément aux dispositions de la Loi n° 2017-20 du 20 avril 2018 portant Code du Numérique en République du Bénin.</p>
+      <h1>{{ t.legal_h1 }}</h1>
+      <p class="legal-updated">{{ t.legal_subtitle }}</p>
 
       <div class="legal-section">
-        <h2>1. Éditeur du Site</h2>
-        <p>Le présent site web est le site vitrine institutionnel officiel de l'Organisation Non Gouvernementale <strong>Les Élites de Demain (ELiDe)</strong> :</p>
+        <h2>{{ t.legal_s1_title }}</h2>
+        <p>{{ t.legal_s1_intro }} <strong>{{ t.about_p1_bold }}</strong> :</p>
         <ul>
-          <li><strong>Dénomination :</strong> ONG Les Élites de Demain (ELiDe)</li>
-          <li><strong>Statut juridique :</strong> Organisation Non Gouvernementale à but non lucratif, apolitique et laïque, régie par la <strong>Loi n° 2025-19 du 22 juillet 2025</strong> relative aux associations et aux fondations en République du Bénin.</li>
-          <li><strong>Siège social :</strong> Quartier Ladji-Farani, Maison SEIDOU IBRAHIM, 2ᵉ arrondissement, Commune de Parakou, Département du Borgou, République du Bénin.</li>
-          <li><strong>Téléphones :</strong> (+229) 01 67 57 60 50 / (+229) 01 64 55 76 73</li>
-          <li><strong>Adresse électronique :</strong> <a href="mailto:ongelide@gmail.com" style="color: var(--primary); font-weight: 600;">ongelide@gmail.com</a></li>
+          <li><strong>{{ t.legal_s1_name_label }}</strong> {{ t.legal_s1_name_val }}</li>
+          <li><strong>{{ t.legal_s1_status_label }}</strong> {{ t.legal_s1_status_pre }} <strong>{{ t.legal_s1_status_law }}</strong> {{ t.legal_s1_status_post }}</li>
+          <li><strong>{{ t.legal_s1_hq_label }}</strong> {{ t.contact_hq_address }}</li>
+          <li><strong>{{ t.legal_s1_phones_label }}</strong> (+229) 01 67 57 60 50 / (+229) 01 64 55 76 73</li>
+          <li><strong>{{ t.legal_s1_email_label }}</strong> <a href="mailto:ongelide@gmail.com" style="color: var(--primary); font-weight: 600;">ongelide@gmail.com</a></li>
         </ul>
       </div>
 
       <div class="legal-section">
-        <h2>2. Hébergement</h2>
-        <p>Le site est hébergé sur l'infrastructure cloud de :</p>
+        <h2>{{ t.legal_s2_title }}</h2>
+        <p>{{ t.legal_s2_intro }}</p>
         <ul>
-          <li><strong>Hébergeur :</strong> Vercel Inc.</li>
-          <li><strong>Adresse :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
-          <li><strong>Site web :</strong> <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">https://vercel.com</a></li>
+          <li><strong>{{ t.legal_s2_host_label }}</strong> Vercel Inc.</li>
+          <li><strong>{{ t.legal_s2_addr_label }}</strong> {{ t.legal_s2_addr_val }}</li>
+          <li><strong>{{ t.legal_s2_web_label }}</strong> <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">https://vercel.com</a></li>
         </ul>
       </div>
 
       <div class="legal-section">
-        <h2>3. Propriété Intellectuelle</h2>
+        <h2>{{ t.legal_s3_title }}</h2>
         <p>
-          L'ensemble des éléments figurant sur ce site (textes, logos, charte graphique, icônes, mise en page) est la propriété exclusive de l'<strong>ONG Les Élites de Demain (ELiDe)</strong>, sauf mention contraire explicite.
+          {{ t.legal_s3_p1_pre }}<strong>{{ t.brand_full_name }}</strong>{{ t.legal_s3_p1_post }}
         </p>
         <p>
-          Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable du Bureau National de l'ONG ELiDe.
-        </p>
-      </div>
-
-      <div class="legal-section">
-        <h2>4. Limitation de Responsabilité</h2>
-        <p>
-          L'ONG ELiDe s'efforce de fournir sur son site des informations aussi précises et actualisées que possible concernant ses missions, ses domaines d'intervention et ses activités en République du Bénin. Toutefois, elle ne saurait être tenue responsable des omissions, des inexactitudes ou des carences dans la mise à jour.
+          {{ t.legal_s3_p2 }}
         </p>
       </div>
 
       <div class="legal-section">
-        <h2>5. Protection des Données à Caractère Personnel</h2>
+        <h2>{{ t.legal_s4_title }}</h2>
         <p>
-          Le traitement des données personnelles collectées via les formulaires du site s'effectue dans le strict respect du <strong>Livre V de la Loi n° 2017-20 du 20 avril 2018 portant Code du Numérique en République du Bénin</strong> et sous le contrôle de l'<strong>Autorité de Protection des Données Personnelles (APDP)</strong>. Pour plus d'informations, veuillez consulter notre <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600; text-decoration: underline;">Politique de Confidentialité</a>.
+          {{ t.legal_s4_p1 }}
+        </p>
+      </div>
+
+      <div class="legal-section">
+        <h2>{{ t.legal_s5_title }}</h2>
+        <p>
+          {{ t.legal_s5_pre }} <strong>{{ t.legal_s5_law }}</strong> {{ t.legal_s5_mid }}<strong>{{ t.legal_s5_apdp }}</strong>{{ t.legal_s5_post }} <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600; text-decoration: underline;">{{ t.privacy_policy }}</a>.
         </p>
       </div>
 
       <div class="legal-section" style="margin-bottom: 0;">
-        <h2>6. Droit Applicable et Juridiction Compétente</h2>
+        <h2>{{ t.legal_s6_title }}</h2>
         <p>
-          Les présentes mentions légales sont régies par le droit béninois. Tout litige en relation avec l'utilisation du site est soumis aux juridictions compétentes du ressort de <strong>Parakou (République du Bénin)</strong>.
+          {{ t.legal_s6_pre }} <strong>{{ t.legal_s6_place }}</strong>.
         </p>
       </div>
     </div>
@@ -183,36 +186,36 @@
   <!-- Footer -->
   <footer class="legal-footer">
     <div class="container">
-      <p>&copy; 2026 ONG Les Élites de Demain (ELiDe). Tous droits réservés. | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">Politique de Confidentialité</a></p>
+      <p>{{ t.footer_rights }} | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">{{ t.privacy_policy }}</a></p>
     </div>
   </footer>
 
   <!-- Mobile & Tablet App Bottom Navigation Bar -->
-  <nav class="mobile-bottom-nav" aria-label="Navigation application mobile">
+  <nav class="mobile-bottom-nav" aria-label="{{ t.mobile_nav_aria }}">
     <a href="/#accueil" class="mobile-nav-item">
       <i data-lucide="home"></i>
-      <span>Accueil</span>
+      <span>{{ t.mobile_nav_home }}</span>
     </a>
     <a href="/#apropos" class="mobile-nav-item">
       <i data-lucide="shield-check"></i>
-      <span>L'ONG</span>
+      <span>{{ t.mobile_nav_ngo }}</span>
     </a>
     <a href="/partenariat" class="mobile-nav-item nav-highlight">
       <div class="nav-pill">
         <i data-lucide="handshake"></i>
       </div>
-      <span>Partenaire</span>
+      <span>{{ t.mobile_nav_partner }}</span>
     </a>
     <a href="/#domaines" class="mobile-nav-item">
       <i data-lucide="compass"></i>
-      <span>Domaines</span>
+      <span>{{ t.mobile_nav_domains }}</span>
     </a>
     <a href="/#contact" class="mobile-nav-item">
       <i data-lucide="mail"></i>
-      <span>Contact</span>
+      <span>{{ t.mobile_nav_contact }}</span>
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=4"></script>
 </body>
 </html>

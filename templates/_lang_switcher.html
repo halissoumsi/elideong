@@ -1,0 +1,17 @@
+<div class="lang-switcher" role="group" aria-label="{{ t.lang_switcher_label }}">
+  <span class="lang-switcher-icon" aria-hidden="true">
+    <i data-lucide="globe"></i>
+  </span>
+  <a href="{{ switch_lang_url('fr') }}"
+     class="lang-btn {% if lang == 'fr' %}active{% endif %}"
+     lang="fr"
+     hreflang="fr"
+     aria-label="{{ t.switch_to_fr_label }}"
+     {% if lang == 'fr' %}aria-current="true"{% endif %}>FR</a>
+  <a href="{{ switch_lang_url('en') }}"
+     class="lang-btn {% if lang == 'en' %}active{% endif %}"
+     lang="en"
+     hreflang="en"
+     aria-label="{{ t.switch_to_en_label }}"
+     {% if lang == 'en' %}aria-current="true"{% endif %}>EN</a>
+</div>

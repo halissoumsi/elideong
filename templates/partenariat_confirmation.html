@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
-  <title>Proposition reçue — ONG ELiDe</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
+  <title>{{ t.confirm_page_title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -167,11 +167,14 @@
       <a href="/" class="logo-container">
         <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
         <div class="logo-text">
-          <h1>ELiDe</h1>
-          <span>Les Élites de Demain</span>
+          <h1>{{ t.brand_acronym }}</h1>
+          <span>{{ t.brand_subtitle }}</span>
         </div>
       </a>
-      <a href="/" class="btn btn-secondary"><i data-lucide="home"></i> Accueil</a>
+      <div class="subpage-header-actions">
+        {% include '_lang_switcher.html' %}
+        <a href="/" class="btn btn-secondary"><i data-lucide="home"></i> {{ t.nav_home }}</a>
+      </div>
     </div>
   </header>
 
@@ -179,7 +182,7 @@
   <div class="confirm-wrapper">
     
     <!-- ERROR CARD -->
-    {% if status == 'error' %}
+    {% if status is defined and status == 'error' %}
       <div class="confirm-card error-card reveal active">
         <div class="confirm-icon">
           <i data-lucide="alert-triangle"></i>
@@ -187,7 +190,7 @@
         <h2>{{ title }}</h2>
         <p>{{ message }}</p>
         <a href="{{ url_for('partenariat.partner_form') }}" class="btn btn-primary">
-          <i data-lucide="arrow-left"></i> Retour au formulaire
+          <i data-lucide="arrow-left"></i> {{ t.confirm_back_form }}
         </a>
       </div>
       
@@ -197,38 +200,38 @@
         <div class="confirm-icon">
           <i data-lucide="check"></i>
         </div>
-        <h2>Proposition Envoyée !</h2>
+        <h2>{{ t.confirm_success_title }}</h2>
         <p>
-          Merci pour votre intérêt ! Votre proposition de partenariat pour l'organisation <strong>{{ lead.org_name }}</strong> a bien été transmise à notre Bureau National.
+          {{ t.confirm_success_p1 }} <strong>{{ lead.org_name }}</strong> {{ t.confirm_success_p2 }}
         </p>
         
         <div class="steps-list">
-          <h4>Prochaines étapes :</h4>
+          <h4>{{ t.confirm_next_steps }}</h4>
           
           <div class="step-item">
             <div class="step-num">1</div>
             <div class="step-text">
-              <strong>Étude du dossier :</strong> Le Bureau National de l'ONG ELiDe étudie votre proposition au regard de nos domaines d'action : <em>{{ lead.domains }}</em>.
+              <strong>{{ t.confirm_step_1_bold }}</strong> {{ t.confirm_step_1_text }} <em>{{ lead.domains }}</em>.
             </div>
           </div>
           
           <div class="step-item">
             <div class="step-num">2</div>
             <div class="step-text">
-              <strong>Prise de contact :</strong> Un responsable de partenariat prendra contact avec vous à l'adresse <em>{{ lead.email }}</em> dans un délai maximum de <strong>5 jours ouvrés</strong>.
+              <strong>{{ t.confirm_step_2_bold }}</strong> {{ t.confirm_step_2_pre }} <em>{{ lead.email }}</em> {{ t.confirm_step_2_mid }} <strong>{{ t.confirm_step_2_days }}</strong>.
             </div>
           </div>
           
           <div class="step-item">
             <div class="step-num">3</div>
             <div class="step-text">
-              <strong>Entretien de cadrage :</strong> Si la proposition est retenue, nous organiserons une réunion de cadrage pour définir les modalités techniques et financières de collaboration.
+              <strong>{{ t.confirm_step_3_bold }}</strong> {{ t.confirm_step_3_text }}
             </div>
           </div>
         </div>
         
         <a href="/" class="btn btn-primary">
-          <i data-lucide="arrow-left"></i> Retour à l'accueil
+          <i data-lucide="arrow-left"></i> {{ t.back_to_home }}
         </a>
       </div>
     {% endif %}
@@ -238,36 +241,36 @@
   <!-- Footer -->
   <footer class="confirm-footer">
     <div class="container">
-      <p>&copy; 2026 ONG Les Élites de Demain (ELiDe). Tous droits réservés. | <a href="{{ url_for('public.mentions_legales') }}" style="color: var(--primary); font-weight: 600;">Mentions Légales</a> | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">Politique de Confidentialité</a></p>
+      <p>{{ t.footer_rights }} | <a href="{{ url_for('public.mentions_legales') }}" style="color: var(--primary); font-weight: 600;">{{ t.legal_notice }}</a> | <a href="{{ url_for('public.politique_confidentialite') }}" style="color: var(--primary); font-weight: 600;">{{ t.privacy_policy }}</a></p>
     </div>
   </footer>
 
   <!-- Mobile & Tablet App Bottom Navigation Bar -->
-  <nav class="mobile-bottom-nav" aria-label="Navigation application mobile">
+  <nav class="mobile-bottom-nav" aria-label="{{ t.mobile_nav_aria }}">
     <a href="/#accueil" class="mobile-nav-item">
       <i data-lucide="home"></i>
-      <span>Accueil</span>
+      <span>{{ t.mobile_nav_home }}</span>
     </a>
     <a href="/#apropos" class="mobile-nav-item">
       <i data-lucide="shield-check"></i>
-      <span>L'ONG</span>
+      <span>{{ t.mobile_nav_ngo }}</span>
     </a>
     <a href="/partenariat" class="mobile-nav-item nav-highlight active">
       <div class="nav-pill">
         <i data-lucide="handshake"></i>
       </div>
-      <span>Partenaire</span>
+      <span>{{ t.mobile_nav_partner }}</span>
     </a>
     <a href="/#domaines" class="mobile-nav-item">
       <i data-lucide="compass"></i>
-      <span>Domaines</span>
+      <span>{{ t.mobile_nav_domains }}</span>
     </a>
     <a href="/#contact" class="mobile-nav-item">
       <i data-lucide="mail"></i>
-      <span>Contact</span>
+      <span>{{ t.mobile_nav_contact }}</span>
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=4"></script>
 </body>
 </html>

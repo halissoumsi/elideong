@@ -2,6 +2,7 @@ import time
 import secrets
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
 from config import send_email_notification
+from i18n import get_current_lang, get_translations
 
 partenariat_bp = Blueprint('partenariat', __name__)
 
@@ -17,6 +18,9 @@ def partner_form():
 @partenariat_bp.route('/partenariat', methods=['POST'])
 def partner_submit():
     """Handles partnership proposal submission via SMTP"""
+    lang = get_current_lang()
+    t = get_translations(lang)
+
     # 1. Protection Anti-Robot Multicouche Invisible (Honeypot + Jeton dynamique JS + Délai humain)
     honeypot = request.form.get('website_url')
     submitted_token = request.form.get('security_token', '')
@@ -26,8 +30,8 @@ def partner_submit():
     
     if honeypot or not expected_token or submitted_token != expected_token or elapsed < 2.0:
         return render_template('partenariat_confirmation.html', 
-                               title="Action Rejetée", 
-                               message="La soumission a été bloquée par la protection anti-spam.", 
+                               title=t['partner_spam_title'], 
+                               message=t['partner_spam_msg'], 
                                status="error")
         
     # 2. Input Extraction
@@ -45,7 +49,7 @@ def partner_submit():
     domains_str = ", ".join(selected_domains)
     
     if not all([org_name, partner_type, country, contact_name, email, domains_str]):
-        flash("Veuillez remplir tous les champs obligatoires du formulaire.", "error")
+        flash(t['partner_missing_fields'], "error")
         return redirect(url_for('partenariat.partner_form'))
         
     notify_email = current_app.config.get('PARTNER_NOTIFY_EMAIL', 'ongelide@gmail.com')
@@ -54,7 +58,7 @@ def partner_submit():
     email_subject = f"[Partenariat ELiDe] Nouvelle proposition — {org_name}"
     email_body = (
         f"Bonjour l'équipe,\n\n"
-        f"Une nouvelle proposition de partenariat a été soumise sur le site web :\n\n"
+        f"Une nouvelle proposition de partenariat a été soumise sur le site web (Langue : {lang.upper()}) :\n\n"
         f"- Organisation : {org_name} ({partner_type})\n"
         f"- Pays : {country}\n"
         f"- Contact : {contact_name} ({contact_role or 'Non renseigné'})\n"
@@ -73,15 +77,24 @@ def partner_submit():
         reply_to=email
     )
     if email_sent:
-        partner_ack_body = (
-            f"Bonjour {contact_name},\n\n"
-            f"Nous vous remercions chaleureusement pour la proposition de partenariat de '{org_name}' "
-            f"concernant nos domaines d'action ({domains_str}).\n"
-            f"Notre Bureau National prendra contact avec vous sous 5 jours ouvrés.\n\n"
-            f"Cordialement,\nL'équipe de l'ONG Les Élites de Demain (ELiDe)"
-        )
+        if lang == 'en':
+            partner_ack_body = (
+                f"Dear {contact_name},\n\n"
+                f"Thank you sincerely for submitting a partnership proposal on behalf of '{org_name}' "
+                f"regarding our focus areas ({domains_str}).\n"
+                f"Our National Office will review your proposal and get back to you within 5 business days.\n\n"
+                f"Warm regards,\nThe Les Élites de Demain NGO (ELiDe) Team"
+            )
+        else:
+            partner_ack_body = (
+                f"Bonjour {contact_name},\n\n"
+                f"Nous vous remercions chaleureusement pour la proposition de partenariat de '{org_name}' "
+                f"concernant nos domaines d'action ({domains_str}).\n"
+                f"Notre Bureau National prendra contact avec vous sous 5 jours ouvrés.\n\n"
+                f"Cordialement,\nL'équipe de l'ONG Les Élites de Demain (ELiDe)"
+            )
         send_email_notification(
-            subject="Confirmation de votre proposition de partenariat — ONG ELiDe",
+            subject=t['partner_ack_subject'],
             body=partner_ack_body,
             to_email=email
         )

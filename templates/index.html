@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,17 +10,17 @@
   <meta name="apple-mobile-web-app-title" content="ONG ELiDe">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
-  <title>ONG Les Élites de Demain (ELiDe) — Parakou, Bénin</title>
-  <meta name="description" content="Site officiel de l'ONG Les Élites de Demain (ELiDe) à Parakou. Organisation engagée pour l'autonomisation, l'agriculture durable, l'environnement et l'innovation numérique au Bénin.">
-  <meta property="og:title" content="ONG Les Élites de Demain (ELiDe) — Parakou, Bénin">
-  <meta property="og:description" content="Le dynamisme d'une jeunesse engagée pour l'autonomisation, l'agriculture durable, l'environnement et l'innovation numérique au Bénin.">
+  <title>{{ t.index_title }}</title>
+  <meta name="description" content="{{ t.index_description }}">
+  <meta property="og:title" content="{{ t.index_title }}">
+  <meta property="og:description" content="{{ t.index_og_description }}">
   <meta property="og:type" content="website">
   <meta property="og:image" content="{{ url_for('static', filename='assets/logo-vert.png', _external=True) }}">
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4">
   
-  <!-- Favicon placeholder (Uses safe styling, we can display our logo) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   
   <!-- Lucide Icons CDN -->
@@ -32,36 +32,40 @@
   <header>
     <div class="container nav-wrapper">
       <a href="#accueil" class="logo-container">
-        <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo Vert ELiDe">
+        <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
         <div class="logo-text">
-          <h1>ELiDe</h1>
-          <span>Les Élites de Demain</span>
+          <h1>{{ t.brand_acronym }}</h1>
+          <span>{{ t.brand_subtitle }}</span>
         </div>
       </a>
       
       <nav id="nav-menu">
         <ul>
-          <li><a href="#accueil" class="active">Accueil</a></li>
-          <li><a href="#apropos">À Propos</a></li>
-          <li><a href="#missions">Missions</a></li>
-          <li><a href="#domaines">Nos Domaines</a></li>
-          <li><a href="/partenariat">Partenariat</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#accueil" class="active">{{ t.nav_home }}</a></li>
+          <li><a href="#apropos">{{ t.nav_about }}</a></li>
+          <li><a href="#missions">{{ t.nav_missions }}</a></li>
+          <li><a href="#domaines">{{ t.nav_domains }}</a></li>
+          <li><a href="/partenariat">{{ t.nav_partnership }}</a></li>
+          <li><a href="#contact">{{ t.nav_contact }}</a></li>
         </ul>
       </nav>
       
-      <div class="header-cta">
-        <a href="#contact" class="btn btn-primary">Nous Rejoindre</a>
-      </div>
-      
-      <button type="button" id="pwa-install-btn" class="pwa-install-btn" aria-label="Installer l'application">
-        <i data-lucide="download" style="width: 15px; height: 15px;"></i> Installer l'App
-      </button>
-      
-      <div class="burger" id="burger-menu">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="header-right">
+        {% include '_lang_switcher.html' %}
+
+        <div class="header-cta">
+          <a href="#contact" class="btn btn-primary">{{ t.header_cta }}</a>
+        </div>
+        
+        <button type="button" id="pwa-install-btn" class="pwa-install-btn" aria-label="{{ t.pwa_install_aria }}">
+          <i data-lucide="download" style="width: 15px; height: 15px;"></i> {{ t.pwa_install }}
+        </button>
+        
+        <div class="burger" id="burger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
   </header>
@@ -72,24 +76,24 @@
       <div class="hero-content reveal">
         <div class="badge">
           <i data-lucide="sparkles"></i>
-          <span>Slogan Officiel</span>
+          <span>{{ t.hero_badge }}</span>
         </div>
-        <h2>Le dynamisme d'une <span>jeunesse engagée</span></h2>
-        <p class="tagline">ONG Les Élites de Demain (ELiDe) — Parakou, République du Bénin</p>
+        <h2>{{ t.hero_title_prefix }} <span>{{ t.hero_title_highlight }}</span></h2>
+        <p class="tagline">{{ t.hero_tagline }}</p>
         <p class="description">
-          Fondée sur une volonté commune de contribuer au développement socio-économique durable et inclusif du Bénin, l'ELiDe déploie ses forces et son dynamisme sur l'ensemble du territoire national béninois.
+          {{ t.hero_description }}
         </p>
         <div class="hero-actions">
-          <a href="#apropos" class="btn btn-primary">Découvrir l'ONG <i data-lucide="arrow-right"></i></a>
-          <a href="#contact" class="btn btn-secondary">Nous Contacter</a>
+          <a href="#apropos" class="btn btn-primary">{{ t.hero_btn_discover }} <i data-lucide="arrow-right"></i></a>
+          <a href="#contact" class="btn btn-secondary">{{ t.hero_btn_contact }}</a>
         </div>
       </div>
       
       <div class="hero-visual reveal delay-200">
         <div class="hero-blob"></div>
         <div class="logo-display-card">
-          <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo Officiel ELiDe">
-          <p>ONG ELiDe</p>
+          <img src="{{ url_for('static', filename='assets/logo-vert.png') }}" alt="Logo ELiDe">
+          <p>{{ t.hero_logo_caption }}</p>
         </div>
       </div>
     </div>
@@ -100,37 +104,37 @@
     <div class="container">
       <div class="stats-grid">
         <div class="stat-item reveal">
-          <h3>5+</h3>
-          <p>Domaines d'Intervention</p>
+          <h3>{{ t.stat_1_value }}</h3>
+          <p>{{ t.stat_1_label }}</p>
         </div>
         <div class="stat-item reveal delay-100">
-          <h3>100%</h3>
-          <p>Jeunesse Engagée</p>
+          <h3>{{ t.stat_2_value }}</h3>
+          <p>{{ t.stat_2_label }}</p>
         </div>
         <div class="stat-item reveal delay-200">
-          <h3>Bénin</h3>
-          <p>Ancrage Territorial</p>
+          <h3>{{ t.stat_3_value }}</h3>
+          <p>{{ t.stat_3_label }}</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About Section & Official Documents -->
+  <!-- About Section & Charter -->
   <section id="apropos" class="about-section section-padding">
     <div class="container">
       <div class="about-grid">
         <div class="about-content reveal">
           <div class="badge">
             <i data-lucide="users"></i>
-            <span>Qui Sommes-Nous ?</span>
+            <span>{{ t.about_badge }}</span>
           </div>
-          <h3>Une force collective pour le développement du Bénin</h3>
+          <h3>{{ t.about_title }}</h3>
           <div class="about-text">
             <p>
-              L'Organisation Non Gouvernementale <strong>Les Élites de Demain (ELiDe)</strong> est régie par la Loi n° 2025-19 du 22 juillet 2025 relative aux associations et aux fondations en République du Bénin.
+              {{ t.about_p1_before }} <strong>{{ t.about_p1_bold }}</strong> {{ t.about_p1_after }}
             </p>
             <p>
-              Apolitique et laïque, l'ONG s'interdit toute discrimination fondée sur l'ethnie, le sexe ou l'opinion politique. Nous œuvrons activement à la base pour le bien-être des populations locales de la commune de Parakou et de tout le Bénin.
+              {{ t.about_p2 }}
             </p>
           </div>
           
@@ -140,8 +144,8 @@
                 <i data-lucide="shield-check"></i>
               </div>
               <div class="about-feature-text">
-                <h4>Cadre Légal & Éthique</h4>
-                <p>Fonctionnement transparent en totale conformité avec les lois de la République du Bénin.</p>
+                <h4>{{ t.about_feat_1_title }}</h4>
+                <p>{{ t.about_feat_1_desc }}</p>
               </div>
             </div>
             
@@ -150,8 +154,8 @@
                 <i data-lucide="target"></i>
               </div>
               <div class="about-feature-text">
-                <h4>Approche de Proximité</h4>
-                <p>Des actions concrètes ciblées pour impacter positivement le quotidien des communautés.</p>
+                <h4>{{ t.about_feat_2_title }}</h4>
+                <p>{{ t.about_feat_2_desc }}</p>
               </div>
             </div>
           </div>
@@ -165,18 +169,18 @@
                 <i data-lucide="shield-check"></i>
               </div>
               <div class="document-title">
-                <h4>Charte & Valeurs</h4>
-                <p>Principes Fondateurs de l'ELiDe</p>
+                <h4>{{ t.charter_title }}</h4>
+                <p>{{ t.charter_subtitle }}</p>
               </div>
             </div>
             <div class="document-body" style="margin-bottom: 0;">
               <p>
-                Notre organisation repose sur une constitution rigoureuse, des règles administratives transparentes et une charte éthique au service de l'intérêt général.
+                {{ t.charter_desc }}
               </p>
               <ul class="doc-features-list">
-                <li><i data-lucide="check-circle-2"></i> Objectifs & Mission sociale</li>
-                <li><i data-lucide="check-circle-2"></i> Organisation & Fonctionnement démocratique</li>
-                <li><i data-lucide="check-circle-2"></i> Engagement apolitique, laïque et inclusif</li>
+                <li><i data-lucide="check-circle-2"></i> {{ t.charter_item_1 }}</li>
+                <li><i data-lucide="check-circle-2"></i> {{ t.charter_item_2 }}</li>
+                <li><i data-lucide="check-circle-2"></i> {{ t.charter_item_3 }}</li>
               </ul>
             </div>
           </div>
@@ -191,10 +195,10 @@
       <div class="section-header text-center reveal">
         <div class="badge">
           <i data-lucide="award"></i>
-          <span>Nos Objectifs (Article 5)</span>
+          <span>{{ t.missions_badge }}</span>
         </div>
-        <h2>Les 6 Missions de l'ELiDe</h2>
-        <p>Découvrez les engagements stratégiques de notre charte pour bâtir le Bénin de demain.</p>
+        <h2>{{ t.missions_title }}</h2>
+        <p>{{ t.missions_subtitle }}</p>
       </div>
       
       <div class="missions-grid">
@@ -203,8 +207,8 @@
           <div class="mission-icon flex-center">
             <i data-lucide="trending-up"></i>
           </div>
-          <h3>Autonomisation & Insertion</h3>
-          <p>Renforcer les capacités, accompagner et insérer professionnellement les jeunes et les femmes afin de dynamiser l'entrepreneuriat local.</p>
+          <h3>{{ t.mission_1_title }}</h3>
+          <p>{{ t.mission_1_desc }}</p>
         </div>
         
         <!-- Mission 2 -->
@@ -212,8 +216,8 @@
           <div class="mission-icon flex-center">
             <i data-lucide="sprout"></i>
           </div>
-          <h3>Agriculture Durable</h3>
-          <p>Promouvoir l'agroécologie, la sécurité alimentaire et la résilience agricole à travers la formation et la structuration active des acteurs ruraux.</p>
+          <h3>{{ t.mission_2_title }}</h3>
+          <p>{{ t.mission_2_desc }}</p>
         </div>
         
         <!-- Mission 3 -->
@@ -221,8 +225,8 @@
           <div class="mission-icon flex-center">
             <i data-lucide="cpu"></i>
           </div>
-          <h3>Innovation Numérique</h3>
-          <p>Promouvoir l'inclusion numérique et l'appropriation des nouvelles technologies par le grand public comme leviers essentiels de développement.</p>
+          <h3>{{ t.mission_3_title }}</h3>
+          <p>{{ t.mission_3_desc }}</p>
         </div>
         
         <!-- Mission 4 -->
@@ -230,8 +234,8 @@
           <div class="mission-icon flex-center">
             <i data-lucide="globe-2"></i>
           </div>
-          <h3>Environnement & Climat</h3>
-          <p>Protéger activement l'environnement, assurer la gestion durable des ressources naturelles et accompagner l'adaptation au changement climatique.</p>
+          <h3>{{ t.mission_4_title }}</h3>
+          <p>{{ t.mission_4_desc }}</p>
         </div>
         
         <!-- Mission 5 -->
@@ -239,8 +243,8 @@
           <div class="mission-icon flex-center">
             <i data-lucide="shield-alert"></i>
           </div>
-          <h3>Inclusion & Équité</h3>
-          <p>Soutenir l'insertion professionnelle et l'auto-emploi avec une priorité claire accordée aux jeunes déscolarisés et aux populations vulnérables.</p>
+          <h3>{{ t.mission_5_title }}</h3>
+          <p>{{ t.mission_5_desc }}</p>
         </div>
         
         <!-- Mission 6 -->
@@ -248,8 +252,8 @@
           <div class="mission-icon flex-center">
             <i data-lucide="coins"></i>
           </div>
-          <h3>Développement Économique</h3>
-          <p>Contribuer activement à la réduction des inégalités et à la lutte contre la pauvreté par la création d'opportunités économiques durables.</p>
+          <h3>{{ t.mission_6_title }}</h3>
+          <p>{{ t.mission_6_desc }}</p>
         </div>
       </div>
     </div>
@@ -261,10 +265,10 @@
       <div class="section-header text-center reveal">
         <div class="badge">
           <i data-lucide="compass"></i>
-          <span>Notre Rayonnement</span>
+          <span>{{ t.domains_badge }}</span>
         </div>
-        <h2>Domaines d'Intervention Concrets</h2>
-        <p>Les secteurs d'activité où l'ELiDe intervient au quotidien pour créer un impact visible.</p>
+        <h2>{{ t.domains_title }}</h2>
+        <p>{{ t.domains_subtitle }}</p>
       </div>
       
       <div class="domains-grid">
@@ -273,17 +277,17 @@
           <div class="domain-icon flex-center">
             <i data-lucide="book-open"></i>
           </div>
-          <h3>Éducation & Formation</h3>
-          <p class="domain-intro">Réduire le décrochage scolaire et renforcer les compétences techniques des jeunes exclus du système scolaire formel.</p>
+          <h3>{{ t.domain_1_title }}</h3>
+          <p class="domain-intro">{{ t.domain_1_intro }}</p>
           <div class="domain-details">
-            <h5>Actions phares :</h5>
+            <h5>{{ t.key_actions_heading }}</h5>
             <ul>
-              <li>Octroi de bourses d'études et kits scolaires pour les enfants de familles démunies.</li>
-              <li>Organisation de cours de soutien gratuits durant les vacances scolaires.</li>
-              <li>Formations pratiques courtes aux métiers d'art et à l'artisanat moderne.</li>
+              <li>{{ t.domain_1_a1 }}</li>
+              <li>{{ t.domain_1_a2 }}</li>
+              <li>{{ t.domain_1_a3 }}</li>
             </ul>
             <div class="donor-appeal">
-              <i data-lucide="award"></i> Focus bailleurs : Financement de bourses et parrainage direct d'élèves vulnérables.
+              <i data-lucide="award"></i> {{ t.donor_focus_label }} {{ t.domain_1_donor }}
             </div>
           </div>
         </div>
@@ -293,17 +297,17 @@
           <div class="domain-icon flex-center">
             <i data-lucide="leaf"></i>
           </div>
-          <h3>Protection de l'Environnement</h3>
-          <p class="domain-intro">Lutter contre la dégradation des sols, la déforestation et l'insalubrité urbaine dans nos communes.</p>
+          <h3>{{ t.domain_2_title }}</h3>
+          <p class="domain-intro">{{ t.domain_2_intro }}</p>
           <div class="domain-details">
-            <h5>Actions phares :</h5>
+            <h5>{{ t.key_actions_heading }}</h5>
             <ul>
-              <li>Campagnes de reboisement communautaire dans les zones à risque d'érosion.</li>
-              <li>Ateliers pratiques d'éducation environnementale et écocitoyenne.</li>
-              <li>Journées de salubrité publique et gestion des déchets ménagers.</li>
+              <li>{{ t.domain_2_a1 }}</li>
+              <li>{{ t.domain_2_a2 }}</li>
+              <li>{{ t.domain_2_a3 }}</li>
             </ul>
             <div class="donor-appeal">
-              <i data-lucide="award"></i> Focus bailleurs : Achat de plants forestiers, matériel de collecte et outils éducatifs.
+              <i data-lucide="award"></i> {{ t.donor_focus_label }} {{ t.domain_2_donor }}
             </div>
           </div>
         </div>
@@ -313,17 +317,17 @@
           <div class="domain-icon flex-center">
             <i data-lucide="laptop"></i>
           </div>
-          <h3>Innovation Numérique</h3>
-          <p class="domain-intro">Réduire la fracture numérique et équiper la jeunesse des compétences indispensables à l'employabilité moderne.</p>
+          <h3>{{ t.domain_3_title }}</h3>
+          <p class="domain-intro">{{ t.domain_3_intro }}</p>
           <div class="domain-details">
-            <h5>Actions phares :</h5>
+            <h5>{{ t.key_actions_heading }}</h5>
             <ul>
-              <li>Initiation gratuite à l'informatique bureautique et à l'internet citoyen.</li>
-              <li>Ateliers d'apprentissage du codage (Scratch, HTML/CSS) pour adolescents.</li>
-              <li>Sensibilisation sur la sécurité en ligne et la lutte contre la cybercriminalité.</li>
+              <li>{{ t.domain_3_a1 }}</li>
+              <li>{{ t.domain_3_a2 }}</li>
+              <li>{{ t.domain_3_a3 }}</li>
             </ul>
             <div class="donor-appeal">
-              <i data-lucide="award"></i> Focus bailleurs : Équipement de salles numériques, ordinateurs et infrastructures de connexion.
+              <i data-lucide="award"></i> {{ t.donor_focus_label }} {{ t.domain_3_donor }}
             </div>
           </div>
         </div>
@@ -333,17 +337,17 @@
           <div class="domain-icon flex-center">
             <i data-lucide="tractor"></i>
           </div>
-          <h3>Agriculture Durable</h3>
-          <p class="domain-intro">Accompagner les maraîchers et petits producteurs vers des méthodes agroécologiques respectueuses du climat.</p>
+          <h3>{{ t.domain_4_title }}</h3>
+          <p class="domain-intro">{{ t.domain_4_intro }}</p>
           <div class="domain-details">
-            <h5>Actions phares :</h5>
+            <h5>{{ t.key_actions_heading }}</h5>
             <ul>
-              <li>Formation à la fabrication locale de compost bio et de biopesticides naturels.</li>
-              <li>Appui technique aux techniques d'irrigation à faible consommation d'eau.</li>
-              <li>Promotion des cultures maraîchères de contre-saison pour la sécurité alimentaire.</li>
+              <li>{{ t.domain_4_a1 }}</li>
+              <li>{{ t.domain_4_a2 }}</li>
+              <li>{{ t.domain_4_a3 }}</li>
             </ul>
             <div class="donor-appeal">
-              <i data-lucide="award"></i> Focus bailleurs : Fourniture de kits d'irrigation solaire, semences résilientes et formations.
+              <i data-lucide="award"></i> {{ t.donor_focus_label }} {{ t.domain_4_donor }}
             </div>
           </div>
         </div>
@@ -353,37 +357,37 @@
           <div class="domain-icon flex-center">
             <i data-lucide="trending-up"></i>
           </div>
-          <h3>Entrepreneuriat & Autonomisation</h3>
-          <p class="domain-intro">Favoriser la création de micro-entreprises locales viables pour lutter contre le chômage de masse des jeunes.</p>
+          <h3>{{ t.domain_5_title }}</h3>
+          <p class="domain-intro">{{ t.domain_5_intro }}</p>
           <div class="domain-details">
-            <h5>Actions phares :</h5>
+            <h5>{{ t.key_actions_heading }}</h5>
             <ul>
-              <li>Ateliers d'idéation et de montage de business plans simplifiés.</li>
-              <li>Formation en comptabilité de base, gestion de stock et relation client.</li>
-              <li>Accompagnement post-création et facilitation d'accès aux micro-crédits.</li>
+              <li>{{ t.domain_5_a1 }}</li>
+              <li>{{ t.domain_5_a2 }}</li>
+              <li>{{ t.domain_5_a3 }}</li>
             </ul>
             <div class="donor-appeal">
-              <i data-lucide="award"></i> Focus bailleurs : Financement de fonds de démarrage (seed funding) et programmes de mentorat.
+              <i data-lucide="award"></i> {{ t.donor_focus_label }} {{ t.domain_5_donor }}
             </div>
           </div>
         </div>
         
-        <!-- Domain 6 (Bailleurs Call-to-action) -->
+        <!-- Domain 6 (Donors Call-to-action) -->
         <div class="domain-card reveal delay-500 partnership-card">
           <div class="domain-icon flex-center highlight-icon">
             <i data-lucide="handshake"></i>
           </div>
-          <h3>Espace Bailleurs & Partenaires</h3>
-          <p class="domain-intro">Co-financez nos projets de terrain au Bénin et bénéficiez d'une gouvernance rigoureuse et transparente.</p>
+          <h3>{{ t.domain_6_title }}</h3>
+          <p class="domain-intro">{{ t.domain_6_intro }}</p>
           <div class="domain-details">
-            <h5>Notre engagement qualité :</h5>
+            <h5>{{ t.domain_6_heading }}</h5>
             <ul>
-              <li>Audits de gestion réguliers et transparence totale sur l'allocation des ressources.</li>
-              <li>Rapports d'impact trimestriels détaillés et mesurables sur le terrain.</li>
-              <li>Visites de terrain pour suivre concrètement l'utilisation de vos contributions.</li>
+              <li>{{ t.domain_6_a1 }}</li>
+              <li>{{ t.domain_6_a2 }}</li>
+              <li>{{ t.domain_6_a3 }}</li>
             </ul>
             <div class="cta-action" style="margin-top: 15px; width: 100%;">
-              <a href="/partenariat" class="btn btn-accent" style="width: 100%; text-align: center; justify-content: center; font-size: 0.85rem; padding: 10px 16px;">Devenir Partenaire</a>
+              <a href="/partenariat" class="btn btn-accent" style="width: 100%; text-align: center; justify-content: center; font-size: 0.85rem; padding: 10px 16px;">{{ t.domain_6_cta }}</a>
             </div>
           </div>
         </div>
@@ -391,18 +395,16 @@
     </div>
   </section>
 
-
-
   <!-- Call To Action -->
   <section class="cta-section section-padding">
     <div class="cta-glow-1"></div>
     <div class="cta-glow-2"></div>
     <div class="container cta-wrapper reveal">
-      <h2>Soutenez nos actions à Parakou et au Bénin</h2>
-      <p>Que vous soyez jeune voulant s'engager, professionnel souhaitant devenir bénévole ou organisation désirant sceller un partenariat, votre contribution est précieuse pour l'ONG ELiDe.</p>
+      <h2>{{ t.cta_title }}</h2>
+      <p>{{ t.cta_desc }}</p>
       <div class="cta-buttons">
-        <a href="#contact" class="btn btn-accent">Devenir Bénévole / Membre</a>
-        <a href="/partenariat" class="btn btn-secondary">Proposer un Partenariat</a>
+        <a href="#contact" class="btn btn-accent">{{ t.cta_btn_volunteer }}</a>
+        <a href="/partenariat" class="btn btn-secondary">{{ t.cta_btn_partner }}</a>
       </div>
     </div>
   </section>
@@ -414,10 +416,10 @@
         <div class="contact-info-panel reveal">
           <div class="badge">
             <i data-lucide="mail"></i>
-            <span>Coordonnées</span>
+            <span>{{ t.contact_badge }}</span>
           </div>
-          <h3>Prenons contact</h3>
-          <p>Vous souhaitez en savoir plus sur nos actions ou nous faire part d'une proposition ? N'hésitez pas à nous écrire ou à nous appeler directement.</p>
+          <h3>{{ t.contact_title }}</h3>
+          <p>{{ t.contact_desc }}</p>
           
           <div class="info-cards">
             <!-- Address -->
@@ -426,8 +428,8 @@
                 <i data-lucide="map-pin"></i>
               </div>
               <div class="info-content">
-                <h4>Siège Social</h4>
-                <p>Quartier Ladji-Farani, Maison SEIDOU IBRAHIM, 2ᵉ arrondissement, Commune de Parakou, Département du Borgou, République du Bénin</p>
+                <h4>{{ t.contact_hq_title }}</h4>
+                <p>{{ t.contact_hq_address }}</p>
               </div>
             </div>
             
@@ -437,14 +439,14 @@
                 <i data-lucide="phone"></i>
               </div>
               <div class="info-content">
-                <h4>Téléphones</h4>
+                <h4>{{ t.contact_phones_title }}</h4>
                 <p>
                   <a href="tel:+2290167576050">(+229) 01 67 57 60 50</a>
-                  <a href="https://wa.me/22967576050?text=Bonjour,%20je%20souhaite%20contacter%20l'ONG%20ELiDe." class="whatsapp-inline-link" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 6px; color: #25D366; font-weight: 600; margin-top: 4px;">
+                  <a href="https://wa.me/22967576050?text={{ t.whatsapp_prefill }}" class="whatsapp-inline-link" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 6px; color: #25D366; font-weight: 600; margin-top: 4px;">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true" style="width: 17px; height: 17px; flex-shrink: 0;">
                       <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
                     </svg>
-                    Contacter par WhatsApp
+                    {{ t.whatsapp_inline_cta }}
                   </a>
                 </p>
                 <p><a href="tel:+2290164557673">(+229) 01 64 55 76 73</a></p>
@@ -457,7 +459,7 @@
                 <i data-lucide="mail-open"></i>
               </div>
               <div class="info-content">
-                <h4>Courriel</h4>
+                <h4>{{ t.contact_email_title }}</h4>
                 <p><a href="mailto:ongelide@gmail.com">ongelide@gmail.com</a></p>
               </div>
             </div>
@@ -466,32 +468,36 @@
         
         <!-- Contact Form -->
         <div class="contact-form-panel glass-panel reveal delay-200">
-          <h3>Envoyer un message</h3>
-          <p>Tous les champs sont requis pour le traitement de votre demande.</p>
+          <h3>{{ t.contact_form_title }}</h3>
+          <p>{{ t.contact_form_subtitle }}</p>
           
-          <form id="contact-form">
+          <form id="contact-form"
+                data-sending="{{ t.js_sending }}"
+                data-success="{{ t.js_success_default }}"
+                data-error="{{ t.js_error_default }}"
+                data-network-error="{{ t.js_network_error }}">
             <div class="form-group">
-              <label for="form-name">Nom complet / Organisation</label>
+              <label for="form-name">{{ t.contact_label_name }}</label>
               <input type="text" id="form-name" class="form-control" required>
             </div>
             
             <div class="form-group">
-              <label for="form-email">Adresse Email</label>
+              <label for="form-email">{{ t.contact_label_email }}</label>
               <input type="email" id="form-email" class="form-control" required>
             </div>
             
             <div class="form-group">
-              <label for="form-subject">Sujet de votre message</label>
+              <label for="form-subject">{{ t.contact_label_subject }}</label>
               <input type="text" id="form-subject" class="form-control" required>
             </div>
             
             <div class="form-group">
-              <label for="form-message">Votre Message</label>
+              <label for="form-message">{{ t.contact_label_message }}</label>
               <textarea id="form-message" class="form-control" required></textarea>
             </div>
             
             <div class="submit-btn">
-              <button type="submit" class="btn btn-primary">Envoyer le message <i data-lucide="send"></i></button>
+              <button type="submit" class="btn btn-primary">{{ t.contact_submit_btn }} <i data-lucide="send"></i></button>
             </div>
             
             <div id="form-status" class="form-status"></div>
@@ -507,32 +513,32 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="footer-logo-wrapper">
-            <img src="{{ url_for('static', filename='assets/logo-noir.png') }}" alt="Logo Sombre ELiDe">
+            <img src="{{ url_for('static', filename='assets/logo-noir.png') }}" alt="Logo ELiDe">
             <div class="logo-text">
-              <h1>ELiDe</h1>
-              <span>Les Élites de Demain</span>
+              <h1>{{ t.brand_acronym }}</h1>
+              <span>{{ t.brand_subtitle }}</span>
             </div>
           </div>
-          <p>ONG engagée pour le développement socio-économique inclusif et durable en République du Bénin.</p>
+          <p>{{ t.footer_tagline }}</p>
         </div>
         
         <div class="footer-links">
-          <h3>Navigation</h3>
+          <h3>{{ t.footer_nav_heading }}</h3>
           <ul>
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#apropos">À Propos</a></li>
-            <li><a href="#missions">Nos Missions</a></li>
-            <li><a href="#domaines">Nos Domaines</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#accueil">{{ t.nav_home }}</a></li>
+            <li><a href="#apropos">{{ t.nav_about }}</a></li>
+            <li><a href="#missions">{{ t.nav_missions_footer }}</a></li>
+            <li><a href="#domaines">{{ t.nav_domains }}</a></li>
+            <li><a href="#contact">{{ t.nav_contact }}</a></li>
           </ul>
         </div>
         
         <div class="footer-contact">
-          <h3>Bureau National</h3>
+          <h3>{{ t.footer_office_heading }}</h3>
           <div class="footer-contact-list">
             <div class="footer-contact-item">
               <i data-lucide="map-pin"></i>
-              <span>Parakou, Qtr Ladji-Farani, Maison SEIDOU IBRAHIM, Rép. du Bénin</span>
+              <span>{{ t.footer_address_short }}</span>
             </div>
             <div class="footer-contact-item">
               <i data-lucide="phone"></i>
@@ -547,70 +553,70 @@
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; 2026 ONG Les Élites de Demain (ELiDe). Tous droits réservés.</p>
+        <p>{{ t.footer_rights }}</p>
         <div class="footer-legal-links">
-          <a href="{{ url_for('public.mentions_legales') }}">Mentions Légales</a>
-          <a href="{{ url_for('public.politique_confidentialite') }}">Politique de Confidentialité</a>
+          <a href="{{ url_for('public.mentions_legales') }}">{{ t.legal_notice }}</a>
+          <a href="{{ url_for('public.politique_confidentialite') }}">{{ t.privacy_policy }}</a>
         </div>
       </div>
     </div>
   </footer>
 
   <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/22967576050?text=Bonjour,%20je%20souhaite%20contacter%20l'ONG%20ELiDe." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contacter l'ONG ELiDe sur WhatsApp">
+  <a href="https://wa.me/22967576050?text={{ t.whatsapp_prefill }}" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="{{ t.whatsapp_float_aria }}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
       <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
     </svg>
   </a>
 
   <!-- Mobile & Tablet App Bottom Navigation Bar -->
-  <nav class="mobile-bottom-nav" aria-label="Navigation application mobile">
+  <nav class="mobile-bottom-nav" aria-label="{{ t.mobile_nav_aria }}">
     <a href="#accueil" class="mobile-nav-item active" data-section="accueil">
       <i data-lucide="home"></i>
-      <span>Accueil</span>
+      <span>{{ t.mobile_nav_home }}</span>
     </a>
     <a href="#apropos" class="mobile-nav-item" data-section="apropos">
       <i data-lucide="shield-check"></i>
-      <span>L'ONG</span>
+      <span>{{ t.mobile_nav_ngo }}</span>
     </a>
     <a href="/partenariat" class="mobile-nav-item nav-highlight">
       <div class="nav-pill">
         <i data-lucide="handshake"></i>
       </div>
-      <span>Partenaire</span>
+      <span>{{ t.mobile_nav_partner }}</span>
     </a>
     <a href="#domaines" class="mobile-nav-item" data-section="domaines">
       <i data-lucide="compass"></i>
-      <span>Domaines</span>
+      <span>{{ t.mobile_nav_domains }}</span>
     </a>
     <a href="#contact" class="mobile-nav-item" data-section="contact">
       <i data-lucide="mail"></i>
-      <span>Contact</span>
+      <span>{{ t.mobile_nav_contact }}</span>
     </a>
   </nav>
 
-  <!-- Modale Guide d'Installation iOS (iPhone / iPad) -->
+  <!-- iOS Install Guide Modal -->
   <div id="pwa-ios-modal" class="pwa-ios-backdrop" role="dialog" aria-modal="true" aria-labelledby="pwa-ios-title">
     <div class="pwa-ios-sheet">
       <div class="pwa-ios-sheet-header">
-        <h4 id="pwa-ios-title">Installer l'application ONG ELiDe</h4>
-        <button type="button" id="pwa-ios-close" class="pwa-ios-close" aria-label="Fermer">&times;</button>
+        <h4 id="pwa-ios-title">{{ t.pwa_ios_title }}</h4>
+        <button type="button" id="pwa-ios-close" class="pwa-ios-close" aria-label="{{ t.pwa_ios_close }}">&times;</button>
       </div>
-      <p style="font-size: 0.88rem; color: var(--text-muted);">Ajoutez ONG ELiDe sur votre écran d'accueil pour l'ouvrir en plein écran comme une application :</p>
+      <p style="font-size: 0.88rem; color: var(--text-muted);">{{ t.pwa_ios_desc }}</p>
       <ol class="pwa-ios-steps">
         <li>
           <span class="pwa-ios-step-num">1</span>
-          <span>Appuyez sur le bouton <strong>Partager</strong> (carré avec flèche vers le haut) en bas de Safari.</span>
+          <span>{{ t.pwa_ios_step_1_pre }} <strong>{{ t.pwa_ios_step_1_bold }}</strong> {{ t.pwa_ios_step_1_post }}</span>
         </li>
         <li>
           <span class="pwa-ios-step-num">2</span>
-          <span>Faites défiler et choisissez <strong>« Sur l'écran d'accueil »</strong> puis validez sur <strong>Ajouter</strong>.</span>
+          <span>{{ t.pwa_ios_step_2_pre }} <strong>{{ t.pwa_ios_step_2_bold1 }}</strong> {{ t.pwa_ios_step_2_mid }} <strong>{{ t.pwa_ios_step_2_bold2 }}</strong>.</span>
         </li>
       </ol>
     </div>
   </div>
 
   <!-- Link appJS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=4"></script>
 </body>
 </html>
