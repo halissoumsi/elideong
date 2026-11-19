@@ -11,9 +11,13 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>{{ t.privacy_page_title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="alternate" hreflang="fr" href="{{ canonical_url }}?lang=fr">
+  <link rel="alternate" hreflang="en" href="{{ canonical_url }}?lang=en">
+  <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=6">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
   <style>
     .legal-body {
       background: var(--bg-light);
@@ -239,6 +243,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=5"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=6"></script>
 </body>
 </html>

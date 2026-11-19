@@ -192,11 +192,15 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<span>${sendingLabel}</span>`;
       
-      // Collect form data
+      // Collect form data (including invisible anti-spam fields)
       const name = document.getElementById('form-name').value;
       const email = document.getElementById('form-email').value;
       const subject = document.getElementById('form-subject').value;
       const message = document.getElementById('form-message').value;
+      const websiteEl = document.getElementById('contact-website');
+      const tokenEl = document.getElementById('contact-token');
+      const website_url = websiteEl ? websiteEl.value : '';
+      const contact_token = tokenEl ? tokenEl.value : '';
 
       // Real fetch submission to Flask API
       fetch('/api/contact', {
@@ -204,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, subject, message })
+        body: JSON.stringify({ name, email, subject, message, website_url, contact_token })
       })
       .then(response => response.json().then(data => ({ status: response.status, body: data })))
       .then(res => {
@@ -212,6 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
           formStatus.className = "form-status success";
           formStatus.textContent = res.body.message || defaultSuccessMsg;
           contactForm.reset();
+          if (tokenEl && res.body.next_token) {
+            tokenEl.value = res.body.next_token;
+          }
         } else {
           // Error state from server
           formStatus.className = "form-status error";
@@ -228,5 +235,19 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = originalText;
       });
     });
+  }
+
+  // Partnership Form: activate invisible security token on human interaction (CSP-compliant, no inline JS)
+  const partnerForm = document.getElementById('partner-form');
+  const partnerTokenInput = document.getElementById('security_token');
+  if (partnerForm && partnerTokenInput && partnerForm.dataset.securityToken) {
+    const activatePartnerToken = () => {
+      if (!partnerTokenInput.value) {
+        partnerTokenInput.value = partnerForm.dataset.securityToken;
+      }
+    };
+    partnerForm.addEventListener('focusin', activatePartnerToken);
+    partnerForm.addEventListener('pointerdown', activatePartnerToken);
+    partnerForm.addEventListener('keydown', activatePartnerToken);
   }
 });

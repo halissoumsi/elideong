@@ -12,19 +12,56 @@
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>{{ t.index_title }}</title>
   <meta name="description" content="{{ t.index_description }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="alternate" hreflang="fr" href="{{ canonical_url }}?lang=fr">
+  <link rel="alternate" hreflang="en" href="{{ canonical_url }}?lang=en">
+  <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}">
+  <meta property="og:site_name" content="ONG ELiDe">
+  <meta property="og:locale" content="{{ 'fr_FR' if lang == 'fr' else 'en_US' }}">
+  <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:title" content="{{ t.index_title }}">
   <meta property="og:description" content="{{ t.index_og_description }}">
   <meta property="og:type" content="website">
   <meta property="og:image" content="{{ url_for('static', filename='assets/logo-vert.png', _external=True) }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ t.index_title }}">
+  <meta name="twitter:description" content="{{ t.index_og_description }}">
+  <meta name="twitter:image" content="{{ url_for('static', filename='assets/logo-vert.png', _external=True) }}">
+
+  <!-- Structured Data (JSON-LD NGO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "ONG Les Élites de Demain (ELiDe)",
+    "alternateName": "ELiDe",
+    "url": "{{ base_url }}/",
+    "logo": "{{ url_for('static', filename='assets/logo-vert.png', _external=True) }}",
+    "description": {{ t.index_description | tojson }},
+    "email": "ongelide@gmail.com",
+    "telephone": "+2290167576050",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Quartier Ladji-Farani, Maison SEIDOU IBRAHIM, 2e arrondissement",
+      "addressLocality": "Parakou",
+      "addressRegion": "Borgou",
+      "addressCountry": "BJ"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Benin"
+    }
+  }
+  </script>
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=6">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
   
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Icons (hébergé localement pour sécurité CSP & performance) -->
+  <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
 </head>
 <body>
 
@@ -476,24 +513,31 @@
                 data-success="{{ t.js_success_default }}"
                 data-error="{{ t.js_error_default }}"
                 data-network-error="{{ t.js_network_error }}">
+            <!-- Protection anti-spam invisible -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="contact-website">Website</label>
+              <input type="text" id="contact-website" name="website_url" tabindex="-1" autocomplete="off">
+            </div>
+            <input type="hidden" id="contact-token" name="contact_token" value="{{ contact_token }}">
+
             <div class="form-group">
               <label for="form-name">{{ t.contact_label_name }}</label>
-              <input type="text" id="form-name" class="form-control" required>
+              <input type="text" id="form-name" class="form-control" maxlength="150" required>
             </div>
             
             <div class="form-group">
               <label for="form-email">{{ t.contact_label_email }}</label>
-              <input type="email" id="form-email" class="form-control" required>
+              <input type="email" id="form-email" class="form-control" maxlength="254" required>
             </div>
             
             <div class="form-group">
               <label for="form-subject">{{ t.contact_label_subject }}</label>
-              <input type="text" id="form-subject" class="form-control" required>
+              <input type="text" id="form-subject" class="form-control" maxlength="200" required>
             </div>
             
             <div class="form-group">
               <label for="form-message">{{ t.contact_label_message }}</label>
-              <textarea id="form-message" class="form-control" required></textarea>
+              <textarea id="form-message" class="form-control" maxlength="5000" required></textarea>
             </div>
             
             <div class="submit-btn">
@@ -617,6 +661,6 @@
   </div>
 
   <!-- Link appJS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=5"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=6"></script>
 </body>
 </html>

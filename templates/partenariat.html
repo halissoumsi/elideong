@@ -11,9 +11,13 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>{{ t.partner_page_title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="alternate" hreflang="fr" href="{{ canonical_url }}?lang=fr">
+  <link rel="alternate" hreflang="en" href="{{ canonical_url }}?lang=en">
+  <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=6">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
   <style>
     .partner-body {
       background: radial-gradient(circle at 90% 10%, rgba(251, 133, 0, 0.05) 0%, transparent 40%),
@@ -369,18 +373,18 @@
             {% endif %}
           {% endwith %}
           
-          <form action="{{ url_for('partenariat.partner_submit') }}" method="POST">
+          <form id="partner-form" action="{{ url_for('partenariat.partner_submit') }}" method="POST" data-security-token="{{ security_token }}">
             
             <!-- Honeypot & Invisible Security Token -->
-            <div class="hp-field">
-              <input type="text" name="website_url" autocomplete="off">
+            <div class="hp-field" aria-hidden="true">
+              <input type="text" name="website_url" tabindex="-1" autocomplete="off">
             </div>
             <input type="hidden" id="security_token" name="security_token" value="">
             
             <!-- Organization Name -->
             <div class="form-group">
               <label for="org_name">{{ t.partner_label_org }}</label>
-              <input type="text" id="org_name" name="org_name" class="form-control" required>
+              <input type="text" id="org_name" name="org_name" class="form-control" maxlength="200" required>
             </div>
             
             <!-- Partner Type & Country Row -->
@@ -398,7 +402,7 @@
               </div>
               <div class="form-group">
                 <label for="country">{{ t.partner_label_country }}</label>
-                <input type="text" id="country" name="country" class="form-control" required>
+                <input type="text" id="country" name="country" class="form-control" maxlength="100" required>
               </div>
             </div>
             
@@ -406,11 +410,11 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="contact_name">{{ t.partner_label_contact_name }}</label>
-                <input type="text" id="contact_name" name="contact_name" class="form-control" required>
+                <input type="text" id="contact_name" name="contact_name" class="form-control" maxlength="150" required>
               </div>
               <div class="form-group">
                 <label for="contact_role">{{ t.partner_label_contact_role }}</label>
-                <input type="text" id="contact_role" name="contact_role" class="form-control">
+                <input type="text" id="contact_role" name="contact_role" class="form-control" maxlength="120">
               </div>
             </div>
             
@@ -418,11 +422,11 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="email">{{ t.partner_label_email }}</label>
-                <input type="email" id="email" name="email" class="form-control" required>
+                <input type="email" id="email" name="email" class="form-control" maxlength="254" required>
               </div>
               <div class="form-group">
                 <label for="phone">{{ t.partner_label_phone }}</label>
-                <input type="tel" id="phone" name="phone" class="form-control">
+                <input type="tel" id="phone" name="phone" class="form-control" maxlength="40">
               </div>
             </div>
             
@@ -456,13 +460,13 @@
             <!-- Funding Intention -->
             <div class="form-group">
               <label for="funding_capacity">{{ t.partner_label_funding }}</label>
-              <input type="text" id="funding_capacity" name="funding_capacity" class="form-control">
+              <input type="text" id="funding_capacity" name="funding_capacity" class="form-control" maxlength="200">
             </div>
             
             <!-- Message -->
             <div class="form-group">
               <label for="message">{{ t.partner_label_message }}</label>
-              <textarea id="message" name="message" class="form-control" rows="4" style="height: auto; padding: 12px 16px;"></textarea>
+              <textarea id="message" name="message" class="form-control" rows="4" maxlength="5000" style="height: auto; padding: 12px 16px;"></textarea>
             </div>
             
             <button type="submit" class="btn btn-primary btn-submit">
@@ -508,21 +512,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=5"></script>
-  <script>
-    lucide.createIcons();
-    const formEl = document.querySelector('form');
-    const tokenInput = document.getElementById('security_token');
-    const activateToken = () => {
-      if (tokenInput && !tokenInput.value) {
-        tokenInput.value = "{{ security_token }}";
-      }
-    };
-    if (formEl) {
-      formEl.addEventListener('focusin', activateToken);
-      formEl.addEventListener('pointerdown', activateToken);
-      formEl.addEventListener('keydown', activateToken);
-    }
-  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=6"></script>
 </body>
 </html>

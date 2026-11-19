@@ -3,8 +3,10 @@ import secrets
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
 from config import send_email_notification
 from i18n import get_current_lang, get_translations
+from security import is_valid_email, get_client_ip, check_rate_limit
 
 partenariat_bp = Blueprint('partenariat', __name__)
+
 
 @partenariat_bp.route('/partenariat', methods=['GET'])
 def partner_form():
@@ -12,48 +14,65 @@ def partner_form():
     security_token = secrets.token_urlsafe(24)
     session['partner_security_token'] = security_token
     session['partner_form_time'] = time.time()
-    
+
     return render_template('partenariat.html', security_token=security_token)
+
 
 @partenariat_bp.route('/partenariat', methods=['POST'])
 def partner_submit():
-    """Handles partnership proposal submission via SMTP"""
+    """Handles partnership proposal submission via SMTP with rate limiting and strict validation"""
     lang = get_current_lang()
     t = get_translations(lang)
 
-    # 1. Protection Anti-Robot Multicouche Invisible (Honeypot + Jeton dynamique JS + Délai humain)
-    honeypot = request.form.get('website_url')
+    # 1. Limitation de débit (max 5 propositions / 10 minutes par IP)
+    client_ip = get_client_ip(request)
+    if not check_rate_limit('partenariat', client_ip, limit=5, window_seconds=600):
+        return render_template(
+            'partenariat_confirmation.html',
+            title=t['partner_rate_limited_title'],
+            message=t['partner_rate_limited_msg'],
+            status="error"
+        ), 429
+
+    # 2. Protection Anti-Robot Multicouche Invisible (Honeypot + Jeton dynamique JS + Délai humain)
+    honeypot = (request.form.get('website_url') or '').strip()
     submitted_token = request.form.get('security_token', '')
     expected_token = session.pop('partner_security_token', None)
     form_time = session.pop('partner_form_time', 0)
     elapsed = time.time() - form_time if form_time else 0
-    
+
     if honeypot or not expected_token or submitted_token != expected_token or elapsed < 2.0:
-        return render_template('partenariat_confirmation.html', 
-                               title=t['partner_spam_title'], 
-                               message=t['partner_spam_msg'], 
-                               status="error")
-        
-    # 2. Input Extraction
-    org_name = request.form.get('org_name', '').strip()
-    partner_type = request.form.get('partner_type', '').strip()
-    country = request.form.get('country', '').strip()
-    contact_name = request.form.get('contact_name', '').strip()
-    contact_role = request.form.get('contact_role', '').strip()
-    email = request.form.get('email', '').strip()
-    phone = request.form.get('phone', '').strip()
-    funding_capacity = request.form.get('funding_capacity', '').strip()
-    message = request.form.get('message', '').strip()
-    
-    selected_domains = request.form.getlist('domains')
+        return render_template(
+            'partenariat_confirmation.html',
+            title=t['partner_spam_title'],
+            message=t['partner_spam_msg'],
+            status="error"
+        ), 400
+
+    # 3. Extraction & Validation stricte des champs
+    org_name = request.form.get('org_name', '').strip()[:200]
+    partner_type = request.form.get('partner_type', '').strip()[:100]
+    country = request.form.get('country', '').strip()[:100]
+    contact_name = request.form.get('contact_name', '').strip()[:150]
+    contact_role = request.form.get('contact_role', '').strip()[:120]
+    email = request.form.get('email', '').strip()[:254]
+    phone = request.form.get('phone', '').strip()[:40]
+    funding_capacity = request.form.get('funding_capacity', '').strip()[:200]
+    message = request.form.get('message', '').strip()[:5000]
+
+    selected_domains = [d.strip()[:100] for d in request.form.getlist('domains') if d.strip()]
     domains_str = ", ".join(selected_domains)
-    
+
     if not all([org_name, partner_type, country, contact_name, email, domains_str]):
         flash(t['partner_missing_fields'], "error")
         return redirect(url_for('partenariat.partner_form'))
-        
+
+    if not is_valid_email(email):
+        flash(t['partner_invalid_email'], "error")
+        return redirect(url_for('partenariat.partner_form'))
+
     notify_email = current_app.config.get('PARTNER_NOTIFY_EMAIL', 'ongelide@gmail.com')
-    
+
     # Préparation du récapitulatif pour l'ONG
     email_subject = f"[Partenariat ELiDe] Nouvelle proposition — {org_name}"
     email_body = (
@@ -68,7 +87,7 @@ def partner_submit():
         f"- Capacité / Intention de financement : {funding_capacity or 'Non renseignée'}\n"
         f"- Message : {message or 'Aucun message'}\n"
     )
-    
+
     # Envoi SMTP à l'ONG + accusé de réception au partenaire (si SMTP configuré)
     email_sent = send_email_notification(
         subject=email_subject,
@@ -98,7 +117,7 @@ def partner_submit():
             body=partner_ack_body,
             to_email=email
         )
-    
+
     session['last_lead'] = {
         'org_name': org_name,
         'partner_type': partner_type,
@@ -113,6 +132,7 @@ def partner_submit():
         'email_sent': email_sent
     }
     return redirect(url_for('partenariat.partner_confirmation'))
+
 
 @partenariat_bp.route('/partenariat/confirmation', methods=['GET'])
 def partner_confirmation():

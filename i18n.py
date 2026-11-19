@@ -276,12 +276,32 @@ TRANSLATIONS = {
 
         # Backend API / Flash / Email Messages
         'api_contact_missing': 'Veuillez remplir tous les champs du formulaire.',
+        'api_contact_invalid_email': 'Veuillez saisir une adresse e-mail valide.',
+        'api_contact_too_long': 'Un ou plusieurs champs dépassent la longueur maximale autorisée.',
+        'api_contact_spam': 'Votre soumission a été bloquée par la protection anti-spam. Veuillez actualiser la page et réessayer.',
+        'api_contact_rate_limited': 'Trop de messages envoyés en peu de temps. Veuillez patienter quelques minutes avant de réessayer.',
+        'api_contact_delivery_failed': "Le service de messagerie est momentanément indisponible. Vous pouvez nous joindre directement par WhatsApp ou téléphone.",
         'api_contact_success': 'Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais.',
         'api_contact_error': "Une erreur interne est survenue lors de l'envoi.",
         'partner_spam_title': 'Action Rejetée',
         'partner_spam_msg': 'La soumission a été bloquée par la protection anti-spam.',
+        'partner_rate_limited_title': 'Trop de tentatives',
+        'partner_rate_limited_msg': 'Vous avez soumis plusieurs demandes récemment. Veuillez patienter quelques minutes avant de réessayer.',
         'partner_missing_fields': 'Veuillez remplir tous les champs obligatoires du formulaire.',
+        'partner_invalid_email': 'Veuillez saisir une adresse e-mail professionnelle valide.',
         'partner_ack_subject': 'Confirmation de votre proposition de partenariat — ONG ELiDe',
+
+        # Custom Error Pages (404 / 500 / 429)
+        'error_404_title': 'Page introuvable (404) — ONG ELiDe',
+        'error_404_heading': 'Page introuvable',
+        'error_404_desc': "La page que vous recherchez n'existe pas ou a été déplacée. Vous pouvez revenir à l'accueil de l'ONG ELiDe ou nous contacter directement.",
+        'error_500_title': 'Erreur technique (500) — ONG ELiDe',
+        'error_500_heading': 'Erreur interne du serveur',
+        'error_500_desc': "Une erreur technique momentanée s'est produite. Veuillez réessayer dans quelques instants ou nous contacter directement.",
+        'error_429_title': 'Trop de requêtes (429) — ONG ELiDe',
+        'error_429_heading': 'Trop de requêtes',
+        'error_429_desc': 'Vous avez effectué trop de tentatives en peu de temps. Veuillez patienter quelques minutes avant de réessayer.',
+        'error_contact_cta': 'Nous contacter',
 
         # Legal Notice Page
         'legal_page_title': 'Mentions Légales — ONG Les Élites de Demain (ELiDe)',
@@ -613,12 +633,32 @@ TRANSLATIONS = {
 
         # Backend API / Flash / Email Messages
         'api_contact_missing': 'Please fill in all required fields.',
+        'api_contact_invalid_email': 'Please enter a valid email address.',
+        'api_contact_too_long': 'One or more fields exceed the maximum allowed length.',
+        'api_contact_spam': 'Your submission was blocked by our anti-spam protection. Please refresh the page and try again.',
+        'api_contact_rate_limited': 'Too many messages sent in a short period. Please wait a few minutes before trying again.',
+        'api_contact_delivery_failed': 'The email delivery service is temporarily unavailable. Please reach out to us directly via WhatsApp or phone.',
         'api_contact_success': 'Thank you! Your message has been sent successfully. Our team will get back to you shortly.',
         'api_contact_error': 'An internal error occurred while sending your message.',
         'partner_spam_title': 'Submission Rejected',
         'partner_spam_msg': 'Your submission was blocked by our anti-spam protection.',
+        'partner_rate_limited_title': 'Too Many Requests',
+        'partner_rate_limited_msg': 'You have submitted several requests recently. Please wait a few minutes before trying again.',
         'partner_missing_fields': 'Please complete all required fields in the form.',
+        'partner_invalid_email': 'Please provide a valid email address.',
         'partner_ack_subject': 'Confirmation of Your Partnership Proposal — ELiDe NGO',
+
+        # Custom Error Pages (404 / 500 / 429)
+        'error_404_title': 'Page Not Found (404) — ELiDe NGO',
+        'error_404_heading': 'Page Not Found',
+        'error_404_desc': 'The page you are looking for does not exist or has been moved. You can return to the ELiDe NGO homepage or contact us directly.',
+        'error_500_title': 'Server Error (500) — ELiDe NGO',
+        'error_500_heading': 'Internal Server Error',
+        'error_500_desc': 'A temporary technical issue occurred. Please try again in a few moments or contact us directly.',
+        'error_429_title': 'Too Many Requests (429) — ELiDe NGO',
+        'error_429_heading': 'Too Many Requests',
+        'error_429_desc': 'You have made too many requests in a short period. Please wait a few minutes before trying again.',
+        'error_contact_cta': 'Contact Us',
 
         # Legal Notice Page
         'legal_page_title': 'Legal Notice — Les Élites de Demain NGO (ELiDe)',

@@ -28,8 +28,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Fichiers de configuration sensibles
+# Fichiers de configuration sensibles et archives
 .env
+*.zip
 
 # IDEs & OS files
 .vscode/

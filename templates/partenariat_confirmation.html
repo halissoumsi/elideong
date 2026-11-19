@@ -11,9 +11,10 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
   <title>{{ t.confirm_page_title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=6">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/logo-vert.png') }}">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
   <style>
     .confirm-body {
       background: radial-gradient(circle at 10% 20%, rgba(251, 133, 0, 0.05) 0%, transparent 40%),
@@ -288,6 +289,6 @@
     </a>
   </nav>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=5"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=6"></script>
 </body>
 </html>
